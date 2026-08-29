@@ -1,0 +1,10 @@
+[
+  { "nombre": "Fogón de la Loma", "rubro": "Gastronomía", "oferta": "2x1 en platos principales", "zona": "Centro", "telefono": "2664001122" },
+  { "nombre": "Sierra Alta Indumentaria", "rubro": "Indumentaria", "oferta": "30% OFF en toda la temporada", "zona": "Microcentro", "telefono": "2664002233" },
+  { "nombre": "TecnoPunta", "rubro": "Tecnología", "oferta": "Hasta 6 cuotas sin interés", "zona": "Centro", "telefono": "2664003344" },
+  { "nombre": "Casa Puntana Deco", "rubro": "Hogar y Deco", "oferta": "25% OFF + envío gratis en el centro", "zona": "Barrio Norte", "telefono": "2664004455" },
+  { "nombre": "Estudio Bienestar", "rubro": "Belleza", "oferta": "20% OFF en primera sesión", "zona": "Centro", "telefono": "2664005566" },
+  { "nombre": "Repuestos San Luis", "rubro": "Servicios", "oferta": "15% OFF en mano de obra", "zona": "Zona Industrial", "telefono": "2664006677" },
+  { "nombre": "Dulce Tentación", "rubro": "Gastronomía", "oferta": "3x2 en pastelería", "zona": "Microcentro", "telefono": "2664007788" },
+  { "nombre": "Librería Puntana", "rubro": "Servicios", "oferta": "20% OFF en útiles y librería", "zona": "Centro", "telefono": "2664008899" }
+]
