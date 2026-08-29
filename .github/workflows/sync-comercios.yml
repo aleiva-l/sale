@@ -1,0 +1,32 @@
+# Colocar este archivo en: .github/workflows/sync-comercios.yml
+#
+# Qué hace: cada 15 min (y también manualmente desde la pestaña Actions)
+# descarga la Sheet publicada como CSV, genera comercios.json actualizado,
+# y lo commitea al repo. Cloudflare Pages ya está enganchado a este repo,
+# así que ese commit dispara solo un redeploy del sitio con los datos nuevos.
+
+name: Sincronizar comercios desde Google Sheet
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch: {}   # botón para correrlo a mano cuando haga falta
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generar comercios.json
+        env:
+          SHEET_CSV_URL: ${{ secrets.SHEET_CSV_URL }}
+        run: python3 sync_sheet_to_json.py
+
+      - name: Commitear si cambió
+        run: |
+          git config user.name "san-luis-sale-bot"
+          git config user.email "bot@sanluissale.com.ar"
+          git add comercios.json
+          git diff --staged --quiet || git commit -m "Sync comercios desde Sheet"
+          git push
