@@ -1,10 +1,58 @@
 [
-  { "nombre": "Fogón de la Loma", "rubro": "Gastronomía", "oferta": "2x1 en platos principales", "zona": "Centro", "telefono": "2664001122" },
-  { "nombre": "Sierra Alta Indumentaria", "rubro": "Indumentaria", "oferta": "30% OFF en toda la temporada", "zona": "Microcentro", "telefono": "2664002233" },
-  { "nombre": "TecnoPunta", "rubro": "Tecnología", "oferta": "Hasta 6 cuotas sin interés", "zona": "Centro", "telefono": "2664003344" },
-  { "nombre": "Casa Puntana Deco", "rubro": "Hogar y Deco", "oferta": "25% OFF + envío gratis en el centro", "zona": "Barrio Norte", "telefono": "2664004455" },
-  { "nombre": "Estudio Bienestar", "rubro": "Belleza", "oferta": "20% OFF en primera sesión", "zona": "Centro", "telefono": "2664005566" },
-  { "nombre": "Repuestos San Luis", "rubro": "Servicios", "oferta": "15% OFF en mano de obra", "zona": "Zona Industrial", "telefono": "2664006677" },
-  { "nombre": "Dulce Tentación", "rubro": "Gastronomía", "oferta": "3x2 en pastelería", "zona": "Microcentro", "telefono": "2664007788" },
-  { "nombre": "Librería Puntana", "rubro": "Servicios", "oferta": "20% OFF en útiles y librería", "zona": "Centro", "telefono": "2664008899" }
+  {
+    "nombre": "Berta's Zapatillas y Ropa para Chicos",
+    "rubro": "Indumentaria",
+    "oferta": "30% OFF en toda la temporada",
+    "zona": "San Luis",
+    "telefono": "2664001122"
+  },
+  {
+    "nombre": "Bambini's",
+    "rubro": "Indumentaria",
+    "oferta": "Descuentos en ropa para chicos",
+    "zona": "Bernardo Houssay",
+    "telefono": "2664002233"
+  },
+  {
+    "nombre": "Say Indumentaria",
+    "rubro": "Indumentaria",
+    "oferta": "Descuentos en toda la temporada",
+    "zona": "Martín Fierro",
+    "telefono": "2664003344"
+  },
+  {
+    "nombre": "Restaurant Los Robles",
+    "rubro": "Gastronomía",
+    "oferta": "Promo San Luis Sale en el salón",
+    "zona": "9 de Julio",
+    "telefono": "2664004455"
+  },
+  {
+    "nombre": "MACCELL",
+    "rubro": "Tecnología",
+    "oferta": "Descuentos en accesorios y service",
+    "zona": "Rivadavia",
+    "telefono": "2664005566"
+  },
+  {
+    "nombre": "Evelyn Home & Deco",
+    "rubro": "Hogar y Deco",
+    "oferta": "Descuentos en decoración",
+    "zona": "Los Algarrobos",
+    "telefono": "2664006677"
+  },
+  {
+    "nombre": "Embellecenter Estética",
+    "rubro": "Belleza",
+    "oferta": "Promos en tratamientos",
+    "zona": "Lavalle",
+    "telefono": "2664007788"
+  },
+  {
+    "nombre": "Estudio Casa — Diseño y Decoración",
+    "rubro": "Servicios",
+    "oferta": "Asesoramiento con descuento especial",
+    "zona": "Colón",
+    "telefono": "2664008899"
+  }
 ]
