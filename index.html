@@ -259,8 +259,80 @@
     object-fit:contain;
     display:block;
   }
+  /* ---- Franja de sponsors dentro del splash ---- */
+  .sponsors-strip{
+    width:min(92vw,760px);
+    margin-top:14px;
+    padding:10px 12px 12px;
+    border:1px solid rgba(243,239,228,.14);
+    border-radius:14px;
+    background:rgba(255,255,255,.055);
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+  }
+  .sponsors-strip[hidden]{display:none;}
+  .sponsors-label{
+    margin:0 0 8px;
+    font-family:'Space Mono',monospace;
+    font-size:9.5px;
+    line-height:1;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--text);
+    opacity:.56;
+    text-align:center;
+  }
+  .sponsors-list{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:9px;
+    min-height:46px;
+    flex-wrap:wrap;
+  }
+  .sponsor-item{
+    width:clamp(108px,20vw,150px);
+    min-height:46px;
+    padding:7px 10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:10px;
+    background:rgba(255,255,255,.94);
+    color:#171A21;
+    text-decoration:none;
+    overflow:hidden;
+  }
+  .sponsor-item img{
+    width:100% !important;
+    height:32px !important;
+    max-width:130px !important;
+    max-height:32px !important;
+    object-fit:contain !important;
+  }
+  .sponsor-name{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:13px;
+    font-weight:700;
+    text-align:center;
+    line-height:1.1;
+  }
+  .sponsors-counter{
+    margin-top:6px;
+    min-height:10px;
+    text-align:center;
+    font-family:'Space Mono',monospace;
+    font-size:9px;
+    letter-spacing:.08em;
+    color:var(--text);
+    opacity:.4;
+  }
+
+  #splash.has-sponsors picture,#splash.has-sponsors > picture img{
+    max-height:56vh;
+  }
   #splash .tap-hint{
-    margin-top:20px;
+    margin-top:14px;
     font-family:'Space Mono',monospace;
     font-size:12px;
     letter-spacing:.08em;
@@ -269,6 +341,19 @@
     opacity:.6;
     animation:pulseHint 1.8s ease-in-out infinite;
     text-align:center;
+  }
+  @media (max-width:560px){
+    #splash{padding:14px 14px 16px;overflow-y:auto;}
+    #splash.has-sponsors picture,#splash.has-sponsors > picture img{max-height:52vh;}
+    .sponsors-strip{width:min(94vw,520px);padding:9px 9px 10px;}
+    .sponsors-list{gap:7px;}
+    .sponsor-item{width:calc(50% - 4px);max-width:150px;min-height:42px;padding:6px 8px;}
+    .sponsor-item img{height:28px !important;max-height:28px !important;}
+  }
+  @media (max-height:700px){
+    #splash.has-sponsors picture,#splash.has-sponsors > picture img{max-height:45vh;}
+    .sponsors-strip{margin-top:8px;}
+    #splash .tap-hint{margin-top:9px;}
   }
   @keyframes pulseHint{0%,100%{opacity:.3}50%{opacity:.85}}
 </style>
@@ -280,6 +365,13 @@
     <source id="splashWebp" type="image/webp">
     <img id="splashImg" alt="San Luis Sale — Hasta 50% OFF. Compra local, no te lo pierdas. 12 al 14 de noviembre.">
   </picture>
+
+  <section class="sponsors-strip" id="sponsorsStrip" aria-label="Sponsors de San Luis Sale" hidden>
+    <div class="sponsors-label" id="sponsorsLabel">Sponsors oficiales</div>
+    <div class="sponsors-list" id="sponsorsList"></div>
+    <div class="sponsors-counter" id="sponsorsCounter"></div>
+  </section>
+
   <div class="tap-hint">Tocá para ver los comercios ↓</div>
 </div>
 
@@ -429,7 +521,93 @@
     document.getElementById('splashWebp').setAttribute('srcset', splashWebp);
     document.getElementById('splashImg').setAttribute('src', splashWebp);
 
+    // =============================================================
+    // SPONSORS DEL SPLASH
+    // Cambiá solamente este array para agregar/quitar sponsors.
+    // - nombre: texto alternativo y fallback si no cargás un logo.
+    // - logo: URL o ruta local (ej: "img/sponsors/banco-x.png").
+    // - url: opcional. Si está vacío, el sponsor no es clickeable.
+    //
+    // Ejemplo de sponsor con logo:
+    // { nombre:"Banco X", logo:"img/sponsors/banco-x.png", url:"https://bancox.com" }
+    // =============================================================
+    const SPONSORS = [
+      { nombre:"Sponsor 1", logo:"", url:"" },
+      { nombre:"Sponsor 2", logo:"", url:"" },
+      { nombre:"Sponsor 3", logo:"", url:"" }
+    ];
+
     var splash = document.getElementById('splash');
+    var sponsorsStrip = document.getElementById('sponsorsStrip');
+    var sponsorsList = document.getElementById('sponsorsList');
+    var sponsorsCounter = document.getElementById('sponsorsCounter');
+    var sponsorOffset = 0;
+    var sponsorTimer = null;
+
+    function sponsorVisibleCount(){
+      return window.matchMedia('(max-width:560px)').matches ? 2 : 4;
+    }
+
+    function sponsorCard(sp){
+      var content = sp.logo
+        ? `<img src="${sp.logo}" alt="${sp.nombre}" loading="eager" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="sponsor-name" style="display:none">${sp.nombre}</span>`
+        : `<span class="sponsor-name">${sp.nombre}</span>`;
+
+      if(sp.url){
+        return `<a class="sponsor-item sponsor-link" href="${sp.url}" target="_blank" rel="noopener" aria-label="Visitar ${sp.nombre}">${content}</a>`;
+      }
+      return `<div class="sponsor-item">${content}</div>`;
+    }
+
+    function renderSponsors(){
+      if(!SPONSORS.length){
+        sponsorsStrip.hidden = true;
+        splash.classList.remove('has-sponsors');
+        return;
+      }
+
+      sponsorsStrip.hidden = false;
+      splash.classList.add('has-sponsors');
+
+      var visible = sponsorVisibleCount();
+      var cantidad = Math.min(visible, SPONSORS.length);
+      var items = [];
+      for(var i=0; i<cantidad; i++){
+        items.push(SPONSORS[(sponsorOffset+i) % SPONSORS.length]);
+      }
+      sponsorsList.innerHTML = items.map(sponsorCard).join('');
+
+      if(SPONSORS.length > visible){
+        sponsorsCounter.textContent = `${sponsorOffset+1}–${Math.min(sponsorOffset+visible, SPONSORS.length)} de ${SPONSORS.length}`;
+      }else{
+        sponsorsCounter.textContent = '';
+      }
+
+      // Tocar un sponsor con link abre su web y NO cierra el splash.
+      sponsorsList.querySelectorAll('.sponsor-link').forEach(function(link){
+        link.addEventListener('click', function(e){ e.stopPropagation(); });
+        link.addEventListener('keydown', function(e){ e.stopPropagation(); });
+      });
+    }
+
+    function startSponsorRotation(){
+      if(sponsorTimer) clearInterval(sponsorTimer);
+      if(SPONSORS.length > sponsorVisibleCount()){
+        sponsorTimer = setInterval(function(){
+          sponsorOffset = (sponsorOffset + sponsorVisibleCount()) % SPONSORS.length;
+          renderSponsors();
+        }, 3200);
+      }
+    }
+
+    renderSponsors();
+    startSponsorRotation();
+    window.addEventListener('resize', function(){
+      sponsorOffset = 0;
+      renderSponsors();
+      startSponsorRotation();
+    });
+
     function dismissSplash(){
       splash.classList.add('hidden');
       document.body.classList.remove('splash-active');
