@@ -1,91 +1,160 @@
-"""
-Sincroniza la Google Sheet de comercios -> comercios.json
-
-Cómo publicar la Sheet (una vez, sin credenciales ni API keys):
-  1. En Google Sheets: Archivo -> Compartir -> Publicar en la web
-  2. Elegir la hoja correspondiente y formato "Valores separados por comas (.csv)"
-  3. Publicar. Copiar la URL que te da (termina en algo como .../pub?output=csv)
-  4. Pegarla abajo en SHEET_CSV_URL (o pasarla por variable de entorno)
-
-Columnas esperadas en la Sheet (deben llamarse así, en la primera fila):
-  nombre | rubro | oferta | zona | telefono
-
-Uso:
-  python3 sync_sheet_to_json.py
-  (genera ./comercios.json en el mismo directorio)
-"""
-
 import csv
 import io
 import json
 import os
 import sys
+import unicodedata
 import urllib.request
 
-SHEET_CSV_URL = os.environ.get(
-    "SHEET_CSV_URL",
-    "PEGAR_ACA_LA_URL_DE_PUBLICACION_CSV",
+
+SHEET_ID = os.environ.get("SHEET_ID")
+SHEET_GID = os.environ.get("SHEET_GID", "0")
+
+OUTPUT_FILE = "comercios.json"
+
+
+if not SHEET_ID:
+    print("ERROR: falta la variable SHEET_ID")
+    sys.exit(1)
+
+
+def normalizar(texto):
+    if texto is None:
+        return ""
+
+    texto = str(texto).strip().lower()
+
+    # sacar acentos
+    texto = "".join(
+        c for c in unicodedata.normalize("NFD", texto)
+        if unicodedata.category(c) != "Mn"
+    )
+
+    return " ".join(texto.split())
+
+
+ALIASES = {
+    "nombre": [
+        "nombre",
+        "comercio",
+        "nombre comercio",
+        "nombre del comercio",
+    ],
+    "rubro": [
+        "rubro",
+        "categoria",
+    ],
+    "oferta": [
+        "oferta",
+        "descuento",
+        "promocion",
+    ],
+    "zona": [
+        "zona",
+        "ubicacion",
+        "direccion",
+    ],
+    "telefono": [
+        "telefono",
+        "whatsapp",
+        "celular",
+    ],
+    "imagen": [
+        "imagen",
+        "foto",
+        "url imagen",
+        "url de imagen",
+    ],
+}
+
+
+def obtener_valor(fila, campo):
+    for alias in ALIASES[campo]:
+        alias_normalizado = normalizar(alias)
+
+        if alias_normalizado in fila:
+            return fila[alias_normalizado].strip()
+
+    return ""
+
+
+url = (
+    f"https://docs.google.com/spreadsheets/d/{SHEET_ID}"
+    f"/export?format=csv&gid={SHEET_GID}"
 )
 
-CAMPOS_REQUERIDOS = ["nombre", "rubro", "oferta", "zona", "telefono"]
-SALIDA = os.environ.get("SALIDA", "comercios.json")
+print(f"Descargando Google Sheet gid={SHEET_GID}...")
 
 
-def descargar_csv(url: str) -> str:
-    with urllib.request.urlopen(url, timeout=20) as resp:
-        return resp.read().decode("utf-8-sig")  # utf-8-sig: Sheets a veces manda BOM
+request = urllib.request.Request(
+    url,
+    headers={
+        "User-Agent": "Mozilla/5.0"
+    }
+)
+
+try:
+    with urllib.request.urlopen(request, timeout=30) as response:
+        content_type = response.headers.get("Content-Type", "")
+        contenido = response.read().decode("utf-8-sig")
+
+except Exception as e:
+    print(f"ERROR descargando Google Sheet: {e}")
+    sys.exit(1)
 
 
-def csv_a_comercios(texto_csv: str) -> list[dict]:
-    lector = csv.DictReader(io.StringIO(texto_csv))
-
-    faltantes = [c for c in CAMPOS_REQUERIDOS if c not in (lector.fieldnames or [])]
-    if faltantes:
-        raise ValueError(
-            f"Faltan columnas en la Sheet: {faltantes}. "
-            f"Columnas encontradas: {lector.fieldnames}"
-        )
-
-    comercios = []
-    for i, fila in enumerate(lector, start=2):  # fila 1 = encabezados
-        nombre = (fila.get("nombre") or "").strip()
-        if not nombre:
-            continue  # fila vacía o incompleta, se ignora
-
-        telefono = (fila.get("telefono") or "").strip()
-        telefono = "".join(ch for ch in telefono if ch.isdigit())  # limpia espacios/guiones
-
-        if not telefono:
-            print(f"[aviso] fila {i}: '{nombre}' sin teléfono válido, se omite igual el link de WhatsApp quedará roto")
-
-        comercios.append({
-            "nombre": nombre,
-            "rubro": (fila.get("rubro") or "").strip(),
-            "oferta": (fila.get("oferta") or "").strip(),
-            "zona": (fila.get("zona") or "").strip(),
-            "telefono": telefono,
-        })
-
-    return comercios
+# Si Google devuelve una página de login en vez del CSV
+if "<html" in contenido.lower():
+    print(
+        "ERROR: Google devolvió HTML en lugar de CSV. "
+        "Verificá que la Sheet tenga acceso público de lectura."
+    )
+    sys.exit(1)
 
 
-def main():
-    if SHEET_CSV_URL == "PEGAR_ACA_LA_URL_DE_PUBLICACION_CSV":
-        print("Falta configurar SHEET_CSV_URL (ver instrucciones arriba del archivo).")
-        sys.exit(1)
-
-    print(f"Descargando CSV desde: {SHEET_CSV_URL}")
-    texto_csv = descargar_csv(SHEET_CSV_URL)
-
-    comercios = csv_a_comercios(texto_csv)
-    if not comercios:
-        print("[aviso] no se encontró ningún comercio válido en la Sheet.")
-
-    with open(SALIDA, "w", encoding="utf-8") as f:
-        json.dump(comercios, f, ensure_ascii=False, indent=2)
-
-    print(f"Listo: {len(comercios)} comercios escritos en {SALIDA}")
+reader = csv.DictReader(io.StringIO(contenido))
 
 
-if __name__ == "__main__":
-    main()
+if not reader.fieldnames:
+    print("ERROR: la Sheet no tiene encabezados")
+    sys.exit(1)
+
+
+comercios = []
+
+
+for raw_row in reader:
+
+    fila = {
+        normalizar(k): str(v or "").strip()
+        for k, v in raw_row.items()
+        if k
+    }
+
+    comercio = {
+        "nombre": obtener_valor(fila, "nombre"),
+        "rubro": obtener_valor(fila, "rubro"),
+        "oferta": obtener_valor(fila, "oferta"),
+        "zona": obtener_valor(fila, "zona"),
+        "telefono": obtener_valor(fila, "telefono"),
+        "imagen": obtener_valor(fila, "imagen"),
+    }
+
+    # ignoramos filas vacías
+    if not comercio["nombre"]:
+        continue
+
+    comercios.append(comercio)
+
+
+with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
+    json.dump(
+        comercios,
+        f,
+        ensure_ascii=False,
+        indent=2,
+    )
+    f.write("\n")
+
+
+print(f"OK: {len(comercios)} comercios escritos en {OUTPUT_FILE}")
