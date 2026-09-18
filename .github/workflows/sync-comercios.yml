@@ -1,32 +1,49 @@
-# Colocar este archivo en: .github/workflows/sync-comercios.yml
-#
-# Qué hace: cada 15 min (y también manualmente desde la pestaña Actions)
-# descarga la Sheet publicada como CSV, genera comercios.json actualizado,
-# y lo commitea al repo. Cloudflare Pages ya está enganchado a este repo,
-# así que ese commit dispara solo un redeploy del sitio con los datos nuevos.
-
-name: Sincronizar comercios desde Google Sheet
+name: Actualizar comercios desde Google Sheets
 
 on:
+  workflow_dispatch:
+
   schedule:
-    - cron: "*/15 * * * *"
-  workflow_dispatch: {}   # botón para correrlo a mano cuando haga falta
+    - cron: "*/10 * * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-comercios
+  cancel-in-progress: true
 
 jobs:
   sync:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v7
 
-      - name: Generar comercios.json
+      - name: Configurar Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+
+      - name: Actualizar comercios.json
         env:
-          SHEET_CSV_URL: ${{ secrets.SHEET_CSV_URL }}
-        run: python3 sync_sheet_to_json.py
-
-      - name: Commitear si cambió
+          SHEET_ID: ${{ vars.SHEET_ID }}
+          SHEET_GID: ${{ vars.SHEET_GID }}
         run: |
-          git config user.name "san-luis-sale-bot"
-          git config user.email "bot@sanluissale.com.ar"
+          python sync_sheet_to_json.py
+
+      - name: Commit si hubo cambios
+        run: |
+          if git diff --quiet -- comercios.json; then
+            echo "No hubo cambios en comercios.json"
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
           git add comercios.json
-          git diff --staged --quiet || git commit -m "Sync comercios desde Sheet"
+          git commit -m "chore: actualizar comercios desde Google Sheets"
           git push
