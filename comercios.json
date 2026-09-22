@@ -2,7 +2,7 @@
   {
     "nombre": "Berta's Zapatillas y Ropa para Chicos",
     "rubro": "Indumentaria",
-    "oferta": "30% OFF en toda la temporada",
+    "oferta": "36% OFF en toda la temporada",
     "zona": "San Luis",
     "telefono": "2664001122",
     "imagen": "REEMPLAZAR_POR_URL_PUBLICA_DE_IMAGEN"
@@ -10,7 +10,7 @@
   {
     "nombre": "Bambini's",
     "rubro": "Indumentaria",
-    "oferta": "Descuentos en ropa para chicos",
+    "oferta": "Descuentos en ropa para chicos/as",
     "zona": "Bernardo Houssay",
     "telefono": "2664002233",
     "imagen": "https://loremflickr.com/500/375/sneakers,fashion"
@@ -34,7 +34,7 @@
   {
     "nombre": "Tienda de Prueba",
     "rubro": "Tecnología",
-    "oferta": "Descuentos en accesorios y service",
+    "oferta": "Descuentos 15% en accesorios y service",
     "zona": "Rivadavia",
     "telefono": "2664005566",
     "imagen": "https://loremflickr.com/500/375/gadget,minimal"
@@ -42,7 +42,7 @@
   {
     "nombre": "Evelyn Home & Deco",
     "rubro": "Hogar y Deco",
-    "oferta": "Descuentos en decoración",
+    "oferta": "Descuentos en decoración interior",
     "zona": "Los Algarrobos",
     "telefono": "2664006677",
     "imagen": "https://loremflickr.com/500/375/scandinavian,interior"
