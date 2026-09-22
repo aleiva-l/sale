@@ -7,8 +7,8 @@ import unicodedata
 import urllib.request
 
 
-SHEET_ID = os.environ.get("1WByz_vxmvynFqIo2IwmvNgD1HsR6DJ3kDshh-Qb3o-c")
-SHEET_GID = os.environ.get("1728155305", "0")
+SHEET_ID = os.environ.get("SHEET_ID")
+SHEET_GID = os.environ.get("SHEET_GID", "0")
 
 OUTPUT_FILE = "comercios.json"
 
