@@ -1,13 +1,5 @@
 [
   {
-    "nombre": "Berta's Zapatillas y Ropa para Chicos",
-    "rubro": "Indumentaria",
-    "oferta": "30% OFF en toda la temporada",
-    "zona": "San Luis",
-    "telefono": "2664001122",
-    "imagen": "REEMPLAZAR_POR_URL_PUBLICA_DE_IMAGEN"
-  },
-  {
     "nombre": "Bambini's",
     "rubro": "Indumentaria",
     "oferta": "Descuentos en ropa para chicos/as",
@@ -54,13 +46,5 @@
     "zona": "Lavalle",
     "telefono": "2664007788",
     "imagen": "https://loremflickr.com/500/375/spa,wellness"
-  },
-  {
-    "nombre": "Estudio Casa — Diseño y Decoración",
-    "rubro": "Servicios",
-    "oferta": "Asesoramiento con descuento especial",
-    "zona": "Colón",
-    "telefono": "2664008899",
-    "imagen": "https://loremflickr.com/500/375/architecture,interior"
   }
 ]
