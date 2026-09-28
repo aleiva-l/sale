@@ -82,6 +82,7 @@ if not reader.fieldnames:
 comercios = []
 pendientes = 0
 rechazados = 0
+eliminados = 0
 otros = 0
 
 for raw_row in reader:
@@ -99,6 +100,8 @@ for raw_row in reader:
             pendientes += 1
         elif estado == "rechazado":
             rechazados += 1
+        elif estado == "eliminado":
+            eliminados += 1
         else:
             otros += 1
         continue
@@ -125,5 +128,6 @@ print(
     f"OK: {len(comercios)} aprobados publicados. "
     f"{pendientes} pendientes, "
     f"{rechazados} rechazados, "
+    f"{eliminados} eliminados, "
     f"{otros} sin estado."
 )
