@@ -8,46 +8,6 @@
     "imagen": "https://loremflickr.com/500/375/sneakers,fashion"
   },
   {
-    "nombre": "Say Indumentaria",
-    "rubro": "Indumentaria",
-    "oferta": "Descuentos en toda la temporada",
-    "zona": "Martín Fierro",
-    "telefono": "2664003344",
-    "imagen": "https://loremflickr.com/500/375/boutique,fashion"
-  },
-  {
-    "nombre": "Restaurant Los Robles",
-    "rubro": "Gastronomía",
-    "oferta": "Promo San Luis Sale en el salón",
-    "zona": "9 de Julio",
-    "telefono": "2664004455",
-    "imagen": "https://loremflickr.com/500/375/foodphotography,gourmet"
-  },
-  {
-    "nombre": "Tienda de Prueba",
-    "rubro": "Tecnología",
-    "oferta": "Descuentos 15% en accesorios y service",
-    "zona": "Rivadavia",
-    "telefono": "2664005566",
-    "imagen": "https://loremflickr.com/500/375/gadget,minimal"
-  },
-  {
-    "nombre": "Evelyn Home & Deco",
-    "rubro": "Hogar y Deco",
-    "oferta": "Descuentos en decoración interior",
-    "zona": "Los Algarrobos",
-    "telefono": "2664006677",
-    "imagen": "https://loremflickr.com/500/375/scandinavian,interior"
-  },
-  {
-    "nombre": "Embellecenter Estética",
-    "rubro": "Belleza",
-    "oferta": "Promos en tratamientos",
-    "zona": "Lavalle",
-    "telefono": "2664007788",
-    "imagen": "https://loremflickr.com/500/375/spa,wellness"
-  },
-  {
     "nombre": "Tienda de Prueba",
     "rubro": "Calzado",
     "oferta": "30% off en zapatillas seleccionadas",
