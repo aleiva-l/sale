@@ -9,15 +9,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#0C0D10;
-    --card:#1A1C21;
-    --card-hi:#212429;
-    --text:#F3EFE4;
-    --sol:#E9B463;
-    --sale:#E8503F;
-    --sierra:#5FA79A;
-    --line: rgba(243,239,228,0.16);
-    --ink:#0C0D10;
+    /* ---- mismo look & feel que alta.html para la zona oscura ---- */
+    --bg:#090909;
+    --card:#121212;
+    --card-hi:#181818;
+    --text:#F7F7F7;
+    --muted:#A9A9A9;
+    --red:#EF2B2D;
+    --red-hover:#FF3B3D;
+    --line:#2B2B2B;
+    --ink:#090909;
 
     /* ---- tema claro, para todo lo que va debajo del header ---- */
     --paper:#F1EFE4;
@@ -38,93 +39,207 @@
   a{color:inherit;}
   .wrap{max-width:1080px;margin:0 auto;padding:0 20px;}
 
-  /* ---- Header / hero ---- */
+  /* ---- Header / hero: mismo look & feel que alta.html ---- */
   header{
-    background:var(--bg);
     color:var(--text);
-    padding:28px 0 34px;
-  }
-  .brandrow{
-    display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
-  }
-  .brand{
-    font-family:'Space Grotesk',sans-serif;
-    font-weight:700;
-    font-size:clamp(28px,6vw,40px);
-    letter-spacing:-0.02em;
-    margin:0;
-    color:var(--sol);
-    text-shadow:0 0 22px rgba(233,180,99,0.25);
-  }
-  .brand span{
-    color:var(--sale);
-    text-shadow:0 0 24px rgba(232,80,63,0.45);
-  }
-  .orgline{
-    font-family:'Space Mono',monospace;
-    font-size:12px;
-    letter-spacing:0.06em;
-    text-transform:uppercase;
-    opacity:0.6;
-  }
-  .hero-copy{
-    margin-top:18px;
-    font-size:clamp(15px,2.4vw,17px);
-    max-width:480px;
-    opacity:0.75;
-    line-height:1.5;
+    padding:30px 0 34px;
+    background:
+      radial-gradient(
+        circle at 20% 0%,
+        rgba(239,43,45,.18),
+        transparent 30rem
+      ),
+      var(--bg);
+    border-bottom:1px solid #1b1b1b;
   }
 
-  /* search + filters live inside the hero: the tool IS the hero */
+  .brandrow{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:18px;
+    flex-wrap:wrap;
+  }
+
+  .brand-identity{
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+
+  .brand-mark{
+    width:52px;
+    height:52px;
+    flex:0 0 52px;
+    display:grid;
+    place-items:center;
+    border-radius:15px;
+    background:var(--red);
+    color:#fff;
+    font-family:'Inter',system-ui,sans-serif;
+    font-size:20px;
+    font-weight:900;
+    letter-spacing:-.03em;
+    box-shadow:0 10px 28px rgba(239,43,45,.18);
+  }
+
+  .brand-copy strong{
+    display:block;
+    color:#fff;
+    font-family:'Inter',system-ui,sans-serif;
+    font-size:19px;
+    font-weight:900;
+    letter-spacing:.02em;
+  }
+
+  .brand-copy span{
+    display:block;
+    margin-top:2px;
+    color:#8f8f8f;
+    font-size:13px;
+    line-height:1.25;
+  }
+
+  .orgline{
+    margin:0;
+    padding:9px 12px;
+    border:1px solid #303030;
+    border-radius:999px;
+    background:rgba(20,20,20,.78);
+    color:#d8d8d8;
+    font-family:'Space Mono',monospace;
+    font-size:11px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+  }
+
+  .hero-copy{
+    margin:22px 0 0;
+    max-width:590px;
+    color:var(--muted);
+    font-size:clamp(15px,2.4vw,17px);
+    line-height:1.55;
+  }
+
+  /* buscador + filtros dentro de una card oscura, como alta.html */
   .finder{
     margin-top:24px;
-    background:var(--card);
-    border:1px solid var(--line);
-    border-radius:16px;
     padding:16px;
-  }
-  .search{
-    display:flex;align-items:center;gap:10px;
-    background:var(--card-hi);
     border:1px solid var(--line);
-    border-radius:10px;
-    padding:10px 14px;
+    border-radius:22px;
+    background:
+      linear-gradient(
+        180deg,
+        var(--card),
+        #0e0e0e
+      );
+    box-shadow:0 18px 60px rgba(0,0,0,.25);
   }
+
+  .search{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:12px 14px;
+    border:1px solid #353535;
+    border-radius:12px;
+    background:#101010;
+    transition:border-color .15s ease, box-shadow .15s ease;
+  }
+
+  .search:focus-within{
+    border-color:var(--red);
+    box-shadow:0 0 0 3px rgba(239,43,45,.08);
+  }
+
   .search input{
-    border:none;outline:none;background:transparent;
-    font-family:'Inter',sans-serif;font-size:15px;color:var(--text);
     width:100%;
+    border:none;
+    outline:none;
+    background:transparent;
+    color:#fff;
+    font-family:'Inter',sans-serif;
+    font-size:15px;
   }
-  .search input::placeholder{color:var(--text);opacity:0.4;}
-  .search svg{flex:none;opacity:0.5;}
+
+  .search input::placeholder{
+    color:var(--muted);
+    opacity:.72;
+  }
+
+  .search svg{
+    flex:none;
+    color:var(--muted);
+    opacity:.9;
+  }
 
   .chips{
-    display:flex;gap:8px;overflow-x:auto;
+    display:flex;
+    gap:8px;
+    overflow-x:auto;
     margin-top:12px;
     padding-bottom:4px;
     scrollbar-width:none;
   }
-  .chips::-webkit-scrollbar{display:none;}
+
+  .chips::-webkit-scrollbar{
+    display:none;
+  }
+
   .chip{
     flex:none;
-    font-family:'Space Mono',monospace;
-    font-size:12px;
-    letter-spacing:0.03em;
-    text-transform:uppercase;
     padding:8px 14px;
+    border:1px solid #303030;
     border-radius:999px;
-    border:1px solid var(--line);
-    background:var(--card-hi);
-    color:var(--text);
+    background:#141414;
+    color:#d5d5d5;
+    font-family:'Space Mono',monospace;
+    font-size:11.5px;
+    letter-spacing:.03em;
+    text-transform:uppercase;
     cursor:pointer;
     user-select:none;
-    transition:background .15s ease, color .15s ease, border-color .15s ease;
+    transition:
+      background .15s ease,
+      color .15s ease,
+      border-color .15s ease,
+      transform .15s ease;
   }
-  .chip:hover{border-color:var(--sierra);}
+
+  .chip:hover{
+    border-color:var(--red);
+    transform:translateY(-1px);
+  }
+
   .chip.active{
-    background:var(--sierra);
-    border-color:var(--sierra);
-    color:#0C1210;
+    background:var(--red);
+    border-color:var(--red);
+    color:#fff;
+  }
+
+  @media (max-width:560px){
+    header{
+      padding:24px 0 28px;
+    }
+
+    .brandrow{
+      align-items:flex-start;
+    }
+
+    .orgline{
+      width:100%;
+      text-align:center;
+    }
+
+    .hero-copy{
+      margin-top:18px;
+    }
+
+    .finder{
+      margin-top:20px;
+      border-radius:18px;
+      padding:14px;
+    }
   }
 
   /* ---- Stats strip ---- */
@@ -412,18 +527,32 @@
 <header>
   <div class="wrap">
     <div class="brandrow">
-      <div class="brand-group">
-        <p class="brand">San Luis <span>Sale</span></p>
+      <div class="brand-identity">
+        <div class="brand-mark" aria-hidden="true">SL</div>
+
+        <div class="brand-copy">
+          <strong>SAN LUIS SALE</strong>
+          <span>Comprá local, ganamos todos.</span>
+        </div>
       </div>
+
       <p class="orgline">Del 12 al 14 de Noviembre</p>
     </div>
-    <p class="hero-copy">Descuentos reales de comercios puntanos, todos en un solo lugar. Filtrá por rubro o buscá el que estás buscando.</p>
+
+    <p class="hero-copy">
+      Descuentos reales de comercios puntanos, todos en un solo lugar.
+      Filtrá por rubro o buscá el que estás buscando.
+    </p>
 
     <div class="finder">
       <div class="search">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"/>
+          <path d="m21 21-4.3-4.3"/>
+        </svg>
         <input id="buscador" type="text" placeholder="Buscar comercio…" autocomplete="off">
       </div>
+
       <div class="chips" id="chips"></div>
     </div>
   </div>
