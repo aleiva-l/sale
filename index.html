@@ -244,12 +244,35 @@
 
   /* ---- Stats strip ---- */
   .stats{
-    display:flex;gap:24px;flex-wrap:wrap;
-    padding:16px 0;
+    position:relative;
+    display:flex;
+    gap:32px;
+    flex-wrap:wrap;
+    padding:20px 0 18px;
     font-family:'Space Mono',monospace;
     font-size:13px;
+    border-bottom:1px solid var(--line-lt);
   }
-  .stats b{font-family:'Space Grotesk',sans-serif;font-size:17px;display:block;}
+
+  /* pequeño acento rojo que conecta visualmente con el hero */
+  .stats::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:0;
+    width:58px;
+    height:4px;
+    border-radius:999px;
+    background:var(--red);
+  }
+
+  .stats b{
+    display:block;
+    margin-bottom:2px;
+    font-family:'Space Grotesk',sans-serif;
+    font-size:19px;
+    color:var(--red);
+  }
 
   /* ---- Grid / cards ---- */
   main{padding:8px 0 60px;}
@@ -273,15 +296,119 @@
   }
   .card-top{padding:16px 16px 14px;}
   .card-img{
+    position:relative;
     width:100%;
     aspect-ratio:4/3;
     overflow:hidden;
     background:var(--line-lt);
+    touch-action:pan-y;
   }
   .card-img img{
-    width:100%;height:100%;
+    width:100%;
+    height:100%;
     object-fit:cover;
     display:block;
+    user-select:none;
+    -webkit-user-drag:none;
+  }
+  .carousel-btn{
+    position:absolute;
+    top:50%;
+    z-index:3;
+    width:36px;
+    height:36px;
+    display:grid;
+    place-items:center;
+    transform:translateY(-50%);
+    border:0;
+    border-radius:50%;
+    background:rgba(9,9,9,.76);
+    color:#fff;
+    font-size:24px;
+    line-height:1;
+    cursor:pointer;
+    box-shadow:0 4px 16px rgba(0,0,0,.22);
+    backdrop-filter:blur(5px);
+    -webkit-backdrop-filter:blur(5px);
+  }
+  .carousel-btn:hover{
+    background:var(--red);
+  }
+  .carousel-prev{left:10px;}
+  .carousel-next{right:10px;}
+  .carousel-meta{
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:8px;
+    z-index:2;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    pointer-events:none;
+  }
+  .carousel-dots{
+    max-width:calc(100% - 90px);
+    display:flex;
+    gap:5px;
+    align-items:center;
+    justify-content:center;
+    padding:6px 8px;
+    border-radius:999px;
+    background:rgba(9,9,9,.62);
+    backdrop-filter:blur(5px);
+    -webkit-backdrop-filter:blur(5px);
+  }
+  .carousel-dot{
+    width:6px;
+    height:6px;
+    flex:0 0 6px;
+    border-radius:50%;
+    background:rgba(255,255,255,.45);
+  }
+  .carousel-dot.active{
+    width:8px;
+    height:8px;
+    flex-basis:8px;
+    background:#fff;
+  }
+  .carousel-count{
+    position:absolute;
+    top:9px;
+    right:9px;
+    z-index:2;
+    padding:5px 8px;
+    border-radius:999px;
+    background:rgba(9,9,9,.68);
+    color:#fff;
+    font-family:'Space Mono',monospace;
+    font-size:10px;
+    letter-spacing:.03em;
+    pointer-events:none;
+  }
+  .carousel-error{
+    width:100%;
+    height:100%;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    text-align:center;
+    font-family:'Space Mono',monospace;
+    font-size:11px;
+    opacity:.55;
+  }
+  .card-img.image-error img{
+    display:none;
+  }
+  .card-img.image-error .carousel-error{
+    display:flex;
+  }
+  @media (hover:none){
+    .carousel-btn{
+      width:34px;
+      height:34px;
+    }
   }
   .rubro-tag{
     font-family:'Space Mono',monospace;
@@ -532,6 +659,7 @@
 
         <div class="brand-copy">
           <strong>SAN LUIS SALE</strong>
+          <span>Comprá local, ganamos todos.</span>
         </div>
       </div>
 
@@ -623,6 +751,252 @@
     });
   }
 
+  function getImages(c){
+    const source =
+      Array.isArray(c.imagenes)
+        ? c.imagenes
+        : [];
+
+    const images = source
+      .map(url => String(url || '').trim())
+      .filter(Boolean);
+
+    if (
+      !images.length &&
+      c.imagen
+    ) {
+      images.push(
+        String(c.imagen).trim()
+      );
+    }
+
+    return [
+      ...new Set(images)
+    ].slice(0,10);
+  }
+
+  function carouselMarkup(c){
+    const images = getImages(c);
+
+    if (!images.length) {
+      return '';
+    }
+
+    const encoded =
+      encodeURIComponent(
+        JSON.stringify(images)
+      );
+
+    const controls =
+      images.length > 1
+        ? `
+          <button class="carousel-btn carousel-prev" type="button" aria-label="Imagen anterior">‹</button>
+          <button class="carousel-btn carousel-next" type="button" aria-label="Imagen siguiente">›</button>
+          <div class="carousel-count">1/${images.length}</div>
+          <div class="carousel-meta">
+            <div class="carousel-dots" aria-hidden="true">
+              ${images.map((_, index) =>
+                `<span class="carousel-dot ${index === 0 ? 'active' : ''}"></span>`
+              ).join('')}
+            </div>
+          </div>
+        `
+        : '';
+
+    return `
+      <div
+        class="card-img merchant-carousel"
+        data-images="${encoded}"
+      >
+        <img
+          src="${images[0]}"
+          alt="${c.nombre}"
+          loading="lazy"
+          draggable="false"
+        >
+        <div class="carousel-error">
+          No pudimos cargar esta imagen.
+        </div>
+        ${controls}
+      </div>
+    `;
+  }
+
+  function initCarousels(){
+    grid
+      .querySelectorAll(
+        '.merchant-carousel'
+      )
+      .forEach(carousel => {
+        let images = [];
+
+        try {
+          images =
+            JSON.parse(
+              decodeURIComponent(
+                carousel.dataset.images || ''
+              )
+            );
+        } catch (_) {
+          images = [];
+        }
+
+        if (!images.length) {
+          return;
+        }
+
+        const img =
+          carousel.querySelector('img');
+
+        const prev =
+          carousel.querySelector(
+            '.carousel-prev'
+          );
+
+        const next =
+          carousel.querySelector(
+            '.carousel-next'
+          );
+
+        const count =
+          carousel.querySelector(
+            '.carousel-count'
+          );
+
+        const dots =
+          Array.from(
+            carousel.querySelectorAll(
+              '.carousel-dot'
+            )
+          );
+
+        let current = 0;
+        let pointerStartX = null;
+
+        function show(index){
+          current =
+            (
+              index +
+              images.length
+            ) %
+            images.length;
+
+          carousel.classList.remove(
+            'image-error'
+          );
+
+          img.src =
+            images[current];
+
+          if (count) {
+            count.textContent =
+              `${current + 1}/${images.length}`;
+          }
+
+          dots.forEach(
+            (dot, dotIndex) => {
+              dot.classList.toggle(
+                'active',
+                dotIndex === current
+              );
+            }
+          );
+        }
+
+        img.addEventListener(
+          'error',
+          () => {
+            carousel.classList.add(
+              'image-error'
+            );
+          }
+        );
+
+        img.addEventListener(
+          'load',
+          () => {
+            carousel.classList.remove(
+              'image-error'
+            );
+          }
+        );
+
+        if (prev) {
+          prev.addEventListener(
+            'click',
+            event => {
+              event.stopPropagation();
+              show(current - 1);
+            }
+          );
+        }
+
+        if (next) {
+          next.addEventListener(
+            'click',
+            event => {
+              event.stopPropagation();
+              show(current + 1);
+            }
+          );
+        }
+
+        if (images.length > 1) {
+          carousel.addEventListener(
+            'pointerdown',
+            event => {
+              if (
+                event.target.closest(
+                  '.carousel-btn'
+                )
+              ) {
+                return;
+              }
+
+              pointerStartX =
+                event.clientX;
+            }
+          );
+
+          carousel.addEventListener(
+            'pointerup',
+            event => {
+              if (
+                pointerStartX === null
+              ) {
+                return;
+              }
+
+              const delta =
+                event.clientX -
+                pointerStartX;
+
+              pointerStartX = null;
+
+              if (
+                Math.abs(delta) < 45
+              ) {
+                return;
+              }
+
+              if (delta < 0) {
+                show(current + 1);
+              } else {
+                show(current - 1);
+              }
+            }
+          );
+
+          carousel.addEventListener(
+            'pointercancel',
+            () => {
+              pointerStartX = null;
+            }
+          );
+        }
+      });
+  }
+
   function renderGrid(){
     const filtrados = comercios.filter(c=>{
       const matchRubro = rubroActivo === "Todos" || c.rubro === rubroActivo;
@@ -632,7 +1006,7 @@
 
     grid.innerHTML = filtrados.map((c,i)=>`
       <div class="card" style="animation-delay:${i*30}ms">
-        ${c.imagen ? `<div class="card-img"><img src="${c.imagen}" alt="${c.nombre}" loading="lazy" onerror="this.parentElement.style.display='none'"></div>` : ''}
+        ${carouselMarkup(c)}
         <div class="card-top">
           <div class="rubro-tag">${c.rubro} · ${c.zona}</div>
           <div class="nombre">${c.nombre}</div>
@@ -651,6 +1025,8 @@
         </div>
       </div>
     `).join('');
+
+    initCarousels();
 
     empty.style.display = filtrados.length ? 'none' : 'block';
   }
