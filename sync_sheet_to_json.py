@@ -38,6 +38,14 @@ ALIASES = {
     "estado": ["estado", "status"],
 }
 
+for numero in range(2, 11):
+    ALIASES[f"imagen_{numero}"] = [
+        f"imagen_{numero}",
+        f"imagen {numero}",
+        f"foto_{numero}",
+        f"foto {numero}",
+    ]
+
 
 def obtener_valor(fila, campo):
     for alias in ALIASES[campo]:
@@ -45,6 +53,21 @@ def obtener_valor(fila, campo):
         if key in fila:
             return fila[key].strip()
     return ""
+
+
+def obtener_imagenes(fila):
+    imagenes = []
+
+    principal = obtener_valor(fila, "imagen")
+    if principal:
+        imagenes.append(principal)
+
+    for numero in range(2, 11):
+        url = obtener_valor(fila, f"imagen_{numero}")
+        if url and url not in imagenes:
+            imagenes.append(url)
+
+    return imagenes[:10]
 
 
 url = (
@@ -92,7 +115,9 @@ for raw_row in reader:
         if k
     }
 
-    estado = normalizar(obtener_valor(fila, "estado"))
+    estado = normalizar(
+        obtener_valor(fila, "estado")
+    )
 
     # Solo se publican los comercios aprobados.
     if estado != "aprobado":
@@ -106,13 +131,20 @@ for raw_row in reader:
             otros += 1
         continue
 
+    imagenes = obtener_imagenes(fila)
+
     comercio = {
         "nombre": obtener_valor(fila, "nombre"),
         "rubro": obtener_valor(fila, "rubro"),
         "oferta": obtener_valor(fila, "oferta"),
         "zona": obtener_valor(fila, "zona"),
         "telefono": obtener_valor(fila, "telefono"),
-        "imagen": obtener_valor(fila, "imagen"),
+
+        # Compatibilidad con el catálogo anterior.
+        "imagen": imagenes[0] if imagenes else "",
+
+        # Nuevo campo para el carrusel.
+        "imagenes": imagenes,
     }
 
     if not comercio["nombre"]:
@@ -120,8 +152,17 @@ for raw_row in reader:
 
     comercios.append(comercio)
 
-with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
-    json.dump(comercios, f, ensure_ascii=False, indent=2)
+with open(
+    OUTPUT_FILE,
+    "w",
+    encoding="utf-8"
+) as f:
+    json.dump(
+        comercios,
+        f,
+        ensure_ascii=False,
+        indent=2
+    )
     f.write("\n")
 
 print(
