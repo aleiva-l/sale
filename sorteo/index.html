@@ -1,0 +1,128 @@
+const APPS_SCRIPT_URL =
+  'PEGAR_AQUI_LA_URL_DE_TU_APPS_SCRIPT_TERMINADA_EN_EXEC';
+
+export default {
+  async fetch(request) {
+    const url = new URL(request.url);
+
+    // Preflight, por si en algún momento llamás al Worker
+    // desde otro dominio.
+    if (request.method === 'OPTIONS') {
+      return new Response(null, {
+        status: 204,
+        headers: corsHeaders()
+      });
+    }
+
+    // Endpoint de participación
+    if (
+      url.pathname === '/api/participar' &&
+      request.method === 'POST'
+    ) {
+      try {
+        const body = await request.json();
+
+        // Permite recibir:
+        // { payload: {...} }
+        // o directamente {...}
+        const payload = body.payload || body;
+
+        const response = await fetch(APPS_SCRIPT_URL, {
+          method: 'POST',
+          redirect: 'follow',
+          headers: {
+            'Content-Type': 'text/plain;charset=utf-8'
+          },
+          body: JSON.stringify({
+            payload: payload
+          })
+        });
+
+        const text = await response.text();
+
+        let data;
+
+        try {
+          data = JSON.parse(text);
+        } catch (error) {
+          console.error(
+            'Apps Script no devolvió JSON:',
+            text
+          );
+
+          return jsonResponse(
+            {
+              success: false,
+              error:
+                'El backend respondió en un formato inesperado.'
+            },
+            502
+          );
+        }
+
+        return jsonResponse(
+          data,
+          response.ok ? 200 : response.status
+        );
+
+      } catch (error) {
+        console.error(
+          'Error Worker:',
+          error
+        );
+
+        return jsonResponse(
+          {
+            success: false,
+            error:
+              'No se pudo procesar la participación.'
+          },
+          500
+        );
+      }
+    }
+
+    // Para verificar rápidamente que el Worker está funcionando
+    if (
+      url.pathname === '/api/health' &&
+      request.method === 'GET'
+    ) {
+      return jsonResponse({
+        success: true,
+        service: 'San Luis Sale Sorteo API'
+      });
+    }
+
+    return jsonResponse(
+      {
+        success: false,
+        error: 'Ruta no encontrada.'
+      },
+      404
+    );
+  }
+};
+
+function jsonResponse(data, status = 200) {
+  return new Response(
+    JSON.stringify(data),
+    {
+      status,
+      headers: {
+        'Content-Type':
+          'application/json; charset=utf-8',
+        ...corsHeaders()
+      }
+    }
+  );
+}
+
+function corsHeaders() {
+  return {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods':
+      'GET, POST, OPTIONS',
+    'Access-Control-Allow-Headers':
+      'Content-Type'
+  };
+}
