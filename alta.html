@@ -1,262 +1,127 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Sumá tu comercio — San Luis Sale</title>
-
-  <meta
-    name="description"
-    content="Formulario para sumar un comercio a San Luis Sale."
-  />
-
-<link rel="icon" type="image/x-icon" href="favicon.ico?v=2">
-
-<link rel="icon" type="image/png"
-      sizes="16x16"
-      href="favicon-16.png?v=2">
-
-<link rel="icon" type="image/png"
-      sizes="32x32"
-      href="favicon-32.png?v=2">
-
-<link rel="icon" type="image/png"
-      sizes="48x48"
-      href="favicon-48.png?v=2">
-
-<link rel="apple-touch-icon"
-      sizes="180x180"
-      href="favicon-180.png?v=2">
-
-<link rel="icon"
-      type="image/png"
-      sizes="192x192"
-      href="favicon-192.png?v=2">
-
-<link rel="icon"
-      type="image/png"
-      sizes="512x512"
-      href="favicon-512.png?v=2">
+  <meta name="description" content="Formulario para sumar un comercio a San Luis Sale.">
+  <link rel="icon" type="image/x-icon" href="favicon.ico?v=2">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=2">
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon-180.png?v=2">
 
   <style>
     :root {
       --bg: #090909;
       --panel: #121212;
       --line: #2b2b2b;
-
       --text: #f7f7f7;
       --muted: #a9a9a9;
-
       --red: #ef2b2d;
       --red-hover: #ff3b3d;
-
       --green: #22b45f;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
-
-      font-family:
-        Inter,
-        ui-sans-serif,
-        system-ui,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        sans-serif;
-
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: var(--text);
-
       background:
-        radial-gradient(
-          circle at 20% 0%,
-          rgba(239, 43, 45, 0.18),
-          transparent 30rem
-        ),
+        radial-gradient(circle at 20% 0%, rgba(239, 43, 45, 0.18), transparent 30rem),
         var(--bg);
     }
 
     .wrap {
       width: min(760px, calc(100% - 30px));
       margin: 0 auto;
-
-      padding:
-        30px
-        0
-        70px;
+      padding: 30px 0 70px;
     }
-
-    /* -----------------------------
-       BRAND
-    ----------------------------- */
 
     .brand {
       display: flex;
-
       align-items: center;
-
       gap: 12px;
-
       margin-bottom: 24px;
     }
 
     .brand-mark {
       width: 52px;
       height: 52px;
-
       display: grid;
-
       place-items: center;
-
       border-radius: 15px;
-
       background: var(--red);
-
       font-size: 20px;
       font-weight: 900;
     }
 
     .brand-copy strong {
       display: block;
-
       font-size: 19px;
       letter-spacing: 0.02em;
     }
 
     .brand-copy span {
       color: #8f8f8f;
-
       font-size: 13px;
     }
 
-    /* -----------------------------
-       HEADER
-    ----------------------------- */
-
     h1 {
-      margin:
-        0
-        0
-        14px;
-
-      font-size: clamp(
-        38px,
-        7vw,
-        62px
-      );
-
+      margin: 0 0 14px;
+      font-size: clamp(38px, 7vw, 62px);
       line-height: 0.98;
-
       letter-spacing: -0.04em;
     }
 
     .lead {
-      margin:
-        0
-        0
-        26px;
-
+      margin: 0 0 26px;
       color: var(--muted);
-
       font-size: 17px;
-
       line-height: 1.55;
     }
 
-    /* -----------------------------
-       CARD
-    ----------------------------- */
-
     .card {
       padding: 22px;
-
-      border:
-        1px
-        solid
-        var(--line);
-
+      border: 1px solid var(--line);
       border-radius: 22px;
-
-      background:
-        linear-gradient(
-          180deg,
-          var(--panel),
-          #0e0e0e
-        );
-
-      box-shadow:
-        0
-        25px
-        80px
-        rgba(0, 0, 0, 0.28);
+      background: linear-gradient(180deg, var(--panel), #0e0e0e);
+      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.28);
     }
 
     form {
       display: grid;
-
       gap: 18px;
     }
 
     .grid2 {
       display: grid;
-
-      grid-template-columns:
-        1fr
-        1fr;
-
+      grid-template-columns: 1fr 1fr;
       gap: 16px;
     }
 
     @media (max-width: 650px) {
-      .grid2 {
-        grid-template-columns:
-          1fr;
-      }
+      .grid2 { grid-template-columns: 1fr; }
     }
-
-    /* -----------------------------
-       INPUTS
-    ----------------------------- */
 
     label {
       display: block;
-
       margin-bottom: 7px;
-
       font-weight: 800;
     }
 
-    .required {
-      color: #ff7779;
-    }
+    .required { color: #ff7779; }
 
     input,
     select,
     textarea {
       width: 100%;
-
-      padding:
-        13px
-        14px;
-
-      border:
-        1px
-        solid
-        #353535;
-
+      padding: 13px 14px;
+      border: 1px solid #353535;
       border-radius: 12px;
-
       outline: none;
-
       background: #101010;
-
-      color: #ffffff;
-
+      color: #fff;
       font: inherit;
     }
 
@@ -268,484 +133,250 @@
 
     textarea {
       min-height: 94px;
-
       resize: vertical;
     }
 
     .hint {
       margin-top: 6px;
-
       color: var(--muted);
-
       font-size: 13px;
-
       line-height: 1.45;
     }
 
-    /* -----------------------------
-       IMAGE UPLOAD
-    ----------------------------- */
-
     .upload {
       padding: 17px;
-
-      border:
-        1.5px
-        dashed
-        #444444;
-
+      border: 1.5px dashed #444;
       border-radius: 18px;
-
       background: #0b0b0b;
     }
 
     .upload-top {
       display: flex;
-
       align-items: center;
       justify-content: space-between;
-
       gap: 16px;
-
       flex-wrap: wrap;
     }
 
     .upload input[type="file"] {
-      width: min(100%, 300px);
-
+      width: min(100%, 330px);
       background: #141414;
     }
 
     .rules {
-      margin:
-        12px
-        0
-        0;
-
+      margin: 12px 0 0;
       padding-left: 20px;
-
       color: var(--muted);
-
       font-size: 14px;
-
       line-height: 1.6;
     }
 
-    /* -----------------------------
-       IMAGE PREVIEW
-    ----------------------------- */
-
-    .preview {
+    .image-summary {
       display: none;
-
-      margin-top: 16px;
-
-      aspect-ratio: 4 / 3;
-
-      overflow: hidden;
-
-      border-radius: 15px;
-
-      background: #ffffff;
-    }
-
-    .preview img {
-      width: 100%;
-      height: 100%;
-
-      display: block;
-
-      object-fit: cover;
-    }
-
-    /* -----------------------------
-       IMAGE CHECKS
-    ----------------------------- */
-
-    .checks {
-      display: none;
-
-      grid-template-columns:
-        repeat(
-          2,
-          minmax(0, 1fr)
-        );
-
-      gap: 8px;
-
-      margin-top: 13px;
-    }
-
-    @media (max-width: 520px) {
-      .checks {
-        grid-template-columns:
-          1fr;
-      }
-    }
-
-    .check {
-      padding:
-        9px
-        10px;
-
-      border:
-        1px
-        solid
-        #303030;
-
-      border-radius: 10px;
-
-      background: #141414;
-
+      margin-top: 14px;
+      padding: 10px 12px;
+      border: 1px solid #303030;
+      border-radius: 12px;
+      background: #111;
       color: #d5d5d5;
-
       font-size: 13px;
     }
 
-    .check.ok {
+    .image-summary.ok {
+      border-color: rgba(34, 180, 95, 0.45);
       color: #a4f3c2;
-
-      border-color:
-        rgba(
-          34,
-          180,
-          95,
-          0.45
-        );
     }
 
-    .check.bad {
+    .image-summary.bad {
+      border-color: rgba(239, 43, 45, 0.5);
       color: #ffb0b0;
-
-      border-color:
-        rgba(
-          239,
-          43,
-          45,
-          0.5
-        );
     }
 
-    /* -----------------------------
-       CONFIRM
-    ----------------------------- */
+    .preview-grid {
+      display: none;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    @media (max-width: 560px) {
+      .preview-grid { grid-template-columns: 1fr; }
+    }
+
+    .preview-item {
+      overflow: hidden;
+      border: 1px solid #303030;
+      border-radius: 15px;
+      background: #111;
+    }
+
+    .preview-item.bad {
+      border-color: rgba(239, 43, 45, 0.5);
+    }
+
+    .preview-media {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      background: #171717;
+    }
+
+    .preview-media img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .preview-number,
+    .preview-main {
+      position: absolute;
+      top: 9px;
+      padding: 5px 8px;
+      border-radius: 999px;
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: .04em;
+    }
+
+    .preview-number {
+      left: 9px;
+      background: rgba(0, 0, 0, .72);
+      color: #fff;
+    }
+
+    .preview-main {
+      right: 9px;
+      background: var(--red);
+      color: #fff;
+    }
+
+    .preview-info {
+      padding: 10px 11px 11px;
+      color: #cfcfcf;
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .preview-info .ok { color: #a4f3c2; }
+    .preview-info .bad { color: #ffb0b0; }
 
     .confirm {
       display: flex;
-
       align-items: flex-start;
-
       gap: 10px;
-
-      color: #dddddd;
-
+      color: #ddd;
       font-size: 14px;
-
       line-height: 1.45;
     }
 
     .confirm input {
       width: auto;
-
       margin-top: 3px;
     }
 
-    /* -----------------------------
-       ANTI-BOT HONEYPOT
-    ----------------------------- */
-
     .hp {
       position: absolute !important;
-
       left: -9999px !important;
-
       opacity: 0 !important;
-
       pointer-events: none !important;
     }
 
-    /* -----------------------------
-       BUTTON
-    ----------------------------- */
-
     button {
       border: 0;
-
       border-radius: 13px;
-
-      padding:
-        15px
-        18px;
-
+      padding: 15px 18px;
       background: var(--red);
-
-      color: #ffffff;
-
+      color: #fff;
       font-size: 16px;
       font-weight: 900;
-
       cursor: pointer;
     }
 
-    button:hover {
-      background: var(--red-hover);
-    }
+    button:hover { background: var(--red-hover); }
 
     button:disabled {
-      opacity: 0.55;
-
+      opacity: .55;
       cursor: not-allowed;
     }
 
-    /* -----------------------------
-       STATUS
-    ----------------------------- */
-
     .status {
       display: none;
-
-      padding:
-        13px
-        14px;
-
+      padding: 13px 14px;
       border-radius: 12px;
-
       font-size: 14px;
-
       line-height: 1.45;
     }
 
     .status.ok {
       display: block;
-
-      background:
-        rgba(
-          34,
-          180,
-          95,
-          0.12
-        );
-
-      border:
-        1px
-        solid
-        rgba(
-          34,
-          180,
-          95,
-          0.4
-        );
-
+      background: rgba(34, 180, 95, .12);
+      border: 1px solid rgba(34, 180, 95, .4);
       color: #baf6cf;
     }
 
     .status.err {
       display: block;
-
-      background:
-        rgba(
-          239,
-          43,
-          45,
-          0.12
-        );
-
-      border:
-        1px
-        solid
-        rgba(
-          239,
-          43,
-          45,
-          0.4
-        );
-
+      background: rgba(239, 43, 45, .12);
+      border: 1px solid rgba(239, 43, 45, .4);
       color: #ffc1c1;
     }
 
-    /* -----------------------------
-       FOOTER
-    ----------------------------- */
-
     .footer {
       margin-top: 17px;
-
       text-align: center;
-
       color: #737373;
-
       font-size: 12px;
     }
   </style>
 </head>
 
-
 <body>
-
   <main class="wrap">
-
-    <!-- BRAND -->
-
     <div class="brand">
-
-      <div class="brand-mark">
-        SL
-      </div>
-
+      <div class="brand-mark">SL</div>
       <div class="brand-copy">
-
-        <strong>
-          SAN LUIS SALE
-        </strong>
-
-        <span>
-          Comprá local, ganamos todos.
-        </span>
-
+        <strong>SAN LUIS SALE</strong>
+        <span>Comprá local, ganamos todos.</span>
       </div>
-
     </div>
 
-
-    <!-- HEADER -->
-
-    <h1>
-      Sumá tu comercio
-    </h1>
+    <h1>Sumá tu comercio</h1>
 
     <p class="lead">
-
-      Completá tus datos y subí una imagen representativa.
-
+      Completá tus datos y subí entre 1 y 10 imágenes representativas.
+      La primera será la imagen principal del comercio.
       La información será revisada antes de publicarse.
-
     </p>
 
-
-    <!-- FORM -->
-
     <section class="card">
-
-      <form
-        id="altaForm"
-        novalidate
-      >
-
-
-        <!-- NOMBRE -->
-
+      <form id="altaForm" novalidate>
         <div>
-
-          <label for="nombre">
-
-            Nombre del comercio
-
-            <span class="required">
-              *
-            </span>
-
-          </label>
-
-          <input
-            id="nombre"
-            name="nombre"
-            maxlength="100"
-            required
-            autocomplete="organization"
-          />
-
+          <label for="nombre">Nombre del comercio <span class="required">*</span></label>
+          <input id="nombre" name="nombre" maxlength="100" required autocomplete="organization">
         </div>
 
-
-        <!-- RUBRO + TELEFONO -->
-
         <div class="grid2">
-
           <div>
-
-            <label for="rubro">
-
-              Rubro
-
-              <span class="required">
-                *
-              </span>
-
-            </label>
-
-
-            <select
-              id="rubro"
-              name="rubro"
-              required
-            >
-
-              <option value="">
-                Seleccionar…
-              </option>
-
-              <option>
-                Indumentaria
-              </option>
-
-              <option>
-                Calzado
-              </option>
-
-              <option>
-                Gastronomía
-              </option>
-
-              <option>
-                Tecnología
-              </option>
-
-              <option>
-                Hogar y Deco
-              </option>
-
-              <option>
-                Belleza
-              </option>
-
-              <option>
-                Juguetería
-              </option>
-
-              <option>
-                Electrodomésticos
-              </option>
-
-              <option>
-                Servicios
-              </option>
-
-              <option>
-                Salud y Bienestar
-              </option>
-
-              <option>
-                Otros
-              </option>
-
+            <label for="rubro">Rubro <span class="required">*</span></label>
+            <select id="rubro" name="rubro" required>
+              <option value="">Seleccionar…</option>
+              <option>Indumentaria</option>
+              <option>Calzado</option>
+              <option>Gastronomía</option>
+              <option>Tecnología</option>
+              <option>Hogar y Deco</option>
+              <option>Belleza</option>
+              <option>Juguetería</option>
+              <option>Electrodomésticos</option>
+              <option>Servicios</option>
+              <option>Salud y Bienestar</option>
+              <option>Otros</option>
             </select>
-
           </div>
 
-
           <div>
-
-            <label for="telefono">
-
-              WhatsApp / Teléfono
-
-              <span class="required">
-                *
-              </span>
-
-            </label>
-
-
+            <label for="telefono">WhatsApp / Teléfono <span class="required">*</span></label>
             <input
               id="telefono"
               name="telefono"
@@ -753,28 +384,12 @@
               required
               inputmode="tel"
               placeholder="2664..."
-            />
-
+            >
           </div>
-
         </div>
 
-
-        <!-- OFERTA -->
-
         <div>
-
-          <label for="oferta">
-
-            Oferta
-
-            <span class="required">
-              *
-            </span>
-
-          </label>
-
-
+          <label for="oferta">Oferta <span class="required">*</span></label>
           <textarea
             id="oferta"
             name="oferta"
@@ -782,1049 +397,388 @@
             required
             placeholder="Ej.: 30% OFF en toda la temporada"
           ></textarea>
-
-
-          <div class="hint">
-
-            Máximo 220 caracteres.
-
-          </div>
-
+          <div class="hint">Máximo 220 caracteres.</div>
         </div>
 
-
-        <!-- ZONA -->
-
         <div>
-
-          <label for="zona">
-
-            Zona / Dirección
-
-            <span class="required">
-              *
-            </span>
-
-          </label>
-
-
+          <label for="zona">Zona / Dirección <span class="required">*</span></label>
           <input
             id="zona"
             name="zona"
             maxlength="140"
             required
             placeholder="Ej.: Rivadavia 123, San Luis"
-          />
-
+          >
         </div>
-
-
-        <!-- IMAGE -->
 
         <div class="upload">
-
           <div class="upload-top">
-
             <div>
-
-              <label
-                for="imagen"
-                style="margin:0"
-              >
-
-                Imagen principal
-
-                <span class="required">
-                  *
-                </span>
-
+              <label for="imagenes" style="margin:0">
+                Imágenes del comercio <span class="required">*</span>
               </label>
-
-
               <div class="hint">
-
-                JPG/JPEG o WebP
-                · 4:3
-                · mínimo 800×600
-                · máximo 400 KB
-
+                1 a 10 imágenes · JPG/JPEG o WebP · 4:3 · mínimo 800×600 · máximo 400 KB cada una
               </div>
-
             </div>
-
 
             <input
-              id="imagen"
-              name="imagen"
+              id="imagenes"
+              name="imagenes"
               type="file"
               accept="image/jpeg,image/webp"
+              multiple
               required
-            />
-
+            >
           </div>
-
 
           <ul class="rules">
-
-            <li>
-              Recomendado: 1200×900 px.
-            </li>
-
-            <li>
-              Producto o servicio protagonista y bien iluminado.
-            </li>
-
-            <li>
-              Fondo limpio.
-            </li>
-
-            <li>
-              Evitar flyers, collages y textos pequeños.
-            </li>
-
+            <li>La primera imagen seleccionada será la portada del comercio.</li>
+            <li>Recomendado: 1200×900 px.</li>
+            <li>Todas deben mantener proporción 4:3.</li>
+            <li>Producto o servicio protagonista, bien iluminado y con fondo limpio.</li>
+            <li>Evitar flyers, collages y textos pequeños.</li>
           </ul>
 
-
-          <!-- PREVIEW -->
-
-          <div
-            id="preview"
-            class="preview"
-          >
-
-            <img
-              id="previewImg"
-              alt="Vista previa de la imagen"
-            />
-
-          </div>
-
-
-          <!-- CHECKS -->
-
-          <div
-            id="checks"
-            class="checks"
-          >
-
-            <div
-              id="checkFormat"
-              class="check"
-            >
-              Formato
-            </div>
-
-
-            <div
-              id="checkDimensions"
-              class="check"
-            >
-              Dimensiones
-            </div>
-
-
-            <div
-              id="checkRatio"
-              class="check"
-            >
-              Proporción
-            </div>
-
-
-            <div
-              id="checkWeight"
-              class="check"
-            >
-              Peso
-            </div>
-
-          </div>
-
+          <div id="imageSummary" class="image-summary"></div>
+          <div id="previewGrid" class="preview-grid"></div>
         </div>
-
-
-        <!-- CONFIRMACION -->
 
         <label class="confirm">
-
-          <input
-            id="confirmacion"
-            type="checkbox"
-            required
-          />
-
-
+          <input id="confirmacion" type="checkbox" required>
           <span>
-
-            Confirmo que la imagen representa al comercio/producto,
-            está bien iluminada y no contiene información engañosa.
-
+            Confirmo que las imágenes representan al comercio/producto,
+            están bien iluminadas y no contienen información engañosa.
           </span>
-
         </label>
 
-
-        <!-- HONEYPOT -->
-
-        <div
-          class="hp"
-          aria-hidden="true"
-        >
-
-          <label for="website">
-            Dejar vacío
-          </label>
-
-          <input
-            id="website"
-            name="website"
-            autocomplete="off"
-            tabindex="-1"
-          />
-
+        <div class="hp" aria-hidden="true">
+          <label for="website">Dejar vacío</label>
+          <input id="website" name="website" autocomplete="off" tabindex="-1">
         </div>
 
+        <div id="status" class="status"></div>
 
-        <!-- STATUS -->
-
-        <div
-          id="status"
-          class="status"
-        ></div>
-
-
-        <!-- SUBMIT -->
-
-        <button
-          id="submitBtn"
-          type="submit"
-          disabled
-        >
-
+        <button id="submitBtn" type="submit" disabled>
           ENVIAR COMERCIO
-
         </button>
-
       </form>
-
     </section>
 
-
     <div class="footer">
-
       La publicación está sujeta a revisión por San Luis Sale.
-
     </div>
-
   </main>
 
-
   <script>
+    const API_URL = "https://api.sanluissale.com.ar/api/alta";
 
-    /*
-      ============================================================
-      CONFIGURACION
-      ============================================================
+    const MAX_IMAGES = 10;
+    const MAX_BYTES = 400 * 1024;
+    const MIN_WIDTH = 800;
+    const MIN_HEIGHT = 600;
+    const TARGET_RATIO = 4 / 3;
+    const RATIO_TOLERANCE = 0.02;
 
-      Este es el endpoint del Cloudflare Worker que armaremos
-      en la PARTE 2.
+    const form = document.getElementById("altaForm");
+    const fileInput = document.getElementById("imagenes");
+    const previewGrid = document.getElementById("previewGrid");
+    const imageSummary = document.getElementById("imageSummary");
+    const submitBtn = document.getElementById("submitBtn");
+    const statusBox = document.getElementById("status");
+    const confirmacion = document.getElementById("confirmacion");
 
-    */
+    let imagesAreValid = false;
+    let validatedFiles = [];
+    let previewUrls = [];
 
-    const API_URL =
-      "https://api.sanluissale.com.ar/api/alta";
-
-
-    /*
-      REGLAS DE IMAGEN
-    */
-
-    const MAX_BYTES =
-      400 * 1024;
-
-    const MIN_WIDTH =
-      800;
-
-    const MIN_HEIGHT =
-      600;
-
-    const TARGET_RATIO =
-      4 / 3;
-
-
-    /*
-      Permite una pequeña tolerancia.
-
-      4:3 exacto:
-      1.333333...
-
-      Tolerancia:
-      ±0.02
-    */
-
-    const RATIO_TOLERANCE =
-      0.02;
-
-
-    /*
-      ============================================================
-      ELEMENTOS
-      ============================================================
-    */
-
-    const form =
-      document.getElementById(
-        "altaForm"
-      );
-
-
-    const fileInput =
-      document.getElementById(
-        "imagen"
-      );
-
-
-    const preview =
-      document.getElementById(
-        "preview"
-      );
-
-
-    const previewImg =
-      document.getElementById(
-        "previewImg"
-      );
-
-
-    const checks =
-      document.getElementById(
-        "checks"
-      );
-
-
-    const submitBtn =
-      document.getElementById(
-        "submitBtn"
-      );
-
-
-    const statusBox =
-      document.getElementById(
-        "status"
-      );
-
-
-    const confirmacion =
-      document.getElementById(
-        "confirmacion"
-      );
-
-
-    let imageIsValid =
-      false;
-
-
-    let currentObjectUrl =
-      null;
-
-
-    /*
-      ============================================================
-      HELPERS
-      ============================================================
-    */
-
-    function setCheck(
-      id,
-      ok,
-      text
-    ) {
-
-      const el =
-        document.getElementById(
-          id
-        );
-
-
-      el.className =
-        "check " +
-        (
-          ok
-            ? "ok"
-            : "bad"
-        );
-
-
-      el.textContent =
-        (
-          ok
-            ? "✓ "
-            : "✕ "
-        ) +
-        text;
-
+    function humanKB(bytes) {
+      return Math.round(bytes / 1024) + " KB";
     }
 
-
-    function humanKB(
-      bytes
-    ) {
-
-      return (
-        Math.round(
-          bytes / 1024
-        ) +
-        " KB"
-      );
-
+    function clearPreviewUrls() {
+      previewUrls.forEach(url => URL.revokeObjectURL(url));
+      previewUrls = [];
     }
-
 
     function reevaluateSubmit() {
-
-      submitBtn.disabled =
-        !(
-          imageIsValid &&
-          confirmacion.checked &&
-          form.checkValidity()
-        );
-
+      submitBtn.disabled = !(
+        imagesAreValid &&
+        validatedFiles.length >= 1 &&
+        validatedFiles.length <= MAX_IMAGES &&
+        confirmacion.checked &&
+        form.checkValidity()
+      );
     }
 
+    function readDimensions(file) {
+      return new Promise((resolve, reject) => {
+        const url = URL.createObjectURL(file);
+        const img = new Image();
 
-    /*
-      ============================================================
-      IMAGE VALIDATION
-      ============================================================
-    */
+        img.onload = () => {
+          const result = {
+            width: img.naturalWidth,
+            height: img.naturalHeight
+          };
+          URL.revokeObjectURL(url);
+          resolve(result);
+        };
 
-    async function validateImage(
-      file
-    ) {
+        img.onerror = () => {
+          URL.revokeObjectURL(url);
+          reject(new Error("No se pudo leer la imagen."));
+        };
 
-      imageIsValid =
-        false;
+        img.src = url;
+      });
+    }
 
+    async function validateOneImage(file, index) {
+      const formatOk = ["image/jpeg", "image/webp"].includes(file.type);
+      const weightOk = file.size <= MAX_BYTES;
 
-      checks.style.display =
-        "grid";
+      let dims = null;
+      let dimensionsOk = false;
+      let ratioOk = false;
 
+      if (formatOk) {
+        try {
+          dims = await readDimensions(file);
+          dimensionsOk =
+            dims.width >= MIN_WIDTH &&
+            dims.height >= MIN_HEIGHT;
 
-      preview.style.display =
-        "none";
-
-
-      /*
-        FORMATO
-      */
-
-      const formatOk =
-        [
-          "image/jpeg",
-          "image/webp"
-        ]
-        .includes(
-          file.type
-        );
-
-
-      /*
-        PESO
-      */
-
-      const weightOk =
-        file.size <=
-        MAX_BYTES;
-
-
-      setCheck(
-        "checkFormat",
-        formatOk,
-        formatOk
-          ? "Formato correcto"
-          : "Usá JPG/JPEG o WebP"
-      );
-
-
-      setCheck(
-        "checkWeight",
-        weightOk,
-
-        weightOk
-          ? humanKB(
-              file.size
-            )
-          : (
-              humanKB(
-                file.size
-              ) +
-              " (máximo 400 KB)"
-            )
-      );
-
-
-      if (
-        !formatOk
-      ) {
-
-        setCheck(
-          "checkDimensions",
-          false,
-          "No se pudo validar"
-        );
-
-
-        setCheck(
-          "checkRatio",
-          false,
-          "No se pudo validar"
-        );
-
-
-        reevaluateSubmit();
-
-        return;
-
+          const ratio = dims.width / dims.height;
+          ratioOk =
+            Math.abs(ratio - TARGET_RATIO) <= RATIO_TOLERANCE;
+        } catch (_) {
+          dims = null;
+        }
       }
 
-
-      /*
-        LEEMOS DIMENSIONES
-      */
-
-      const tmpUrl =
-        URL.createObjectURL(
-          file
-        );
-
-
-      const img =
-        new Image();
-
-
-      const dims =
-        await new Promise(
-          (
-            resolve,
-            reject
-          ) => {
-
-            img.onload =
-              () =>
-                resolve(
-                  {
-                    width:
-                      img.naturalWidth,
-
-                    height:
-                      img.naturalHeight
-                  }
-                );
-
-
-            img.onerror =
-              reject;
-
-
-            img.src =
-              tmpUrl;
-
-          }
-        )
-        .finally(
-          () =>
-            URL.revokeObjectURL(
-              tmpUrl
-            )
-        );
-
-
-      /*
-        MINIMO 800x600
-      */
-
-      const dimensionsOk =
-        (
-          dims.width >=
-          MIN_WIDTH
-        ) &&
-        (
-          dims.height >=
-          MIN_HEIGHT
-        );
-
-
-      /*
-        PROPORCION 4:3
-      */
-
-      const ratio =
-        dims.width /
-        dims.height;
-
-
-      const ratioOk =
-        Math.abs(
-          ratio -
-          TARGET_RATIO
-        )
-        <=
-        RATIO_TOLERANCE;
-
-
-      setCheck(
-        "checkDimensions",
-        dimensionsOk,
-
-        dimensionsOk
-
-          ? (
-              dims.width +
-              "×" +
-              dims.height +
-              "px"
-            )
-
-          : (
-              dims.width +
-              "×" +
-              dims.height +
-              "px (mínimo 800×600)"
-            )
-      );
-
-
-      setCheck(
-        "checkRatio",
-        ratioOk,
-
-        ratioOk
-
-          ? "Proporción 4:3 correcta"
-
-          : (
-              "Proporción incorrecta (" +
-              ratio.toFixed(2) +
-              ")"
-            )
-      );
-
-
-      /*
-        PREVIEW
-      */
-
-      if (
-        currentObjectUrl
-      ) {
-
-        URL.revokeObjectURL(
-          currentObjectUrl
-        );
-
-      }
-
-
-      currentObjectUrl =
-        URL.createObjectURL(
-          file
-        );
-
-
-      previewImg.src =
-        currentObjectUrl;
-
-
-      preview.style.display =
-        "block";
-
-
-      /*
-        RESULTADO FINAL
-      */
-
-      imageIsValid =
+      const ok =
         formatOk &&
         weightOk &&
         dimensionsOk &&
         ratioOk;
 
-
-      reevaluateSubmit();
-
+      return {
+        index,
+        file,
+        ok,
+        formatOk,
+        weightOk,
+        dims,
+        dimensionsOk,
+        ratioOk
+      };
     }
 
+    function renderImageResults(results) {
+      clearPreviewUrls();
 
-    /*
-      ============================================================
-      FILE CHANGE
-      ============================================================
-    */
+      previewGrid.innerHTML = results.map((result, i) => {
+        const file = result.file;
+        let imgHtml = "";
 
-    fileInput.addEventListener(
-      "change",
-      async () => {
-
-        statusBox.className =
-          "status";
-
-
-        statusBox.textContent =
-          "";
-
-
-        const file =
-          fileInput.files?.[0];
-
-
-        if (
-          !file
-        ) {
-
-          imageIsValid =
-            false;
-
-
-          preview.style.display =
-            "none";
-
-
-          checks.style.display =
-            "none";
-
-
-          reevaluateSubmit();
-
-          return;
-
+        if (result.formatOk) {
+          const url = URL.createObjectURL(file);
+          previewUrls.push(url);
+          imgHtml = `<img src="${url}" alt="Vista previa ${i + 1}">`;
         }
 
+        const dimsText = result.dims
+          ? `${result.dims.width}×${result.dims.height}px`
+          : "dimensiones no disponibles";
+
+        const issues = [];
+
+        if (!result.formatOk) issues.push("formato inválido");
+        if (!result.weightOk) issues.push(`peso ${humanKB(file.size)} > 400 KB`);
+        if (result.formatOk && !result.dimensionsOk) issues.push(`mínimo 800×600 (${dimsText})`);
+        if (result.formatOk && result.dims && !result.ratioOk) issues.push("proporción distinta de 4:3");
+
+        const detail = result.ok
+          ? `<span class="ok">✓ ${dimsText} · ${humanKB(file.size)}</span>`
+          : `<span class="bad">✕ ${issues.join(" · ") || "imagen inválida"}</span>`;
+
+        return `
+          <article class="preview-item ${result.ok ? "" : "bad"}">
+            <div class="preview-media">
+              ${imgHtml}
+              <span class="preview-number">FOTO ${i + 1}</span>
+              ${i === 0 ? `<span class="preview-main">PRINCIPAL</span>` : ""}
+            </div>
+            <div class="preview-info">
+              ${detail}
+            </div>
+          </article>
+        `;
+      }).join("");
+
+      previewGrid.style.display = results.length ? "grid" : "none";
+    }
+
+    async function validateSelectedImages() {
+      statusBox.className = "status";
+      statusBox.textContent = "";
+
+      imagesAreValid = false;
+      validatedFiles = [];
+
+      const files = Array.from(fileInput.files || []);
+
+      if (!files.length) {
+        clearPreviewUrls();
+        previewGrid.innerHTML = "";
+        previewGrid.style.display = "none";
+        imageSummary.style.display = "none";
+        reevaluateSubmit();
+        return;
+      }
+
+      if (files.length > MAX_IMAGES) {
+        clearPreviewUrls();
+        previewGrid.innerHTML = "";
+        previewGrid.style.display = "none";
+
+        imageSummary.className = "image-summary bad";
+        imageSummary.style.display = "block";
+        imageSummary.textContent =
+          `✕ Seleccionaste ${files.length} imágenes. El máximo es ${MAX_IMAGES}.`;
+
+        reevaluateSubmit();
+        return;
+      }
+
+      imageSummary.className = "image-summary";
+      imageSummary.style.display = "block";
+      imageSummary.textContent = `Validando ${files.length} imagen${files.length === 1 ? "" : "es"}…`;
+
+      const results = [];
+
+      for (let i = 0; i < files.length; i++) {
+        try {
+          results.push(await validateOneImage(files[i], i));
+        } catch (_) {
+          results.push({
+            index: i,
+            file: files[i],
+            ok: false,
+            formatOk: false,
+            weightOk: files[i].size <= MAX_BYTES,
+            dims: null,
+            dimensionsOk: false,
+            ratioOk: false
+          });
+        }
+      }
+
+      renderImageResults(results);
+
+      imagesAreValid = results.every(result => result.ok);
+      validatedFiles = imagesAreValid ? files : [];
+
+      imageSummary.className =
+        "image-summary " + (imagesAreValid ? "ok" : "bad");
+
+      imageSummary.textContent = imagesAreValid
+        ? `✓ ${files.length} imagen${files.length === 1 ? "" : "es"} válida${files.length === 1 ? "" : "s"}. La foto 1 será la principal.`
+        : "✕ Hay una o más imágenes que no cumplen las reglas.";
+
+      reevaluateSubmit();
+    }
+
+    fileInput.addEventListener("change", validateSelectedImages);
+
+    form.addEventListener("input", reevaluateSubmit);
+    form.addEventListener("change", reevaluateSubmit);
+    confirmacion.addEventListener("change", reevaluateSubmit);
+
+    form.addEventListener("submit", async event => {
+      event.preventDefault();
+
+      const website = document.getElementById("website").value.trim();
+      if (website) return;
+
+      if (
+        !form.reportValidity() ||
+        !imagesAreValid ||
+        validatedFiles.length < 1 ||
+        validatedFiles.length > MAX_IMAGES ||
+        !confirmacion.checked
+      ) {
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = "ENVIANDO…";
+      statusBox.className = "status";
+      statusBox.textContent = "";
+
+      const data = new FormData();
+
+      data.append("nombre", document.getElementById("nombre").value.trim());
+      data.append("rubro", document.getElementById("rubro").value);
+      data.append("oferta", document.getElementById("oferta").value.trim());
+      data.append("zona", document.getElementById("zona").value.trim());
+      data.append("telefono", document.getElementById("telefono").value.trim());
+
+      validatedFiles.forEach(file => {
+        data.append("imagenes", file, file.name);
+      });
+
+      try {
+        const response = await fetch(API_URL, {
+          method: "POST",
+          body: data
+        });
+
+        let payload = {};
 
         try {
+          payload = await response.json();
+        } catch (_) {
+          // respuesta no JSON
+        }
 
-          await validateImage(
-            file
+        if (!response.ok) {
+          throw new Error(
+            payload.error ||
+            "No pudimos enviar el formulario."
           );
-
-        }
-        catch {
-
-          imageIsValid =
-            false;
-
-
-          setCheck(
-            "checkDimensions",
-            false,
-            "No pudimos leer la imagen"
-          );
-
-
-          setCheck(
-            "checkRatio",
-            false,
-            "No pudimos validar la proporción"
-          );
-
-
-          reevaluateSubmit();
-
         }
 
-      }
-    );
+        statusBox.className = "status ok";
+        statusBox.innerHTML = `
+          <strong>¡Gracias!</strong><br>
+          Recibimos la información de tu comercio y
+          ${payload.images_count || validatedFiles.length}
+          imagen${(payload.images_count || validatedFiles.length) === 1 ? "" : "es"}.
+          La revisaremos antes de publicarla.
+        `;
 
+        form.reset();
+        imagesAreValid = false;
+        validatedFiles = [];
 
-    /*
-      ============================================================
-      VALIDATE FORM
-      ============================================================
-    */
-
-    form.addEventListener(
-      "input",
-      reevaluateSubmit
-    );
-
-
-    form.addEventListener(
-      "change",
-      reevaluateSubmit
-    );
-
-
-    confirmacion.addEventListener(
-      "change",
-      reevaluateSubmit
-    );
-
-
-    /*
-      ============================================================
-      SUBMIT
-      ============================================================
-    */
-
-    form.addEventListener(
-      "submit",
-      async (
-        e
-      ) => {
-
-        e.preventDefault();
-
-
-        /*
-          HONEYPOT
-        */
-
-        const website =
-          document
-            .getElementById(
-              "website"
-            )
-            .value
-            .trim();
-
-
-        if (
-          website
-        ) {
-
-          return;
-
-        }
-
-
-        /*
-          VALIDACION FINAL
-        */
-
-        if (
-          !form.reportValidity() ||
-          !imageIsValid ||
-          !confirmacion.checked
-        ) {
-
-          return;
-
-        }
-
-
-        submitBtn.disabled =
-          true;
-
-
-        submitBtn.textContent =
-          "ENVIANDO…";
-
-
-        statusBox.className =
-          "status";
-
-
+        clearPreviewUrls();
+        previewGrid.innerHTML = "";
+        previewGrid.style.display = "none";
+        imageSummary.style.display = "none";
+      } catch (error) {
+        statusBox.className = "status err";
         statusBox.textContent =
-          "";
-
-
-        /*
-          FORM DATA
-        */
-
-        const data =
-          new FormData();
-
-
-        data.append(
-          "nombre",
-          document
-            .getElementById(
-              "nombre"
-            )
-            .value
-            .trim()
-        );
-
-
-        data.append(
-          "rubro",
-          document
-            .getElementById(
-              "rubro"
-            )
-            .value
-        );
-
-
-        data.append(
-          "oferta",
-          document
-            .getElementById(
-              "oferta"
-            )
-            .value
-            .trim()
-        );
-
-
-        data.append(
-          "zona",
-          document
-            .getElementById(
-              "zona"
-            )
-            .value
-            .trim()
-        );
-
-
-        data.append(
-          "telefono",
-          document
-            .getElementById(
-              "telefono"
-            )
-            .value
-            .trim()
-        );
-
-
-        data.append(
-          "imagen",
-          fileInput.files[0]
-        );
-
-
-        /*
-          SEND TO WORKER
-        */
-
-        try {
-
-          const response =
-            await fetch(
-              API_URL,
-              {
-                method:
-                  "POST",
-
-                body:
-                  data
-              }
-            );
-
-
-          let payload =
-            {};
-
-
-          try {
-
-            payload =
-              await response.json();
-
-          }
-          catch {
-
-            // respuesta no JSON
-          }
-
-
-          if (
-            !response.ok
-          ) {
-
-            throw new Error(
-              payload.error ||
-              "No pudimos enviar el formulario."
-            );
-
-          }
-
-
-          /*
-            OK
-          */
-
-          statusBox.className =
-            "status ok";
-
-
-          statusBox.innerHTML =
-            `
-              <strong>
-                ¡Gracias!
-              </strong>
-
-              <br>
-
-              Recibimos la información de tu comercio.
-
-              La revisaremos antes de publicarla.
-            `;
-
-
-          /*
-            RESET
-          */
-
-          form.reset();
-
-
-          imageIsValid =
-            false;
-
-
-          preview.style.display =
-            "none";
-
-
-          checks.style.display =
-            "none";
-
-
-          if (
-            currentObjectUrl
-          ) {
-
-            URL.revokeObjectURL(
-              currentObjectUrl
-            );
-
-
-            currentObjectUrl =
-              null;
-
-          }
-
-        }
-        catch (
-          error
-        ) {
-
-          statusBox.className =
-            "status err";
-
-
-          statusBox.textContent =
-            error.message ||
-            "Ocurrió un error al enviar el comercio.";
-
-        }
-        finally {
-
-          submitBtn.textContent =
-            "ENVIAR COMERCIO";
-
-
-          reevaluateSubmit();
-
-        }
-
+          error.message ||
+          "Ocurrió un error al enviar el comercio.";
+      } finally {
+        submitBtn.textContent = "ENVIAR COMERCIO";
+        reevaluateSubmit();
       }
-    );
+    });
 
+    window.addEventListener("beforeunload", clearPreviewUrls);
   </script>
-
 </body>
 </html>
