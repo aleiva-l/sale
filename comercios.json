@@ -9,5 +9,18 @@
     "imagenes": [
       "https://img.sanluissale.com.ar/comercios/2026/09/2b755dc2-fa65-49d1-bb14-c0748a6f0c1a.jpg"
     ]
+  },
+  {
+    "nombre": "Tienda de prueba",
+    "rubro": "Gastronomía",
+    "oferta": "30% en productos",
+    "zona": "Rivadavia 123, San Luis",
+    "telefono": "2664001122",
+    "imagen": "https://img.sanluissale.com.ar/comercios/2026/09/2a273e66-c612-40f8-b5d2-c5c5b4acb0fe/01.jpg",
+    "imagenes": [
+      "https://img.sanluissale.com.ar/comercios/2026/09/2a273e66-c612-40f8-b5d2-c5c5b4acb0fe/01.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/09/2a273e66-c612-40f8-b5d2-c5c5b4acb0fe/02.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/09/2a273e66-c612-40f8-b5d2-c5c5b4acb0fe/03.jpg"
+    ]
   }
 ]
