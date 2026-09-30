@@ -1,16 +1,5 @@
 [
   {
-    "nombre": "Bertas",
-    "rubro": "Calzado",
-    "oferta": "50% en panchas y guillerminas",
-    "zona": "Rivadavia 524, San Luis",
-    "telefono": "2665109450",
-    "imagen": "https://img.sanluissale.com.ar/comercios/2026/09/2b755dc2-fa65-49d1-bb14-c0748a6f0c1a.jpg",
-    "imagenes": [
-      "https://img.sanluissale.com.ar/comercios/2026/09/2b755dc2-fa65-49d1-bb14-c0748a6f0c1a.jpg"
-    ]
-  },
-  {
     "nombre": "Tienda de prueba",
     "rubro": "Gastronomía",
     "oferta": "30% en productos",
@@ -21,6 +10,23 @@
       "https://img.sanluissale.com.ar/comercios/2026/09/2a273e66-c612-40f8-b5d2-c5c5b4acb0fe/01.jpg",
       "https://img.sanluissale.com.ar/comercios/2026/09/2a273e66-c612-40f8-b5d2-c5c5b4acb0fe/02.jpg",
       "https://img.sanluissale.com.ar/comercios/2026/09/2a273e66-c612-40f8-b5d2-c5c5b4acb0fe/03.jpg"
+    ]
+  },
+  {
+    "nombre": "Bertas",
+    "rubro": "Calzado",
+    "oferta": "30 % al 50 % en panchas y Guillerminas",
+    "zona": "Rivadavia 524, San Luis",
+    "telefono": "2665109450",
+    "imagen": "https://img.sanluissale.com.ar/comercios/2026/09/aa9b7989-4a08-437f-ab21-843758c973af/01.jpg",
+    "imagenes": [
+      "https://img.sanluissale.com.ar/comercios/2026/09/aa9b7989-4a08-437f-ab21-843758c973af/01.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/09/aa9b7989-4a08-437f-ab21-843758c973af/02.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/09/aa9b7989-4a08-437f-ab21-843758c973af/03.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/09/aa9b7989-4a08-437f-ab21-843758c973af/04.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/09/aa9b7989-4a08-437f-ab21-843758c973af/05.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/09/aa9b7989-4a08-437f-ab21-843758c973af/06.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/09/aa9b7989-4a08-437f-ab21-843758c973af/07.jpg"
     ]
   }
 ]
