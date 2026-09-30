@@ -1,16 +1,5 @@
 [
   {
-    "nombre": "Tienda de Prueba",
-    "rubro": "Calzado",
-    "oferta": "30% off en zapatillas seleccionadas",
-    "zona": "Rivadavia 123, San Luis",
-    "telefono": "2664001122",
-    "imagen": "https://img.sanluissale.com.ar/comercios/2026/09/cbb3e0e1-d2ff-417e-af03-0ecb90816632.jpg",
-    "imagenes": [
-      "https://img.sanluissale.com.ar/comercios/2026/09/cbb3e0e1-d2ff-417e-af03-0ecb90816632.jpg"
-    ]
-  },
-  {
     "nombre": "Bertas",
     "rubro": "Calzado",
     "oferta": "50% en panchas y guillerminas",
