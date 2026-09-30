@@ -1,19 +1,14 @@
 [
   {
-    "nombre": "Bambini's",
-    "rubro": "Indumentaria",
-    "oferta": "Descuentos en ropa para chicos/as",
-    "zona": "Bernardo Houssay",
-    "telefono": "2664002233",
-    "imagen": "https://loremflickr.com/500/375/sneakers,fashion"
-  },
-  {
     "nombre": "Tienda de Prueba",
     "rubro": "Calzado",
     "oferta": "30% off en zapatillas seleccionadas",
     "zona": "Rivadavia 123, San Luis",
     "telefono": "2664001122",
-    "imagen": "https://img.sanluissale.com.ar/comercios/2026/09/cbb3e0e1-d2ff-417e-af03-0ecb90816632.jpg"
+    "imagen": "https://img.sanluissale.com.ar/comercios/2026/09/cbb3e0e1-d2ff-417e-af03-0ecb90816632.jpg",
+    "imagenes": [
+      "https://img.sanluissale.com.ar/comercios/2026/09/cbb3e0e1-d2ff-417e-af03-0ecb90816632.jpg"
+    ]
   },
   {
     "nombre": "Bertas",
@@ -21,6 +16,9 @@
     "oferta": "50% en panchas y guillerminas",
     "zona": "Rivadavia 524, San Luis",
     "telefono": "2665109450",
-    "imagen": "https://img.sanluissale.com.ar/comercios/2026/09/2b755dc2-fa65-49d1-bb14-c0748a6f0c1a.jpg"
+    "imagen": "https://img.sanluissale.com.ar/comercios/2026/09/2b755dc2-fa65-49d1-bb14-c0748a6f0c1a.jpg",
+    "imagenes": [
+      "https://img.sanluissale.com.ar/comercios/2026/09/2b755dc2-fa65-49d1-bb14-c0748a6f0c1a.jpg"
+    ]
   }
 ]
