@@ -675,6 +675,12 @@
       min-width: 0;
     }
 
+    .date-wrap {
+      display: flex;
+      justify-content: center;
+      margin: 16px 0 24px;
+    }
+
     .date-ticket {
       position: absolute;
       left: 50%;
@@ -722,7 +728,7 @@
     .hero-title {
       position: relative;
       margin: 0;
-      padding-bottom: 16px;
+      padding-bottom: 14px;
       color: #fff;
       font-family:
         -apple-system,
@@ -732,10 +738,10 @@
         Helvetica,
         Arial,
         sans-serif;
-      font-size: clamp(2.3rem, 10vw, 4.5rem);
+      font-size: clamp(2rem, 8vw, 3.45rem);
       font-weight: 950;
-      line-height: .94;
-      letter-spacing: -.055em;
+      line-height: .98;
+      letter-spacing: -.045em;
       text-align: center;
       text-transform: uppercase;
       white-space: normal;
@@ -764,174 +770,31 @@
     }
 
     .subtitle {
-      margin: 18px auto 0;
-      max-width: 620px;
+      margin: 16px auto 0;
+      max-width: 520px;
       color: var(--sls-muted);
-      font-size: clamp(1rem, 2.2vw, 1.18rem);
-      line-height: 1.5;
+      font-size: clamp(.95rem, 2vw, 1.06rem);
+      line-height: 1.45;
       text-align: center;
     }
 
-    .gift-stage {
-      position: relative;
-      width: min(100%, 300px);
-      height: 176px;
-      margin: 10px auto 0;
-      display: grid;
-      place-items: center;
-      overflow: visible;
-      padding-bottom: 26px;
-    }
 
-    .gift-glow {
-      position: absolute;
-      left: 50%;
-      bottom: 18px;
-      width: 78%;
-      height: 48%;
-      transform: translateX(-50%);
-      border-radius: 50%;
-      background: radial-gradient(
-        ellipse at center,
-        rgba(239, 43, 45, .34) 0%,
-        rgba(239, 43, 45, .12) 42%,
-        transparent 72%
-      );
-      filter: blur(12px);
-      pointer-events: none;
-    }
 
-    .gift-box {
-      position: relative;
-      width: 150px;
-      height: 98px;
-      margin-bottom: 15px;
-      border: 1px solid #393939;
-      border-radius: 14px 14px 18px 18px;
-      background:
-        linear-gradient(145deg, #232323 0%, #111 52%, #080808 100%);
-      box-shadow:
-        0 24px 50px rgba(0, 0, 0, .48),
-        0 0 36px rgba(239, 43, 45, .12),
-        inset 0 1px 0 rgba(255,255,255,.06);
-    }
 
-    .gift-box::before {
-      content: "";
-      position: absolute;
-      left: 50%;
-      top: 0;
-      bottom: 0;
-      width: 24%;
-      transform: translateX(-50%);
-      background: linear-gradient(90deg, #bd171c, #ff3036 48%, #c0191e);
-      box-shadow: 0 0 18px rgba(239, 43, 45, .18);
-    }
 
-    .gift-box::after {
-      content: "";
-      position: absolute;
-      left: -5%;
-      right: -5%;
-      top: -18%;
-      height: 25%;
-      border: 1px solid #3d3d3d;
-      border-radius: 12px;
-      background:
-        linear-gradient(145deg, #2d2d2d 0%, #171717 60%, #0e0e0e 100%);
-      box-shadow:
-        0 10px 18px rgba(0,0,0,.28),
-        inset 0 1px 0 rgba(255,255,255,.05);
-      z-index: 2;
-    }
 
-    .gift-ribbon-horizontal {
-      position: absolute;
-      z-index: 3;
-      left: -5%;
-      right: -5%;
-      top: -8%;
-      height: 13%;
-      background: linear-gradient(180deg, #ff383d, #d51f25);
-      box-shadow: 0 0 16px rgba(239,43,45,.16);
-    }
 
-    .gift-bow {
-      position: absolute;
-      z-index: 4;
-      left: 50%;
-      top: -46%;
-      width: 76%;
-      height: 48%;
-      transform: translateX(-50%);
-    }
 
-    .gift-bow::before,
-    .gift-bow::after {
-      content: "";
-      position: absolute;
-      top: 16%;
-      width: 46%;
-      height: 68%;
-      border-radius: 55% 55% 48% 55%;
-      background: linear-gradient(145deg, #ff4045, #c7171d);
-      box-shadow:
-        0 5px 18px rgba(0,0,0,.26),
-        0 0 14px rgba(239,43,45,.16);
-    }
 
-    .gift-bow::before {
-      left: 3%;
-      transform: rotate(26deg);
-      transform-origin: 100% 70%;
-    }
 
-    .gift-bow::after {
-      right: 3%;
-      transform: rotate(-26deg);
-      transform-origin: 0 70%;
-    }
 
-    .gift-knot {
-      position: absolute;
-      z-index: 5;
-      left: 50%;
-      top: -26%;
-      width: 23%;
-      aspect-ratio: 1;
-      transform: translateX(-50%);
-      border-radius: 50%;
-      background: linear-gradient(145deg, #ff454a, #c81920);
-      box-shadow:
-        0 6px 16px rgba(0,0,0,.25),
-        inset 0 1px 0 rgba(255,255,255,.16);
-    }
 
-    .confetti {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-    }
 
-    .confetti i {
-      position: absolute;
-      display: block;
-      width: 7px;
-      height: 24px;
-      border-radius: 2px;
-      background: linear-gradient(180deg, #ff3a40, #d11920);
-      box-shadow: 0 0 12px rgba(239,43,45,.18);
-    }
 
-    .confetti i:nth-child(1) { left: 18%; top: 24%; transform: rotate(-38deg); }
-    .confetti i:nth-child(2) { left: 28%; top: 12%; height: 17px; transform: rotate(-18deg); }
-    .confetti i:nth-child(3) { right: 20%; top: 24%; transform: rotate(38deg); }
-    .confetti i:nth-child(4) { right: 29%; top: 11%; height: 17px; transform: rotate(18deg); }
-    .confetti i:nth-child(5) { left: 14%; top: 55%; height: 16px; transform: rotate(-72deg); }
-    .confetti i:nth-child(6) { right: 14%; top: 55%; height: 16px; transform: rotate(72deg); }
 
     .form-column {
-      padding-top: 2px;
+      padding-top: 0;
+      margin-top: 0;
     }
 
     .form-column .field:first-child {
@@ -957,7 +820,7 @@
       }
 
       .hero-title {
-        font-size: clamp(3rem, 4.2vw, 3.9rem);
+        font-size: clamp(2.55rem, 3.8vw, 3.35rem);
       }
 
       .subtitle {
@@ -965,17 +828,7 @@
         font-size: 1rem;
       }
 
-      .gift-stage {
-        width: min(100%, 280px);
-        height: 164px;
-        margin-top: 8px;
-        padding-bottom: 26px;
-      }
 
-      .gift-box {
-        width: 142px;
-        height: 92px;
-      }
 
         .form-column {
         margin-top: 24px;
@@ -1000,7 +853,7 @@
       }
 
       .hero-title {
-        font-size: clamp(2.05rem, 11vw, 2.8rem);
+        font-size: clamp(1.95rem, 10vw, 2.45rem);
       }
 
       .subtitle {
@@ -1010,17 +863,7 @@
         line-height: 1.45;
       }
 
-      .gift-stage {
-        width: min(100%, 240px);
-        height: 142px;
-        margin-top: 6px;
-        padding-bottom: 24px;
-      }
 
-      .gift-box {
-        width: 126px;
-        height: 82px;
-      }
 
         .field {
         margin-bottom: 14px;
@@ -1190,16 +1033,7 @@
                 Registrate y descubrí al instante si te llevás un premio.
               </p>
 
-              <div class="gift-stage">
-                <div class="gift-glow" aria-hidden="true"></div>
-                <div class="confetti" aria-hidden="true">
-                  <i></i><i></i><i></i><i></i><i></i><i></i>
-                </div>
-                <div class="gift-box" aria-hidden="true">
-                  <div class="gift-ribbon-horizontal"></div>
-                  <div class="gift-bow"></div>
-                  <div class="gift-knot"></div>
-                </div>
+              <div class="date-wrap">
                 <div id="fechaSorteoBox" class="date-ticket hidden">
                   <span class="date-ticket-label">Sorteo</span>
                   <strong id="fechaSorteoLabel"></strong>
