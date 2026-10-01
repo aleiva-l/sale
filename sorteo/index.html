@@ -958,8 +958,11 @@
     const APP_CONFIG = {
       comercio: params.get('comercio') || 'General',
       fechaSorteo: params.get('fechaSorteo') || '',
-      cerrado: ['1', 'true', 'si', 'sí'].includes((params.get('cerrado') || '').toLowerCase()),
-      mensaje: params.get('mensaje') || ''
+      cerrado: false,
+      mensaje: '',
+      maxParticipaciones: null,
+      nombreSorteo: '',
+      fechaLimite: ''
     };
     const comercioNombre = APP_CONFIG.comercio;
     const fechaSorteo = APP_CONFIG.fechaSorteo;
@@ -978,7 +981,7 @@
     const errorBox =
       document.getElementById('errorBox');
     inicializar();
-    function inicializar() {
+    async function inicializar() {
       document
         .getElementById('comercioLabel')
         .textContent = comercioNombre;
@@ -992,14 +995,45 @@
       } else {
         fechaSorteoBox.classList.add('hidden');
       }
-      if (APP_CONFIG.cerrado) {
-        formView.classList.add('hidden');
-        closedView.classList.remove('hidden');
-        document
-          .getElementById('closedMessage')
-          .textContent =
-          APP_CONFIG.mensaje ||
-          'Este sorteo no está disponible.';
+      try {
+        const response = await fetch(
+          'https://api.sanluissale.com.ar/api/sorteo/config',
+          {
+            method: 'GET',
+            cache: 'no-store'
+          }
+        );
+        const config =
+          await response.json().catch(() => null);
+        if (
+          !response.ok ||
+          !config ||
+          config.success !== true
+        ) {
+          throw new Error(
+            config?.error ||
+            'No se pudo obtener la configuración del sorteo.'
+          );
+        }
+        APP_CONFIG.cerrado = Boolean(config.cerrado);
+        APP_CONFIG.mensaje = config.mensaje || '';
+        APP_CONFIG.maxParticipaciones = config.maxParticipaciones ?? null;
+        APP_CONFIG.nombreSorteo = config.nombreSorteo || '';
+        APP_CONFIG.fechaLimite = config.fechaLimite || '';
+        if (APP_CONFIG.cerrado) {
+          formView.classList.add('hidden');
+          closedView.classList.remove('hidden');
+          document
+            .getElementById('closedMessage')
+            .textContent =
+            APP_CONFIG.mensaje ||
+            'Este sorteo no está disponible.';
+        }
+      } catch (error) {
+        console.error(
+          'Error obteniendo estado del sorteo:',
+          error
+        );
       }
     }
     form.addEventListener(
@@ -1064,7 +1098,7 @@
       }
     );
     async function llamarParticipar(payload) {
-      const response = await fetch('/api/participar', {
+      const response = await fetch('https://api.sanluissale.com.ar/api/participar', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
