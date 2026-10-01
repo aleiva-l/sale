@@ -80,7 +80,7 @@
 
     .app {
       width: 100%;
-      max-width: 560px;
+      max-width: 620px;
       margin: auto 0;
     }
 
@@ -668,10 +668,7 @@
     }
 
     .form-view-shell {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr);
-      gap: 28px;
-      align-items: start;
+      display: block;
     }
 
     .promo-column {
@@ -737,9 +734,9 @@
 
     .gift-stage {
       position: relative;
-      width: min(100%, 360px);
-      height: clamp(170px, 34vw, 245px);
-      margin: 18px auto 0;
+      width: min(100%, 280px);
+      height: 165px;
+      margin: 14px auto 0;
       display: grid;
       place-items: end center;
       overflow: hidden;
@@ -765,9 +762,9 @@
 
     .gift-box {
       position: relative;
-      width: clamp(145px, 45vw, 220px);
-      height: clamp(100px, 28vw, 145px);
-      margin-bottom: 18px;
+      width: 150px;
+      height: 98px;
+      margin-bottom: 15px;
       border: 1px solid #393939;
       border-radius: 14px 14px 18px 18px;
       background:
@@ -945,50 +942,53 @@
       body {
         align-items: center;
         padding:
-          max(28px, env(safe-area-inset-top))
-          max(28px, env(safe-area-inset-right))
-          max(28px, env(safe-area-inset-bottom))
-          max(28px, env(safe-area-inset-left));
+          max(24px, env(safe-area-inset-top))
+          max(24px, env(safe-area-inset-right))
+          max(24px, env(safe-area-inset-bottom))
+          max(24px, env(safe-area-inset-left));
       }
 
       .app {
-        max-width: 1040px;
+        max-width: 620px;
       }
 
       .content {
-        padding: 38px 44px 44px;
-      }
-
-      .form-view-shell {
-        grid-template-columns: minmax(0, 1.03fr) minmax(360px, .97fr);
-        gap: 52px;
-        align-items: center;
+        padding: 30px 34px 34px;
       }
 
       .hero-title {
-        font-size: clamp(3.4rem, 5.2vw, 5.2rem);
+        font-size: clamp(3rem, 4.2vw, 3.9rem);
       }
 
       .subtitle {
-        max-width: 560px;
+        max-width: 500px;
+        font-size: 1rem;
       }
 
       .gift-stage {
-        height: 250px;
+        width: min(100%, 260px);
+        height: 150px;
+        margin-top: 12px;
+      }
+
+      .gift-box {
+        width: 142px;
+        height: 92px;
+      }
+
+      .date-badge {
+        margin-top: 6px;
       }
 
       .form-column {
-        padding: 12px 0 4px;
-      }
-
-      .form-column .button {
-        margin-top: 14px;
+        margin-top: 24px;
+        padding: 0;
       }
     }
 
     @media (max-width: 520px) {
       .content {
-        padding: 20px 16px 22px;
+        padding: 20px 16px 24px;
       }
 
       .sl-brand {
@@ -1003,27 +1003,45 @@
       }
 
       .hero-title {
-        font-size: clamp(2.2rem, 12.5vw, 3.4rem);
+        font-size: clamp(2.05rem, 11vw, 2.8rem);
       }
 
       .subtitle {
-        margin-top: 16px;
-        font-size: .98rem;
+        margin-top: 14px;
+        max-width: 330px;
+        font-size: .94rem;
+        line-height: 1.45;
       }
 
       .gift-stage {
-        height: 188px;
-        margin-top: 12px;
+        width: min(100%, 230px);
+        height: 132px;
+        margin-top: 10px;
       }
 
       .gift-box {
-        width: 158px;
-        height: 104px;
+        width: 126px;
+        height: 82px;
       }
 
       .date-badge {
         padding: 11px 15px;
         font-size: .9rem;
+      }
+      .form-column {
+        margin-top: 22px;
+      }
+
+      .field {
+        margin-bottom: 14px;
+      }
+
+      .input {
+        min-height: 50px;
+      }
+
+      .button {
+        min-height: 52px;
       }
     }
 
