@@ -675,6 +675,46 @@
       min-width: 0;
     }
 
+    .date-ticket {
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      z-index: 8;
+      transform: translateX(-50%);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-width: 190px;
+      max-width: calc(100% - 24px);
+      padding: 10px 16px;
+      border: 1px solid rgba(239, 43, 45, .9);
+      border-radius: 999px;
+      background:
+        linear-gradient(180deg, rgba(239, 43, 45, .18), rgba(239, 43, 45, .08)),
+        rgba(12, 12, 12, .96);
+      color: #d7d7d7;
+      box-shadow:
+        0 12px 28px rgba(0,0,0,.32),
+        0 0 20px rgba(239,43,45,.10);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      white-space: nowrap;
+      font-size: clamp(.88rem, 2vw, 1rem);
+      line-height: 1.1;
+    }
+
+    .date-ticket-label {
+      color: #b9b9b9;
+      font-weight: 700;
+    }
+
+    .date-ticket strong {
+      color: #fff;
+      font-weight: 950;
+      letter-spacing: .01em;
+    }
+
     .form-column {
       min-width: 0;
     }
@@ -734,12 +774,13 @@
 
     .gift-stage {
       position: relative;
-      width: min(100%, 280px);
-      height: 165px;
-      margin: 14px auto 0;
+      width: min(100%, 300px);
+      height: 176px;
+      margin: 10px auto 0;
       display: grid;
-      place-items: end center;
-      overflow: hidden;
+      place-items: center;
+      overflow: visible;
+      padding-bottom: 26px;
     }
 
     .gift-glow {
@@ -889,47 +930,6 @@
     .confetti i:nth-child(5) { left: 14%; top: 55%; height: 16px; transform: rotate(-72deg); }
     .confetti i:nth-child(6) { right: 14%; top: 55%; height: 16px; transform: rotate(72deg); }
 
-    .date-badge {
-      width: fit-content;
-      max-width: 100%;
-      margin: 8px auto 0;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 12px 18px;
-      border: 1px solid rgba(239, 43, 45, .82);
-      border-radius: 999px;
-      background:
-        linear-gradient(
-          180deg,
-          rgba(239, 43, 45, .10),
-          rgba(239, 43, 45, .045)
-        ),
-        #101010;
-      color: #d0d0d0;
-      box-shadow:
-        0 10px 30px rgba(0,0,0,.24),
-        0 0 24px rgba(239,43,45,.06);
-      font-size: clamp(.92rem, 2vw, 1.02rem);
-      line-height: 1.2;
-    }
-
-    .date-badge-icon {
-      width: 20px;
-      height: 20px;
-      flex: 0 0 20px;
-      display: grid;
-      place-items: center;
-      color: var(--sls-red);
-      font-size: 18px;
-    }
-
-    .date-badge strong {
-      color: #fff;
-      font-weight: 900;
-    }
-
     .form-column {
       padding-top: 2px;
     }
@@ -966,9 +966,10 @@
       }
 
       .gift-stage {
-        width: min(100%, 260px);
-        height: 150px;
-        margin-top: 12px;
+        width: min(100%, 280px);
+        height: 164px;
+        margin-top: 8px;
+        padding-bottom: 26px;
       }
 
       .gift-box {
@@ -976,11 +977,7 @@
         height: 92px;
       }
 
-      .date-badge {
-        margin-top: 6px;
-      }
-
-      .form-column {
+        .form-column {
         margin-top: 24px;
         padding: 0;
       }
@@ -1014,9 +1011,10 @@
       }
 
       .gift-stage {
-        width: min(100%, 230px);
-        height: 132px;
-        margin-top: 10px;
+        width: min(100%, 240px);
+        height: 142px;
+        margin-top: 6px;
+        padding-bottom: 24px;
       }
 
       .gift-box {
@@ -1024,15 +1022,7 @@
         height: 82px;
       }
 
-      .date-badge {
-        padding: 11px 15px;
-        font-size: .9rem;
-      }
-      .form-column {
-        margin-top: 22px;
-      }
-
-      .field {
+        .field {
         margin-bottom: 14px;
       }
 
@@ -1042,6 +1032,12 @@
 
       .button {
         min-height: 52px;
+      }
+
+      .date-ticket {
+        min-width: 176px;
+        padding: 9px 14px;
+        font-size: .88rem;
       }
     }
 
@@ -1054,12 +1050,7 @@
         font-size: 15px;
       }
 
-      .date-badge {
-        width: 100%;
-      }
-    }
-
-    .field label {
+      .field label {
       color: #e9e9e9;
     }
 
@@ -1199,24 +1190,20 @@
                 Registrate y descubrí al instante si te llevás un premio.
               </p>
 
-              <div class="gift-stage" aria-hidden="true">
-                <div class="gift-glow"></div>
-                <div class="confetti">
+              <div class="gift-stage">
+                <div class="gift-glow" aria-hidden="true"></div>
+                <div class="confetti" aria-hidden="true">
                   <i></i><i></i><i></i><i></i><i></i><i></i>
                 </div>
-                <div class="gift-box">
+                <div class="gift-box" aria-hidden="true">
                   <div class="gift-ribbon-horizontal"></div>
                   <div class="gift-bow"></div>
                   <div class="gift-knot"></div>
                 </div>
-              </div>
-
-              <div id="fechaSorteoBox" class="date-badge hidden">
-                <span class="date-badge-icon" aria-hidden="true">▣</span>
-                <span>
-                  Sorteo:
+                <div id="fechaSorteoBox" class="date-ticket hidden">
+                  <span class="date-ticket-label">Sorteo</span>
                   <strong id="fechaSorteoLabel"></strong>
-                </span>
+                </div>
               </div>
             </div>
 
