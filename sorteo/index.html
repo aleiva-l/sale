@@ -609,48 +609,83 @@
       padding: clamp(22px, 6vw, 34px);
     }
 
+
     .sl-brand {
       display: flex;
       align-items: center;
-      gap: 12px;
-      margin-bottom: 28px;
+      gap: 14px;
+      margin-bottom: clamp(24px, 4vw, 34px);
     }
 
     .sl-brand-mark {
-      width: 52px;
-      height: 52px;
-      flex: 0 0 52px;
+      width: clamp(50px, 7vw, 64px);
+      height: clamp(50px, 7vw, 64px);
+      flex: 0 0 auto;
       display: grid;
       place-items: center;
-      border-radius: 15px;
-      background: var(--sls-red);
+      border-radius: 18px;
+      background: linear-gradient(145deg, #ff3338, #e91f27);
       color: #fff;
-      font-size: 20px;
-      font-weight: 900;
-      letter-spacing: -0.03em;
-      box-shadow: 0 10px 28px rgba(239, 43, 45, 0.18);
+      font-size: clamp(20px, 3vw, 27px);
+      font-weight: 950;
+      letter-spacing: -0.04em;
+      box-shadow:
+        0 12px 30px rgba(239, 43, 45, 0.22),
+        inset 0 1px 0 rgba(255,255,255,.16);
+    }
+
+    .sl-brand-copy {
+      min-width: 0;
     }
 
     .sl-brand-copy strong {
       display: block;
       color: #fff;
-      font-size: 19px;
-      font-weight: 900;
-      letter-spacing: 0.02em;
+      font-size: clamp(19px, 2.7vw, 27px);
+      font-weight: 950;
+      letter-spacing: .01em;
+      line-height: 1.05;
     }
 
-    .sl-brand-copy span {
+    .brand-commerce {
       display: block;
-      margin-top: 2px;
+      margin-top: 4px;
+      overflow: hidden;
+      color: #fff;
+      font-size: clamp(16px, 2.3vw, 21px);
+      font-weight: 850;
+      line-height: 1.15;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .brand-tagline {
+      display: block;
+      margin-top: 5px;
       color: #8f8f8f;
-      font-size: 13px;
+      font-size: clamp(12px, 1.8vw, 14px);
       line-height: 1.25;
+    }
+
+    .form-view-shell {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 28px;
+      align-items: start;
+    }
+
+    .promo-column {
+      min-width: 0;
+    }
+
+    .form-column {
+      min-width: 0;
     }
 
     .hero-title {
       position: relative;
       margin: 0;
-      padding-bottom: 15px;
+      padding-bottom: 16px;
       color: #fff;
       font-family:
         -apple-system,
@@ -660,10 +695,13 @@
         Helvetica,
         Arial,
         sans-serif;
-      font-size: clamp(2rem, 7vw, 3rem);
-      font-weight: 900;
-      line-height: 0.98;
-      letter-spacing: -0.045em;
+      font-size: clamp(2.3rem, 10vw, 4.5rem);
+      font-weight: 950;
+      line-height: .94;
+      letter-spacing: -.055em;
+      text-align: center;
+      text-transform: uppercase;
+      white-space: normal;
       text-shadow: none;
     }
 
@@ -672,11 +710,12 @@
       position: absolute;
       left: 50%;
       bottom: 0;
-      width: 58px;
-      height: 4px;
+      width: clamp(56px, 10vw, 82px);
+      height: 5px;
       transform: translateX(-50%);
       border-radius: 999px;
       background: var(--sls-red);
+      box-shadow: 0 0 18px rgba(239, 43, 45, .22);
     }
 
     .hero-title .highlight {
@@ -688,28 +727,318 @@
     }
 
     .subtitle {
-      margin: 16px auto 25px;
+      margin: 18px auto 0;
+      max-width: 620px;
       color: var(--sls-muted);
+      font-size: clamp(1rem, 2.2vw, 1.18rem);
+      line-height: 1.5;
+      text-align: center;
     }
 
-    .event-info {
-      gap: 10px;
-      margin-bottom: 24px;
+    .gift-stage {
+      position: relative;
+      width: min(100%, 360px);
+      height: clamp(170px, 34vw, 245px);
+      margin: 18px auto 0;
+      display: grid;
+      place-items: end center;
+      overflow: hidden;
     }
 
-    .info-box {
-      border: 1px solid #303030;
+    .gift-glow {
+      position: absolute;
+      left: 50%;
+      bottom: 18px;
+      width: 78%;
+      height: 48%;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      background: radial-gradient(
+        ellipse at center,
+        rgba(239, 43, 45, .34) 0%,
+        rgba(239, 43, 45, .12) 42%,
+        transparent 72%
+      );
+      filter: blur(12px);
+      pointer-events: none;
+    }
+
+    .gift-box {
+      position: relative;
+      width: clamp(145px, 45vw, 220px);
+      height: clamp(100px, 28vw, 145px);
+      margin-bottom: 18px;
+      border: 1px solid #393939;
+      border-radius: 14px 14px 18px 18px;
+      background:
+        linear-gradient(145deg, #232323 0%, #111 52%, #080808 100%);
+      box-shadow:
+        0 24px 50px rgba(0, 0, 0, .48),
+        0 0 36px rgba(239, 43, 45, .12),
+        inset 0 1px 0 rgba(255,255,255,.06);
+    }
+
+    .gift-box::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 24%;
+      transform: translateX(-50%);
+      background: linear-gradient(90deg, #bd171c, #ff3036 48%, #c0191e);
+      box-shadow: 0 0 18px rgba(239, 43, 45, .18);
+    }
+
+    .gift-box::after {
+      content: "";
+      position: absolute;
+      left: -5%;
+      right: -5%;
+      top: -18%;
+      height: 25%;
+      border: 1px solid #3d3d3d;
       border-radius: 12px;
-      background: #141414;
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.025);
+      background:
+        linear-gradient(145deg, #2d2d2d 0%, #171717 60%, #0e0e0e 100%);
+      box-shadow:
+        0 10px 18px rgba(0,0,0,.28),
+        inset 0 1px 0 rgba(255,255,255,.05);
+      z-index: 2;
     }
 
-    .info-label {
-      color: #8f8f8f;
+    .gift-ribbon-horizontal {
+      position: absolute;
+      z-index: 3;
+      left: -5%;
+      right: -5%;
+      top: -8%;
+      height: 13%;
+      background: linear-gradient(180deg, #ff383d, #d51f25);
+      box-shadow: 0 0 16px rgba(239,43,45,.16);
     }
 
-    .info-value {
-      color: #f7f7f7;
+    .gift-bow {
+      position: absolute;
+      z-index: 4;
+      left: 50%;
+      top: -46%;
+      width: 76%;
+      height: 48%;
+      transform: translateX(-50%);
+    }
+
+    .gift-bow::before,
+    .gift-bow::after {
+      content: "";
+      position: absolute;
+      top: 16%;
+      width: 46%;
+      height: 68%;
+      border-radius: 55% 55% 48% 55%;
+      background: linear-gradient(145deg, #ff4045, #c7171d);
+      box-shadow:
+        0 5px 18px rgba(0,0,0,.26),
+        0 0 14px rgba(239,43,45,.16);
+    }
+
+    .gift-bow::before {
+      left: 3%;
+      transform: rotate(26deg);
+      transform-origin: 100% 70%;
+    }
+
+    .gift-bow::after {
+      right: 3%;
+      transform: rotate(-26deg);
+      transform-origin: 0 70%;
+    }
+
+    .gift-knot {
+      position: absolute;
+      z-index: 5;
+      left: 50%;
+      top: -26%;
+      width: 23%;
+      aspect-ratio: 1;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      background: linear-gradient(145deg, #ff454a, #c81920);
+      box-shadow:
+        0 6px 16px rgba(0,0,0,.25),
+        inset 0 1px 0 rgba(255,255,255,.16);
+    }
+
+    .confetti {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .confetti i {
+      position: absolute;
+      display: block;
+      width: 7px;
+      height: 24px;
+      border-radius: 2px;
+      background: linear-gradient(180deg, #ff3a40, #d11920);
+      box-shadow: 0 0 12px rgba(239,43,45,.18);
+    }
+
+    .confetti i:nth-child(1) { left: 18%; top: 24%; transform: rotate(-38deg); }
+    .confetti i:nth-child(2) { left: 28%; top: 12%; height: 17px; transform: rotate(-18deg); }
+    .confetti i:nth-child(3) { right: 20%; top: 24%; transform: rotate(38deg); }
+    .confetti i:nth-child(4) { right: 29%; top: 11%; height: 17px; transform: rotate(18deg); }
+    .confetti i:nth-child(5) { left: 14%; top: 55%; height: 16px; transform: rotate(-72deg); }
+    .confetti i:nth-child(6) { right: 14%; top: 55%; height: 16px; transform: rotate(72deg); }
+
+    .date-badge {
+      width: fit-content;
+      max-width: 100%;
+      margin: 8px auto 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px 18px;
+      border: 1px solid rgba(239, 43, 45, .82);
+      border-radius: 999px;
+      background:
+        linear-gradient(
+          180deg,
+          rgba(239, 43, 45, .10),
+          rgba(239, 43, 45, .045)
+        ),
+        #101010;
+      color: #d0d0d0;
+      box-shadow:
+        0 10px 30px rgba(0,0,0,.24),
+        0 0 24px rgba(239,43,45,.06);
+      font-size: clamp(.92rem, 2vw, 1.02rem);
+      line-height: 1.2;
+    }
+
+    .date-badge-icon {
+      width: 20px;
+      height: 20px;
+      flex: 0 0 20px;
+      display: grid;
+      place-items: center;
+      color: var(--sls-red);
+      font-size: 18px;
+    }
+
+    .date-badge strong {
+      color: #fff;
+      font-weight: 900;
+    }
+
+    .form-column {
+      padding-top: 2px;
+    }
+
+    .form-column .field:first-child {
+      margin-top: 0;
+    }
+
+    @media (min-width: 860px) {
+      body {
+        align-items: center;
+        padding:
+          max(28px, env(safe-area-inset-top))
+          max(28px, env(safe-area-inset-right))
+          max(28px, env(safe-area-inset-bottom))
+          max(28px, env(safe-area-inset-left));
+      }
+
+      .app {
+        max-width: 1040px;
+      }
+
+      .content {
+        padding: 38px 44px 44px;
+      }
+
+      .form-view-shell {
+        grid-template-columns: minmax(0, 1.03fr) minmax(360px, .97fr);
+        gap: 52px;
+        align-items: center;
+      }
+
+      .hero-title {
+        font-size: clamp(3.4rem, 5.2vw, 5.2rem);
+      }
+
+      .subtitle {
+        max-width: 560px;
+      }
+
+      .gift-stage {
+        height: 250px;
+      }
+
+      .form-column {
+        padding: 12px 0 4px;
+      }
+
+      .form-column .button {
+        margin-top: 14px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .content {
+        padding: 20px 16px 22px;
+      }
+
+      .sl-brand {
+        gap: 12px;
+        margin-bottom: 24px;
+      }
+
+      .sl-brand-mark {
+        width: 52px;
+        height: 52px;
+        border-radius: 15px;
+      }
+
+      .hero-title {
+        font-size: clamp(2.2rem, 12.5vw, 3.4rem);
+      }
+
+      .subtitle {
+        margin-top: 16px;
+        font-size: .98rem;
+      }
+
+      .gift-stage {
+        height: 188px;
+        margin-top: 12px;
+      }
+
+      .gift-box {
+        width: 158px;
+        height: 104px;
+      }
+
+      .date-badge {
+        padding: 11px 15px;
+        font-size: .9rem;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .hero-title {
+        font-size: 2rem;
+      }
+
+      .brand-commerce {
+        font-size: 15px;
+      }
+
+      .date-badge {
+        width: 100%;
+      }
     }
 
     .field label {
@@ -823,22 +1152,6 @@
       box-shadow: none;
     }
 
-    @media (max-width: 420px) {
-      .sl-brand {
-        margin-bottom: 24px;
-      }
-
-      .sl-brand-mark {
-        width: 48px;
-        height: 48px;
-        flex-basis: 48px;
-        border-radius: 14px;
-      }
-
-      .hero-title {
-        font-size: clamp(1.7rem, 8vw, 2.25rem);
-      }
-    }
   </style>
 </head>
 
@@ -848,74 +1161,48 @@
       <div class="content">
 
         <div class="sl-brand" aria-label="San Luis Sale">
-          <div class="sl-brand-mark" aria-hidden="true">
-            SL
-          </div>
-
+          <div class="sl-brand-mark" aria-hidden="true">SL</div>
           <div class="sl-brand-copy">
             <strong>SAN LUIS SALE</strong>
-            <span>Comprá local, ganamos todos.</span>
+            <span id="comercioLabel" class="brand-commerce"></span>
+            <small class="brand-tagline">Comprá local, ganamos todos.</small>
           </div>
         </div>
 
         <!-- FORMULARIO -->
         <div id="formView">
+          <div class="form-view-shell">
+            <div class="promo-column">
+              <h1 class="hero-title">
+                <span class="highlight">Participá y ganá</span>
+              </h1>
 
-          <h1 class="hero-title">
-            <span class="highlight">
-              Participá y ganá
-            </span>
-          </h1>
+              <p class="subtitle">
+                Registrate y descubrí al instante si te llevás un premio.
+              </p>
 
-          <p class="subtitle">
-            Registrate para participar del sorteo
-            y descubrí si además ganaste
-            un premio instantáneo.
-          </p>
+              <div class="gift-stage" aria-hidden="true">
+                <div class="gift-glow"></div>
+                <div class="confetti">
+                  <i></i><i></i><i></i><i></i><i></i><i></i>
+                </div>
+                <div class="gift-box">
+                  <div class="gift-ribbon-horizontal"></div>
+                  <div class="gift-bow"></div>
+                  <div class="gift-knot"></div>
+                </div>
+              </div>
 
-          <div class="event-info">
-
-            <div class="info-box">
-              <span class="info-label">
-                Comercio
-              </span>
-
-              <span
-                id="comercioLabel"
-                class="info-value"
-              ></span>
+              <div id="fechaSorteoBox" class="date-badge hidden">
+                <span class="date-badge-icon" aria-hidden="true">▣</span>
+                <span>
+                  Sorteo:
+                  <strong id="fechaSorteoLabel"></strong>
+                </span>
+              </div>
             </div>
 
-            <div
-              id="nombreSorteoBox"
-              class="info-box hidden"
-            >
-              <span class="info-label">
-                Sorteo
-              </span>
-
-              <span
-                id="nombreSorteoLabel"
-                class="info-value"
-              ></span>
-            </div>
-
-            <div
-              id="fechaSorteoBox"
-              class="info-box hidden"
-            >
-              <span class="info-label">
-                Fecha del sorteo
-              </span>
-
-              <span
-                id="fechaSorteoLabel"
-                class="info-value"
-              ></span>
-            </div>
-
-          </div>
-
+            <div class="form-column">
           <form id="sorteoForm" novalidate>
 
             <div class="field">
@@ -998,6 +1285,8 @@
             ></div>
 
           </form>
+            </div>
+          </div>
 
         </div>
 
@@ -1197,15 +1486,6 @@
         .textContent =
         comercioNombre;
 
-      const nombreSorteoBox =
-        document.getElementById(
-          'nombreSorteoBox'
-        );
-
-      const nombreSorteoLabel =
-        document.getElementById(
-          'nombreSorteoLabel'
-        );
 
       const fechaSorteoBox =
         document.getElementById(
@@ -1217,9 +1497,6 @@
           'fechaSorteoLabel'
         );
 
-      nombreSorteoBox
-        .classList
-        .add('hidden');
 
       fechaSorteoBox
         .classList
@@ -1280,34 +1557,6 @@
 
         fechaSorteo =
           APP_CONFIG.fechaSorteo;
-
-        /*
-         * NOMBRE DEL SORTEO
-         */
-        if (
-          APP_CONFIG.nombreSorteo
-        ) {
-          nombreSorteoLabel
-            .textContent =
-            APP_CONFIG.nombreSorteo;
-
-          nombreSorteoBox
-            .classList
-            .remove(
-              'hidden'
-            );
-        } else {
-
-          nombreSorteoLabel
-            .textContent =
-            '';
-
-          nombreSorteoBox
-            .classList
-            .add(
-              'hidden'
-            );
-        }
 
         /*
          * FECHA DEL SORTEO
