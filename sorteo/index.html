@@ -9,6 +9,7 @@
   >
   <meta name="theme-color" content="#090909">
   <title>Sorteo</title>
+
   <style>
     :root {
       --bg-1: #180f22;
@@ -103,9 +104,6 @@
       padding: clamp(22px, 6vw, 34px);
     }
 
-    /******************************************************
-     * TÍTULO
-     ******************************************************/
     .hero-title {
       margin: 0;
       text-align: center;
@@ -143,9 +141,6 @@
       line-height: 1.55;
     }
 
-    /******************************************************
-     * INFO
-     ******************************************************/
     .event-info {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
@@ -188,9 +183,6 @@
       white-space: nowrap;
     }
 
-    /******************************************************
-     * FORM
-     ******************************************************/
     .field {
       margin-bottom: 15px;
     }
@@ -257,9 +249,6 @@
       line-height: 1.35;
     }
 
-    /******************************************************
-     * BOTÓN
-     ******************************************************/
     .button {
       width: 100%;
       min-height: 56px;
@@ -324,9 +313,6 @@
       }
     }
 
-    /******************************************************
-     * ERROR
-     ******************************************************/
     .error {
       margin-top: 14px;
       padding: 12px 14px;
@@ -338,9 +324,6 @@
       line-height: 1.4;
     }
 
-    /******************************************************
-     * CLOSED
-     ******************************************************/
     .closed-view {
       padding: 28px 6px 10px;
       text-align: center;
@@ -365,9 +348,6 @@
       line-height: 1.5;
     }
 
-    /******************************************************
-     * SCRATCH HEADER
-     ******************************************************/
     .scratch-header {
       margin-bottom: 21px;
       text-align: center;
@@ -410,9 +390,6 @@
       font-size: .77rem;
     }
 
-    /******************************************************
-     * TARJETA RASPADITA
-     ******************************************************/
     .scratch-card {
       position: relative;
       width: 100%;
@@ -570,6 +547,7 @@
     /* ============================================================
        SAN LUIS SALE — LOOK & FEEL NEGRO + ROJO
        ============================================================ */
+
     :root {
       --sls-bg: #090909;
       --sls-panel: #121212;
@@ -873,6 +851,7 @@
           <div class="sl-brand-mark" aria-hidden="true">
             SL
           </div>
+
           <div class="sl-brand-copy">
             <strong>SAN LUIS SALE</strong>
             <span>Comprá local, ganamos todos.</span>
@@ -881,8 +860,11 @@
 
         <!-- FORMULARIO -->
         <div id="formView">
+
           <h1 class="hero-title">
-            <span class="highlight">Participá y ganá</span>
+            <span class="highlight">
+              Participá y ganá
+            </span>
           </h1>
 
           <p class="subtitle">
@@ -892,12 +874,28 @@
           </p>
 
           <div class="event-info">
+
             <div class="info-box">
               <span class="info-label">
                 Comercio
               </span>
+
               <span
                 id="comercioLabel"
+                class="info-value"
+              ></span>
+            </div>
+
+            <div
+              id="nombreSorteoBox"
+              class="info-box hidden"
+            >
+              <span class="info-label">
+                Sorteo
+              </span>
+
+              <span
+                id="nombreSorteoLabel"
                 class="info-value"
               ></span>
             </div>
@@ -909,14 +907,17 @@
               <span class="info-label">
                 Fecha del sorteo
               </span>
+
               <span
                 id="fechaSorteoLabel"
                 class="info-value"
               ></span>
             </div>
+
           </div>
 
           <form id="sorteoForm" novalidate>
+
             <div class="field">
               <label for="nombre">
                 Nombre
@@ -995,7 +996,9 @@
               class="error hidden"
               role="alert"
             ></div>
+
           </form>
+
         </div>
 
         <!-- SORTEO CERRADO -->
@@ -1023,6 +1026,7 @@
           class="hidden"
         >
           <div class="scratch-header">
+
             <div class="success-badge">
               ✓ Participación registrada
             </div>
@@ -1040,6 +1044,7 @@
               id="participationCounter"
               class="counter"
             ></span>
+
           </div>
 
           <div
@@ -1051,6 +1056,7 @@
               class="scratch-content"
               aria-hidden="true"
             >
+
               <div
                 id="resultIcon"
                 class="result-icon"
@@ -1077,6 +1083,7 @@
                 id="resultCode"
                 class="result-code hidden"
               ></div>
+
             </div>
 
             <canvas
@@ -1099,6 +1106,7 @@
           >
             Mostrar resultado sin raspar
           </button>
+
         </div>
 
       </div>
@@ -1118,30 +1126,27 @@
      *
      * ?comercio=NombreComercio
      *
-     * La fecha del sorteo viene
-     * desde Google Sheets -> Config.
+     * Nombre y fecha del sorteo
+     * vienen desde Google Sheets -> Config.
      */
     const APP_CONFIG = {
       comercio:
         params.get('comercio') ||
         'General',
 
+      nombreSorteo: '',
       fechaSorteo: '',
+      fechaLimite: '',
       cerrado: false,
       mensaje: '',
-      maxParticipaciones: null,
-      nombreSorteo: '',
-      fechaLimite: ''
+      maxParticipaciones: null
     };
 
     const comercioNombre =
       APP_CONFIG.comercio;
 
-    /*
-     * Se completa después de consultar
-     * /api/sorteo/config.
-     */
-    let fechaSorteo = '';
+    let fechaSorteo =
+      '';
 
     const formView =
       document.getElementById(
@@ -1178,24 +1183,29 @@
         'errorBox'
       );
 
-    /*
-     * Bloqueamos momentáneamente el botón
-     * mientras obtenemos la configuración.
-     *
-     * Esto evita participar antes de tener
-     * fechaSorteo cargada.
-     */
-    submitButton.disabled = true;
+    submitButton.disabled =
+      true;
 
     inicializar();
 
     async function inicializar() {
+
       document
         .getElementById(
           'comercioLabel'
         )
         .textContent =
         comercioNombre;
+
+      const nombreSorteoBox =
+        document.getElementById(
+          'nombreSorteoBox'
+        );
+
+      const nombreSorteoLabel =
+        document.getElementById(
+          'nombreSorteoLabel'
+        );
 
       const fechaSorteoBox =
         document.getElementById(
@@ -1207,11 +1217,16 @@
           'fechaSorteoLabel'
         );
 
+      nombreSorteoBox
+        .classList
+        .add('hidden');
+
       fechaSorteoBox
         .classList
         .add('hidden');
 
       try {
+
         const response =
           await fetch(
             'https://api.sanluissale.com.ar/api/sorteo/config',
@@ -1224,7 +1239,9 @@
         const config =
           await response
             .json()
-            .catch(() => null);
+            .catch(
+              () => null
+            );
 
         if (
           !response.ok ||
@@ -1236,6 +1253,18 @@
             'No se pudo obtener la configuración del sorteo.'
           );
         }
+
+        APP_CONFIG.nombreSorteo =
+          config.nombreSorteo ||
+          '';
+
+        APP_CONFIG.fechaSorteo =
+          config.fechaSorteo ||
+          '';
+
+        APP_CONFIG.fechaLimite =
+          config.fechaLimite ||
+          '';
 
         APP_CONFIG.cerrado =
           Boolean(
@@ -1249,56 +1278,82 @@
         APP_CONFIG.maxParticipaciones =
           config.maxParticipaciones;
 
-        APP_CONFIG.nombreSorteo =
-          config.nombreSorteo ||
-          '';
-
-        APP_CONFIG.fechaLimite =
-          config.fechaLimite ||
-          '';
-
-        APP_CONFIG.fechaSorteo =
-          config.fechaSorteo ||
-          '';
-
         fechaSorteo =
           APP_CONFIG.fechaSorteo;
 
         /*
-         * Mostramos la fecha
-         * solamente si existe.
+         * NOMBRE DEL SORTEO
          */
-        if (fechaSorteo) {
+        if (
+          APP_CONFIG.nombreSorteo
+        ) {
+          nombreSorteoLabel
+            .textContent =
+            APP_CONFIG.nombreSorteo;
+
+          nombreSorteoBox
+            .classList
+            .remove(
+              'hidden'
+            );
+        } else {
+
+          nombreSorteoLabel
+            .textContent =
+            '';
+
+          nombreSorteoBox
+            .classList
+            .add(
+              'hidden'
+            );
+        }
+
+        /*
+         * FECHA DEL SORTEO
+         */
+        if (
+          fechaSorteo
+        ) {
           fechaSorteoLabel
             .textContent =
             fechaSorteo;
 
           fechaSorteoBox
             .classList
-            .remove('hidden');
+            .remove(
+              'hidden'
+            );
         } else {
+
           fechaSorteoLabel
             .textContent =
             '';
 
           fechaSorteoBox
             .classList
-            .add('hidden');
+            .add(
+              'hidden'
+            );
         }
 
         /*
-         * Si el backend indica
-         * que el sorteo está cerrado,
-         * ocultamos el formulario.
+         * SORTEO CERRADO
          */
-        if (APP_CONFIG.cerrado) {
+        if (
+          APP_CONFIG.cerrado
+        ) {
           formView
             .classList
-            .add('hidden');
+            .add(
+              'hidden'
+            );
 
           closedView
             .classList
-            .remove('hidden');
+            .remove(
+              'hidden'
+            );
 
           document
             .getElementById(
@@ -1312,32 +1367,43 @@
         }
 
         /*
-         * Si llegamos acá,
-         * el sorteo está disponible.
+         * No habilitamos participar
+         * si no existe fecha de sorteo.
          */
+        if (
+          !fechaSorteo
+        ) {
+          mostrarError(
+            'El sorteo no tiene una fecha configurada.'
+          );
+
+          submitButton.disabled =
+            true;
+
+          return;
+        }
+
         submitButton.disabled =
           false;
 
       } catch (error) {
+
         console.error(
           'Error obteniendo configuración del sorteo:',
           error
         );
 
-        /*
-         * Si no podemos obtener la configuración
-         * no habilitamos el formulario.
-         *
-         * Esto evita registrar una participación
-         * sin fechaSorteo.
-         */
         formView
           .classList
-          .add('hidden');
+          .add(
+            'hidden'
+          );
 
         closedView
           .classList
-          .remove('hidden');
+          .remove(
+            'hidden'
+          );
 
         document
           .getElementById(
@@ -1351,6 +1417,7 @@
     form.addEventListener(
       'submit',
       async function(event) {
+
         event.preventDefault();
 
         ocultarError();
@@ -1385,19 +1452,25 @@
               ''
             );
 
-        if (!nombre) {
+        if (
+          !nombre
+        ) {
           mostrarError(
             'Ingresá tu nombre.'
           );
+
           return;
         }
 
         if (
-          !/^\d{3}$/.test(dni)
+          !/^\d{3}$/.test(
+            dni
+          )
         ) {
           mostrarError(
             'Ingresá exactamente los últimos 3 dígitos de tu DNI.'
           );
+
           return;
         }
 
@@ -1409,18 +1482,17 @@
           mostrarError(
             'Ingresá un celular válido de 10 dígitos.'
           );
+
           return;
         }
 
-        /*
-         * La fecha ya no viene del QR.
-         * Tiene que haber sido obtenida
-         * desde la configuración.
-         */
-        if (!fechaSorteo) {
+        if (
+          !fechaSorteo
+        ) {
           mostrarError(
             'No pudimos obtener la fecha del sorteo. Recargá la página e intentá nuevamente.'
           );
+
           return;
         }
 
@@ -1444,6 +1516,7 @@
         };
 
         try {
+
           const result =
             await llamarParticipar(
               payload
@@ -1468,6 +1541,7 @@
           );
 
         } catch (error) {
+
           console.error(
             error
           );
@@ -1485,11 +1559,13 @@
     async function llamarParticipar(
       payload
     ) {
+
       const response =
         await fetch(
           'https://api.sanluissale.com.ar/api/participar',
           {
-            method: 'POST',
+            method:
+              'POST',
 
             headers: {
               'Content-Type':
@@ -1510,7 +1586,9 @@
             () => null
           );
 
-      if (!response.ok) {
+      if (
+        !response.ok
+      ) {
         throw new Error(
           result?.error ||
           'Error llamando al backend.'
@@ -1523,13 +1601,18 @@
     function mostrarRaspadita(
       result
     ) {
+
       formView
         .classList
-        .add('hidden');
+        .add(
+          'hidden'
+        );
 
       scratchView
         .classList
-        .remove('hidden');
+        .remove(
+          'hidden'
+        );
 
       document
         .getElementById(
@@ -1542,7 +1625,8 @@
         result.maxParticipaciones;
 
       const scratch =
-        result.scratch || {};
+        result.scratch ||
+        {};
 
       const icon =
         document.getElementById(
@@ -1569,7 +1653,10 @@
           'resultCode'
         );
 
-      if (scratch.gano) {
+      if (
+        scratch.gano
+      ) {
+
         icon.textContent =
           '🎉';
 
@@ -1588,14 +1675,19 @@
 
           message
             .classList
-            .remove('hidden');
+            .remove(
+              'hidden'
+            );
         } else {
+
           message.textContent =
             '';
 
           message
             .classList
-            .add('hidden');
+            .add(
+              'hidden'
+            );
         }
 
         code.textContent =
@@ -1603,21 +1695,27 @@
 
         code
           .classList
-          .add('hidden');
+          .add(
+            'hidden'
+          );
 
         if (
           scratch.codigo
         ) {
+
           code.textContent =
             'Código: ' +
             scratch.codigo;
 
           code
             .classList
-            .remove('hidden');
+            .remove(
+              'hidden'
+            );
         }
 
       } else {
+
         icon.textContent =
           '🍀';
 
@@ -1633,14 +1731,18 @@
 
         message
           .classList
-          .add('hidden');
+          .add(
+            'hidden'
+          );
 
         code.textContent =
           '';
 
         code
           .classList
-          .add('hidden');
+          .add(
+            'hidden'
+          );
       }
 
       requestAnimationFrame(
@@ -1649,6 +1751,7 @@
     }
 
     function prepararRaspadita() {
+
       const card =
         document.getElementById(
           'scratchCard'
@@ -1668,13 +1771,17 @@
           }
         );
 
-      if (!ctx) {
+      if (
+        !ctx
+      ) {
         revelarResultado();
+
         return;
       }
 
       const rect =
-        card.getBoundingClientRect();
+        card
+          .getBoundingClientRect();
 
       const dpr =
         Math.min(
@@ -1711,12 +1818,13 @@
       );
 
       const gradient =
-        ctx.createLinearGradient(
-          0,
-          0,
-          rect.width,
-          rect.height
-        );
+        ctx
+          .createLinearGradient(
+            0,
+            0,
+            rect.width,
+            rect.height
+          );
 
       gradient.addColorStop(
         0,
@@ -1753,12 +1861,15 @@
         1;
 
       for (
-        let x = -rect.height;
+        let x =
+          -rect.height;
         x <
-        rect.width +
-        rect.height;
-        x += 20
+          rect.width +
+          rect.height;
+        x +=
+          20
       ) {
+
         ctx.beginPath();
 
         ctx.moveTo(
@@ -1838,6 +1949,7 @@
       function obtenerPunto(
         event
       ) {
+
         const r =
           canvas
             .getBoundingClientRect();
@@ -1856,16 +1968,20 @@
       function raspar(
         punto
       ) {
+
         ctx.beginPath();
 
         if (
           ultimoPunto
         ) {
+
           ctx.moveTo(
             ultimoPunto.x,
             ultimoPunto.y
           );
+
         } else {
+
           ctx.moveTo(
             punto.x - .1,
             punto.y
@@ -1885,67 +2001,75 @@
         movimientos++;
       }
 
-      canvas.addEventListener(
-        'pointerdown',
-        function(event) {
-          if (
-            revelado
-          ) {
-            return;
-          }
+      canvas
+        .addEventListener(
+          'pointerdown',
+          function(event) {
 
-          dibujando =
-            true;
+            if (
+              revelado
+            ) {
+              return;
+            }
 
-          ultimoPunto =
-            null;
+            dibujando =
+              true;
 
-          try {
-            canvas
-              .setPointerCapture(
-                event.pointerId
-              );
-          } catch (e) {}
+            ultimoPunto =
+              null;
 
-          raspar(
-            obtenerPunto(
-              event
-            )
-          );
-        }
-      );
+            try {
 
-      canvas.addEventListener(
-        'pointermove',
-        function(event) {
-          if (
-            !dibujando ||
-            revelado
-          ) {
-            return;
-          }
+              canvas
+                .setPointerCapture(
+                  event.pointerId
+                );
 
-          const eventos =
-            typeof event
-              .getCoalescedEvents ===
-              'function'
-              ? event
-                  .getCoalescedEvents()
-              : [event];
+            } catch (e) {}
 
-          for (
-            const e of eventos
-          ) {
             raspar(
               obtenerPunto(
-                e
+                event
               )
             );
           }
-        }
-      );
+        );
+
+      canvas
+        .addEventListener(
+          'pointermove',
+          function(event) {
+
+            if (
+              !dibujando ||
+              revelado
+            ) {
+              return;
+            }
+
+            const eventos =
+              typeof event
+                .getCoalescedEvents ===
+                'function'
+                ? event
+                    .getCoalescedEvents()
+                : [event];
+
+            for (
+              const e of eventos
+            ) {
+
+              raspar(
+                obtenerPunto(
+                  e
+                )
+              );
+            }
+          }
+        );
 
       function terminar() {
+
         if (
           !dibujando
         ) {
@@ -1959,7 +2083,8 @@
           null;
 
         if (
-          movimientos < 8
+          movimientos <
+          8
         ) {
           return;
         }
@@ -1968,8 +2093,10 @@
           porcentajeRaspado(
             ctx,
             canvas
-          ) >= .45
+          ) >=
+          .45
         ) {
+
           revelado =
             true;
 
@@ -1977,15 +2104,17 @@
         }
       }
 
-      canvas.addEventListener(
-        'pointerup',
-        terminar
-      );
+      canvas
+        .addEventListener(
+          'pointerup',
+          terminar
+        );
 
-      canvas.addEventListener(
-        'pointercancel',
-        terminar
-      );
+      canvas
+        .addEventListener(
+          'pointercancel',
+          terminar
+        );
 
       document
         .getElementById(
@@ -1994,6 +2123,7 @@
         .addEventListener(
           'click',
           function() {
+
             if (
               revelado
             ) {
@@ -2006,7 +2136,8 @@
             revelarResultado();
           },
           {
-            once: true
+            once:
+              true
           }
         );
     }
@@ -2015,7 +2146,9 @@
       ctx,
       canvas
     ) {
+
       try {
+
         const pixels =
           ctx
             .getImageData(
@@ -2046,19 +2179,26 @@
           0;
 
         for (
-          let pixel = 0;
-          pixel < totalPixels;
-          pixel += salto
+          let pixel =
+            0;
+          pixel <
+            totalPixels;
+          pixel +=
+            salto
         ) {
+
           const alpha =
             pixels[
-              pixel * 4 +
+              pixel *
+              4 +
               3
             ];
 
           if (
-            alpha < 60
+            alpha <
+            60
           ) {
+
             transparentes++;
           }
 
@@ -2070,7 +2210,10 @@
             muestras
           : 0;
 
-      } catch (error) {
+      } catch (
+        error
+      ) {
+
         console.error(
           'Error midiendo raspado:',
           error
@@ -2081,6 +2224,7 @@
     }
 
     function revelarResultado() {
+
       document
         .getElementById(
           'scratchCanvas'
@@ -2117,6 +2261,7 @@
     }
 
     function bloquearBoton() {
+
       submitButton.disabled =
         true;
 
@@ -2126,6 +2271,7 @@
     }
 
     function desbloquearBoton() {
+
       submitButton.disabled =
         false;
 
@@ -2136,6 +2282,7 @@
     function mostrarError(
       mensaje
     ) {
+
       errorBox.textContent =
         mensaje;
 
@@ -2147,6 +2294,7 @@
     }
 
     function ocultarError() {
+
       errorBox.textContent =
         '';
 
@@ -2164,6 +2312,7 @@
       .addEventListener(
         'input',
         function() {
+
           this.value =
             this.value
               .replace(
@@ -2184,6 +2333,7 @@
       .addEventListener(
         'input',
         function() {
+
           this.value =
             this.value
               .replace(
