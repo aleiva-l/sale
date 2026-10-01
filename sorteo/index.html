@@ -678,21 +678,24 @@
     .date-wrap {
       display: flex;
       justify-content: center;
-      margin: 16px 0 24px;
+      margin: 10px 0 18px;
+    }
+
+    .date-wrap-top {
+      margin-top: -8px;
+      margin-bottom: 20px;
     }
 
     .date-ticket {
-      position: absolute;
-      left: 50%;
-      bottom: 0;
-      z-index: 8;
-      transform: translateX(-50%);
+      position: static;
+      z-index: 2;
+      transform: none;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
       min-width: 190px;
-      max-width: calc(100% - 24px);
+      max-width: 100%;
       padding: 10px 16px;
       border: 1px solid rgba(239, 43, 45, .9);
       border-radius: 999px;
@@ -833,6 +836,24 @@
         .form-column {
         margin-top: 24px;
         padding: 0;
+      }
+    }
+
+    @media (max-width: 720px) {
+      body.keyboard-open #sorteoForm {
+        padding-bottom: 76px;
+      }
+
+      body.keyboard-open .button {
+        position: fixed;
+        left: var(--action-left, 16px);
+        width: var(--action-width, calc(100vw - 32px));
+        bottom: calc(var(--keyboard-offset, 0px) + 10px);
+        z-index: 1000;
+        margin: 0;
+        box-shadow:
+          0 14px 34px rgba(0,0,0,.50),
+          0 0 22px rgba(239,43,45,.18);
       }
     }
 
@@ -1021,6 +1042,13 @@
           </div>
         </div>
 
+        <div class="date-wrap date-wrap-top">
+          <div id="fechaSorteoBox" class="date-ticket hidden">
+            <span class="date-ticket-label">Sorteo</span>
+            <strong id="fechaSorteoLabel"></strong>
+          </div>
+        </div>
+
         <!-- FORMULARIO -->
         <div id="formView">
           <div class="form-view-shell">
@@ -1033,12 +1061,6 @@
                 Registrate y descubrí al instante si te llevás un premio.
               </p>
 
-              <div class="date-wrap">
-                <div id="fechaSorteoBox" class="date-ticket hidden">
-                  <span class="date-ticket-label">Sorteo</span>
-                  <strong id="fechaSorteoLabel"></strong>
-                </div>
-              </div>
             </div>
 
             <div class="form-column">
@@ -2392,6 +2414,166 @@
           'hidden'
         );
     }
+
+    /*
+     * En iPhone/Android, cuando se abre el teclado
+     * mantenemos el botón Participar visible sin tapar
+     * el campo activo.
+     */
+    const visualViewportRef =
+      window.visualViewport || null;
+
+    function actualizarBotonConTeclado() {
+      const esMobile =
+        window.matchMedia(
+          '(max-width: 720px)'
+        ).matches;
+
+      const elementoActivo =
+        document.activeElement;
+
+      const esCampoFormulario =
+        elementoActivo &&
+        (
+          elementoActivo.tagName === 'INPUT' ||
+          elementoActivo.tagName === 'TEXTAREA'
+        ) &&
+        form.contains(
+          elementoActivo
+        );
+
+      let tecladoVisible =
+        false;
+
+      let keyboardOffset =
+        0;
+
+      if (
+        esMobile &&
+        esCampoFormulario &&
+        visualViewportRef
+      ) {
+        keyboardOffset =
+          Math.max(
+            0,
+            window.innerHeight -
+            visualViewportRef.height -
+            visualViewportRef.offsetTop
+          );
+
+        tecladoVisible =
+          keyboardOffset > 120;
+      }
+
+      document.body.classList.toggle(
+        'keyboard-open',
+        tecladoVisible
+      );
+
+      if (
+        tecladoVisible
+      ) {
+        const formRect =
+          form.getBoundingClientRect();
+
+        const left =
+          Math.max(
+            12,
+            formRect.left
+          );
+
+        const right =
+          Math.min(
+            window.innerWidth - 12,
+            formRect.right
+          );
+
+        document.documentElement.style.setProperty(
+          '--action-left',
+          left + 'px'
+        );
+
+        document.documentElement.style.setProperty(
+          '--action-width',
+          Math.max(
+            0,
+            right - left
+          ) + 'px'
+        );
+
+        document.documentElement.style.setProperty(
+          '--keyboard-offset',
+          keyboardOffset + 'px'
+        );
+      } else {
+        document.documentElement.style.removeProperty(
+          '--action-left'
+        );
+
+        document.documentElement.style.removeProperty(
+          '--action-width'
+        );
+
+        document.documentElement.style.removeProperty(
+          '--keyboard-offset'
+        );
+      }
+    }
+
+    document.addEventListener(
+      'focusin',
+      function(event) {
+        if (
+          form.contains(
+            event.target
+          )
+        ) {
+          setTimeout(
+            actualizarBotonConTeclado,
+            80
+          );
+
+          setTimeout(
+            function() {
+              event.target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+              });
+            },
+            180
+          );
+        }
+      }
+    );
+
+    document.addEventListener(
+      'focusout',
+      function() {
+        setTimeout(
+          actualizarBotonConTeclado,
+          120
+        );
+      }
+    );
+
+    if (
+      visualViewportRef
+    ) {
+      visualViewportRef.addEventListener(
+        'resize',
+        actualizarBotonConTeclado
+      );
+
+      visualViewportRef.addEventListener(
+        'scroll',
+        actualizarBotonConTeclado
+      );
+    }
+
+    window.addEventListener(
+      'resize',
+      actualizarBotonConTeclado
+    );
 
     document
       .getElementById(
