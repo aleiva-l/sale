@@ -324,6 +324,28 @@
       line-height: 1.4;
     }
 
+    .loading-view {
+      padding: 34px 6px 18px;
+      text-align: center;
+    }
+
+    .loading-spinner {
+      width: 34px;
+      height: 34px;
+      margin: 0 auto 15px;
+      border: 3px solid rgba(255,255,255,.12);
+      border-top-color: var(--sls-red, #ef2b2d);
+      border-radius: 50%;
+      animation: spin .75s linear infinite;
+    }
+
+    .loading-text {
+      margin: 0;
+      color: var(--muted);
+      font-size: .95rem;
+      line-height: 1.45;
+    }
+
     .closed-view {
       padding: 28px 6px 10px;
       text-align: center;
@@ -1038,7 +1060,7 @@
         </div>
 
         <!-- FORMULARIO -->
-        <div id="formView">
+        <div id="formView" class="hidden">
           <div class="form-view-shell">
             <div class="promo-column">
               <h1 class="hero-title">
@@ -1146,6 +1168,17 @@
 
         </div>
 
+        <!-- VALIDANDO COMERCIO -->
+        <div
+          id="loadingView"
+          class="loading-view"
+        >
+          <div class="loading-spinner" aria-hidden="true"></div>
+          <p class="loading-text">
+            Validando comercio…
+          </p>
+        </div>
+
         <!-- SORTEO CERRADO -->
         <div
           id="closedView"
@@ -1155,7 +1188,10 @@
             🏁
           </div>
 
-          <h2 class="closed-title">
+          <h2
+            id="closedTitle"
+            class="closed-title"
+          >
             Sorteo no disponible
           </h2>
 
@@ -1276,8 +1312,7 @@
      */
     const APP_CONFIG = {
       comercio:
-        params.get('comercio') ||
-        'General',
+        (params.get('comercio') || '').trim(),
 
       nombreSorteo: '',
       fechaSorteo: '',
@@ -1298,9 +1333,19 @@
         'formView'
       );
 
+    const loadingView =
+      document.getElementById(
+        'loadingView'
+      );
+
     const closedView =
       document.getElementById(
         'closedView'
+      );
+
+    const closedTitle =
+      document.getElementById(
+        'closedTitle'
       );
 
     const scratchView =
@@ -1333,6 +1378,90 @@
 
     inicializar();
 
+    function mostrarBloqueo(
+      titulo,
+      mensaje
+    ) {
+      submitButton.disabled =
+        true;
+
+      loadingView
+        .classList
+        .add(
+          'hidden'
+        );
+
+      formView
+        .classList
+        .add(
+          'hidden'
+        );
+
+      scratchView
+        .classList
+        .add(
+          'hidden'
+        );
+
+      closedTitle
+        .textContent =
+        titulo;
+
+      document
+        .getElementById(
+          'closedMessage'
+        )
+        .textContent =
+        mensaje;
+
+      closedView
+        .classList
+        .remove(
+          'hidden'
+        );
+    }
+
+    async function validarComercio() {
+      if (!comercioNombre) {
+        return {
+          success: true,
+          habilitado: false
+        };
+      }
+
+      const response =
+        await fetch(
+          'https://api.sanluissale.com.ar/api/sorteo/comercio?comercio=' +
+          encodeURIComponent(
+            comercioNombre
+          ),
+          {
+            method: 'GET',
+            cache: 'no-store'
+          }
+        );
+
+      const result =
+        await response
+          .json()
+          .catch(
+            () => null
+          );
+
+      if (
+        !response.ok ||
+        !result ||
+        result.success !== true
+      ) {
+        throw new Error(
+          result?.error ||
+          'No pudimos validar el comercio.'
+        );
+      }
+
+      return result;
+    }
+
     async function inicializar() {
 
       document
@@ -1340,8 +1469,8 @@
           'comercioLabel'
         )
         .textContent =
-        comercioNombre;
-
+        comercioNombre ||
+        'Comercio no identificado';
 
       const fechaSorteoBox =
         document.getElementById(
@@ -1353,13 +1482,60 @@
           'fechaSorteoLabel'
         );
 
-
       fechaSorteoBox
         .classList
-        .add('hidden');
+        .add(
+          'hidden'
+        );
+
+      formView
+        .classList
+        .add(
+          'hidden'
+        );
+
+      closedView
+        .classList
+        .add(
+          'hidden'
+        );
+
+      scratchView
+        .classList
+        .add(
+          'hidden'
+        );
+
+      loadingView
+        .classList
+        .remove(
+          'hidden'
+        );
 
       try {
+        /*
+         * 1) Primero verificamos que el comercio exista
+         *    y esté en estado aprobado.
+         */
+        const comercio =
+          await validarComercio();
 
+        if (
+          comercio.habilitado !==
+          true
+        ) {
+          mostrarBloqueo(
+            'Comercio no habilitado',
+            'Este comercio no participa actualmente de la campaña San Luis Sale.'
+          );
+
+          return;
+        }
+
+        /*
+         * 2) Recién después cargamos la configuración
+         *    general del sorteo.
+         */
         const response =
           await fetch(
             'https://api.sanluissale.com.ar/api/sorteo/config',
@@ -1414,9 +1590,6 @@
         fechaSorteo =
           APP_CONFIG.fechaSorteo;
 
-        /*
-         * FECHA DEL SORTEO
-         */
         if (
           fechaSorteo
         ) {
@@ -1430,7 +1603,6 @@
               'hidden'
             );
         } else {
-
           fechaSorteoLabel
             .textContent =
             '';
@@ -1442,63 +1614,30 @@
             );
         }
 
-        /*
-         * SORTEO CERRADO
-         */
         if (
           APP_CONFIG.cerrado
         ) {
-          formView
-            .classList
-            .add(
-              'hidden'
-            );
-
-          closedView
-            .classList
-            .remove(
-              'hidden'
-            );
-
-          document
-            .getElementById(
-              'closedMessage'
-            )
-            .textContent =
+          mostrarBloqueo(
+            'Sorteo no disponible',
             APP_CONFIG.mensaje ||
-            'Este sorteo no está disponible.';
+            'Este sorteo no está disponible.'
+          );
 
           return;
         }
 
-        /*
-         * No habilitamos participar
-         * si no existe fecha de sorteo.
-         */
         if (
           !fechaSorteo
         ) {
-          mostrarError(
+          mostrarBloqueo(
+            'Sorteo no disponible',
             'El sorteo no tiene una fecha configurada.'
           );
-
-          submitButton.disabled =
-            true;
 
           return;
         }
 
-        submitButton.disabled =
-          false;
-
-      } catch (error) {
-
-        console.error(
-          'Error obteniendo configuración del sorteo:',
-          error
-        );
-
-        formView
+        loadingView
           .classList
           .add(
             'hidden'
@@ -1506,16 +1645,29 @@
 
         closedView
           .classList
+          .add(
+            'hidden'
+          );
+
+        formView
+          .classList
           .remove(
             'hidden'
           );
 
-        document
-          .getElementById(
-            'closedMessage'
-          )
-          .textContent =
-          'No pudimos cargar la información del sorteo. Intentá nuevamente en unos minutos.';
+        submitButton.disabled =
+          false;
+
+      } catch (error) {
+        console.error(
+          'Error inicializando sorteo:',
+          error
+        );
+
+        mostrarBloqueo(
+          'Sorteo no disponible',
+          'No pudimos validar el comercio o cargar la información del sorteo. Intentá nuevamente en unos minutos.'
+        );
       }
     }
 
