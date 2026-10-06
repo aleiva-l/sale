@@ -529,6 +529,74 @@
       text-decoration: underline;
     }
 
+    .coupon-actions {
+      margin-top: 18px;
+      padding: 16px;
+      border: 1px solid #303030;
+      border-radius: 16px;
+      background:
+        linear-gradient(
+          180deg,
+          rgba(255,255,255,.045),
+          rgba(255,255,255,.025)
+        );
+      text-align: center;
+      box-shadow: 0 14px 36px rgba(0,0,0,.20);
+    }
+
+    .coupon-actions-title {
+      margin: 0;
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 900;
+      line-height: 1.2;
+    }
+
+    .coupon-actions-text {
+      margin: 7px auto 13px;
+      max-width: 390px;
+      color: var(--sls-muted, #a9a9a9);
+      font-size: .82rem;
+      line-height: 1.4;
+    }
+
+    .coupon-action-button {
+      width: 100%;
+      min-height: 50px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 0;
+      border-radius: 13px;
+      background: var(--sls-red, #ef2b2d);
+      color: #fff;
+      cursor: pointer;
+      font-size: .94rem;
+      font-weight: 900;
+      box-shadow: 0 10px 24px rgba(239, 43, 45, .18);
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .coupon-action-button:active {
+      transform: translateY(1px);
+    }
+
+    .coupon-action-button.secondary {
+      margin-top: 9px;
+      border: 1px solid #383838;
+      background: #171717;
+      color: #ededed;
+      box-shadow: none;
+    }
+
+    .coupon-status {
+      margin-top: 10px;
+      color: #bdbdbd;
+      font-size: .76rem;
+      line-height: 1.35;
+    }
+
     .hidden {
       display: none !important;
     }
@@ -1288,6 +1356,36 @@
             Mostrar resultado sin raspar
           </button>
 
+          <div
+            id="couponActions"
+            class="coupon-actions hidden"
+          >
+            <p class="coupon-actions-title">
+              Guardá tu premio
+            </p>
+
+            <p class="coupon-actions-text">
+              Conservá el cupón en tu celular. Podés compartirlo por WhatsApp,
+              Mail, AirDrop/Quick Share o guardarlo desde las opciones del teléfono.
+            </p>
+
+            <button
+              id="shareCouponButton"
+              class="coupon-action-button"
+              type="button"
+            >
+              <span aria-hidden="true">📤</span>
+              <span>Guardar o compartir cupón</span>
+            </button>
+
+            <div
+              id="couponStatus"
+              class="coupon-status hidden"
+              role="status"
+              aria-live="polite"
+            ></div>
+          </div>
+
         </div>
 
       </div>
@@ -1327,6 +1425,12 @@
 
     let fechaSorteo =
       '';
+
+    let cuponActual =
+      null;
+
+    let cuponArchivoCache =
+      null;
 
     const formView =
       document.getElementById(
@@ -1373,8 +1477,28 @@
         'errorBox'
       );
 
+    const couponActions =
+      document.getElementById(
+        'couponActions'
+      );
+
+    const shareCouponButton =
+      document.getElementById(
+        'shareCouponButton'
+      );
+
+    const couponStatus =
+      document.getElementById(
+        'couponStatus'
+      );
+
     submitButton.disabled =
       true;
+
+    shareCouponButton.addEventListener(
+      'click',
+      compartirCuponActual
+    );
 
     inicializar();
 
@@ -1884,6 +2008,32 @@
       const scratch =
         result.scratch ||
         {};
+
+      cuponActual =
+        scratch.gano
+          ? {
+              comercio:
+                comercioNombre ||
+                'Comercio participante',
+
+              premio:
+                scratch.premio ||
+                'Premio San Luis Sale',
+
+              mensaje:
+                scratch.mensaje ||
+                '',
+
+              codigo:
+                scratch.codigo ||
+                ''
+            }
+          : null;
+
+      cuponArchivoCache =
+        null;
+
+      ocultarAccionesCupon();
 
       const icon =
         document.getElementById(
@@ -2480,6 +2630,801 @@
       }
     }
 
+    function ocultarAccionesCupon() {
+      couponActions
+        .classList
+        .add(
+          'hidden'
+        );
+
+      couponStatus.textContent =
+        '';
+
+      couponStatus
+        .classList
+        .add(
+          'hidden'
+        );
+    }
+
+    function mostrarEstadoCupon(
+      mensaje
+    ) {
+      couponStatus.textContent =
+        mensaje;
+
+      couponStatus
+        .classList
+        .remove(
+          'hidden'
+        );
+    }
+
+    function mostrarAccionesCuponSiCorresponde() {
+      if (
+        !cuponActual
+      ) {
+        ocultarAccionesCupon();
+
+        return;
+      }
+
+      couponActions
+        .classList
+        .remove(
+          'hidden'
+        );
+
+      try {
+        cuponArchivoCache =
+          crearArchivoCupon(
+            cuponActual
+          );
+      } catch (
+        error
+      ) {
+        console.error(
+          'No se pudo preparar el cupón:',
+          error
+        );
+
+        cuponArchivoCache =
+          null;
+      }
+
+      requestAnimationFrame(
+        function() {
+          couponActions
+            .scrollIntoView({
+              behavior:
+                'smooth',
+              block:
+                'nearest'
+            });
+        }
+      );
+    }
+
+    function sanitizarNombreArchivo(
+      valor
+    ) {
+      return String(
+        valor ||
+        'premio'
+      )
+        .normalize(
+          'NFD'
+        )
+        .replace(
+          /[\u0300-\u036f]/g,
+          ''
+        )
+        .replace(
+          /[^a-zA-Z0-9_-]+/g,
+          '-'
+        )
+        .replace(
+          /^-+|-+$/g,
+          ''
+        )
+        .slice(
+          0,
+          60
+        ) ||
+        'premio';
+    }
+
+    function rectanguloRedondeado(
+      ctx,
+      x,
+      y,
+      ancho,
+      alto,
+      radio
+    ) {
+      const r =
+        Math.min(
+          radio,
+          ancho / 2,
+          alto / 2
+        );
+
+      ctx.beginPath();
+      ctx.moveTo(
+        x + r,
+        y
+      );
+      ctx.arcTo(
+        x + ancho,
+        y,
+        x + ancho,
+        y + alto,
+        r
+      );
+      ctx.arcTo(
+        x + ancho,
+        y + alto,
+        x,
+        y + alto,
+        r
+      );
+      ctx.arcTo(
+        x,
+        y + alto,
+        x,
+        y,
+        r
+      );
+      ctx.arcTo(
+        x,
+        y,
+        x + ancho,
+        y,
+        r
+      );
+      ctx.closePath();
+    }
+
+    function dibujarTextoEnvuelto(
+      ctx,
+      texto,
+      x,
+      y,
+      anchoMaximo,
+      altoLinea,
+      maxLineas
+    ) {
+      const palabras =
+        String(
+          texto ||
+          ''
+        )
+          .trim()
+          .split(
+            /\s+/
+          )
+          .filter(
+            Boolean
+          );
+
+      if (
+        !palabras.length
+      ) {
+        return y;
+      }
+
+      const lineas =
+        [];
+
+      let linea =
+        '';
+
+      for (
+        const palabra of palabras
+      ) {
+        const candidata =
+          linea
+            ? linea + ' ' + palabra
+            : palabra;
+
+        if (
+          ctx.measureText(
+            candidata
+          ).width <= anchoMaximo ||
+          !linea
+        ) {
+          linea =
+            candidata;
+        } else {
+          lineas.push(
+            linea
+          );
+
+          linea =
+            palabra;
+        }
+      }
+
+      if (
+        linea
+      ) {
+        lineas.push(
+          linea
+        );
+      }
+
+      const limite =
+        Math.min(
+          lineas.length,
+          maxLineas ||
+          lineas.length
+        );
+
+      for (
+        let i = 0;
+        i < limite;
+        i++
+      ) {
+        let contenido =
+          lineas[i];
+
+        if (
+          i === limite - 1 &&
+          lineas.length > limite
+        ) {
+          while (
+            contenido.length > 1 &&
+            ctx.measureText(
+              contenido + '…'
+            ).width > anchoMaximo
+          ) {
+            contenido =
+              contenido.slice(
+                0,
+                -1
+              );
+          }
+
+          contenido +=
+            '…';
+        }
+
+        ctx.fillText(
+          contenido,
+          x,
+          y +
+          i * altoLinea
+        );
+      }
+
+      return y +
+        limite * altoLinea;
+    }
+
+    function crearCanvasCupon(
+      cupon
+    ) {
+      const canvas =
+        document.createElement(
+          'canvas'
+        );
+
+      canvas.width =
+        1080;
+
+      canvas.height =
+        1350;
+
+      const ctx =
+        canvas.getContext(
+          '2d'
+        );
+
+      if (
+        !ctx
+      ) {
+        throw new Error(
+          'No se pudo crear la imagen del cupón.'
+        );
+      }
+
+      const ancho =
+        canvas.width;
+
+      const alto =
+        canvas.height;
+
+      const margen =
+        78;
+
+      const rojo =
+        '#ef2b2d';
+
+      const blanco =
+        '#ffffff';
+
+      const gris =
+        '#a9a9a9';
+
+      ctx.fillStyle =
+        '#090909';
+
+      ctx.fillRect(
+        0,
+        0,
+        ancho,
+        alto
+      );
+
+      const degradado =
+        ctx.createRadialGradient(
+          120,
+          80,
+          0,
+          120,
+          80,
+          650
+        );
+
+      degradado.addColorStop(
+        0,
+        'rgba(239,43,45,.30)'
+      );
+
+      degradado.addColorStop(
+        1,
+        'rgba(239,43,45,0)'
+      );
+
+      ctx.fillStyle =
+        degradado;
+
+      ctx.fillRect(
+        0,
+        0,
+        ancho,
+        alto
+      );
+
+      ctx.fillStyle =
+        '#121212';
+
+      ctx.strokeStyle =
+        '#2b2b2b';
+
+      ctx.lineWidth =
+        3;
+
+      rectanguloRedondeado(
+        ctx,
+        margen,
+        margen,
+        ancho - margen * 2,
+        alto - margen * 2,
+        46
+      );
+
+      ctx.fill();
+      ctx.stroke();
+
+      const marcaX =
+        margen + 54;
+
+      const marcaY =
+        margen + 56;
+
+      const marcaTam =
+        132;
+
+      ctx.fillStyle =
+        rojo;
+
+      rectanguloRedondeado(
+        ctx,
+        marcaX,
+        marcaY,
+        marcaTam,
+        marcaTam,
+        32
+      );
+
+      ctx.fill();
+
+      ctx.fillStyle =
+        blanco;
+
+      ctx.textAlign =
+        'center';
+
+      ctx.textBaseline =
+        'middle';
+
+      ctx.font =
+        '900 56px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+
+      ctx.fillText(
+        'SL',
+        marcaX + marcaTam / 2,
+        marcaY + marcaTam / 2 + 2
+      );
+
+      ctx.textAlign =
+        'left';
+
+      ctx.textBaseline =
+        'alphabetic';
+
+      ctx.font =
+        '900 55px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+
+      ctx.fillText(
+        'SAN LUIS SALE',
+        marcaX + marcaTam + 38,
+        marcaY + 54
+      );
+
+      ctx.fillStyle =
+        gris;
+
+      ctx.font =
+        '600 31px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+
+      dibujarTextoEnvuelto(
+        ctx,
+        cupon.comercio,
+        marcaX + marcaTam + 38,
+        marcaY + 102,
+        600,
+        38,
+        2
+      );
+
+      let y =
+        marcaY + marcaTam + 105;
+
+      ctx.fillStyle =
+        '#8f8f8f';
+
+      ctx.font =
+        '800 28px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+
+      ctx.fillText(
+        'CUPÓN DE PREMIO',
+        margen + 54,
+        y
+      );
+
+      y +=
+        64;
+
+      ctx.fillStyle =
+        blanco;
+
+      ctx.font =
+        '900 66px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+
+      y =
+        dibujarTextoEnvuelto(
+          ctx,
+          cupon.premio,
+          margen + 54,
+          y,
+          ancho - (margen + 54) * 2,
+          78,
+          3
+        );
+
+      if (
+        cupon.mensaje
+      ) {
+        y +=
+          30;
+
+        ctx.fillStyle =
+          '#c8c8c8';
+
+        ctx.font =
+          '500 34px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+
+        y =
+          dibujarTextoEnvuelto(
+            ctx,
+            cupon.mensaje,
+            margen + 54,
+            y,
+            ancho - (margen + 54) * 2,
+            47,
+            5
+          );
+      }
+
+      y +=
+        48;
+
+      const cajaCodigoY =
+        Math.min(
+          y,
+          950
+        );
+
+      ctx.fillStyle =
+        'rgba(239,43,45,.13)';
+
+      ctx.strokeStyle =
+        'rgba(239,43,45,.70)';
+
+      ctx.lineWidth =
+        3;
+
+      rectanguloRedondeado(
+        ctx,
+        margen + 54,
+        cajaCodigoY,
+        ancho - (margen + 54) * 2,
+        170,
+        28
+      );
+
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.fillStyle =
+        '#ffb8b9';
+
+      ctx.font =
+        '800 27px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+
+      ctx.fillText(
+        'CÓDIGO DEL CUPÓN',
+        margen + 88,
+        cajaCodigoY + 54
+      );
+
+      ctx.fillStyle =
+        blanco;
+
+      ctx.font =
+        '900 43px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace';
+
+      ctx.fillText(
+        cupon.codigo ||
+        'SIN CÓDIGO',
+        margen + 88,
+        cajaCodigoY + 116
+      );
+
+      ctx.fillStyle =
+        '#bdbdbd';
+
+      ctx.font =
+        '600 29px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+
+      ctx.fillText(
+        'Conservá este cupón hasta retirar tu premio.',
+        margen + 54,
+        alto - margen - 104
+      );
+
+      ctx.fillStyle =
+        '#777777';
+
+      ctx.font =
+        '500 24px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+
+      ctx.fillText(
+        'sanluissale.com.ar',
+        margen + 54,
+        alto - margen - 55
+      );
+
+      return canvas;
+    }
+
+    function dataUrlABlob(
+      dataUrl
+    ) {
+      const partes =
+        dataUrl.split(
+          ','
+        );
+
+      const mimeMatch =
+        partes[0]
+          .match(
+            /data:([^;]+)/
+          );
+
+      const mime =
+        mimeMatch
+          ? mimeMatch[1]
+          : 'image/png';
+
+      const binario =
+        atob(
+          partes[1]
+        );
+
+      const bytes =
+        new Uint8Array(
+          binario.length
+        );
+
+      for (
+        let i = 0;
+        i < binario.length;
+        i++
+      ) {
+        bytes[i] =
+          binario.charCodeAt(
+            i
+          );
+      }
+
+      return new Blob(
+        [bytes],
+        {
+          type:
+            mime
+        }
+      );
+    }
+
+    function crearArchivoCupon(
+      cupon
+    ) {
+      const canvas =
+        crearCanvasCupon(
+          cupon
+        );
+
+      const dataUrl =
+        canvas.toDataURL(
+          'image/png',
+          1
+        );
+
+      const blob =
+        dataUrlABlob(
+          dataUrl
+        );
+
+      const nombre =
+        'san-luis-sale-' +
+        sanitizarNombreArchivo(
+          cupon.codigo ||
+          cupon.premio
+        ) +
+        '.png';
+
+      if (
+        typeof File ===
+        'function'
+      ) {
+        return new File(
+          [blob],
+          nombre,
+          {
+            type:
+              'image/png'
+          }
+        );
+      }
+
+      blob.nombreDescarga =
+        nombre;
+
+      return blob;
+    }
+
+    function obtenerArchivoCupon() {
+      if (
+        !cuponActual
+      ) {
+        throw new Error(
+          'No hay un cupón disponible.'
+        );
+      }
+
+      if (
+        !cuponArchivoCache
+      ) {
+        cuponArchivoCache =
+          crearArchivoCupon(
+            cuponActual
+          );
+      }
+
+      return cuponArchivoCache;
+    }
+
+    async function compartirCuponActual() {
+      if (
+        !cuponActual
+      ) {
+        return;
+      }
+
+      let archivo;
+
+      try {
+        archivo =
+          obtenerArchivoCupon();
+      } catch (
+        error
+      ) {
+        console.error(
+          error
+        );
+
+        mostrarEstadoCupon(
+          'No pudimos generar el cupón. Intentá nuevamente.'
+        );
+
+        return;
+      }
+
+      const texto =
+        '🎁 Gané ' +
+        cuponActual.premio +
+        ' en San Luis Sale' +
+        (cuponActual.codigo
+          ? '. Código: ' +
+            cuponActual.codigo
+          : '.');
+
+      const puedeCompartirArchivo =
+        typeof navigator.share ===
+          'function' &&
+        (
+          typeof navigator.canShare !==
+            'function' ||
+          navigator.canShare({
+            files:
+              [archivo]
+          })
+        );
+
+      if (
+        puedeCompartirArchivo
+      ) {
+        try {
+          await navigator.share({
+            title:
+              'Mi cupón - San Luis Sale',
+            text:
+              texto,
+            files:
+              [archivo]
+          });
+
+          mostrarEstadoCupon(
+            'Cupón listo. Elegí dónde guardarlo o enviarlo desde el menú del teléfono.'
+          );
+
+          return;
+        } catch (
+          error
+        ) {
+          if (
+            error &&
+            error.name ===
+              'AbortError'
+          ) {
+            return;
+          }
+
+          console.error(
+            'Error compartiendo cupón:',
+            error
+          );
+        }
+      }
+
+      mostrarEstadoCupon(
+        'Tu navegador no permite compartir este cupón como imagen. Probá abrir la página desde Safari o Chrome en el celular.'
+      );
+    }
+
     function revelarResultado() {
 
       document
@@ -2515,6 +3460,8 @@
         .add(
           'hidden'
         );
+
+      mostrarAccionesCuponSiCorresponde();
     }
 
     function bloquearBoton() {
