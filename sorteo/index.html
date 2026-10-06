@@ -1541,44 +1541,15 @@
     }
 
     async function validarComercio() {
-      if (!comercioNombre) {
-        return {
-          success: true,
-          habilitado: false
-        };
-      }
-
-      const response =
-        await fetch(
-          'https://api.sanluissale.com.ar/api/sorteo/comercio?comercio=' +
-          encodeURIComponent(
-            comercioNombre
-          ),
-          {
-            method: 'GET',
-            cache: 'no-store'
-          }
-        );
-
-      const result =
-        await response
-          .json()
-          .catch(
-            () => null
-          );
-
-      if (
-        !response.ok ||
-        !result ||
-        result.success !== true
-      ) {
-        throw new Error(
-          result?.error ||
-          'No pudimos validar el comercio.'
-        );
-      }
-
-      return result;
+      /*
+       * Validación de comercio temporalmente desactivada.
+       * Hasta implementar la validación definitiva, todos
+       * los comercios se consideran habilitados.
+       */
+      return {
+        success: true,
+        habilitado: true
+      };
     }
 
     async function inicializar() {
