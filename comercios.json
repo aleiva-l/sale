@@ -1,18 +1,5 @@
 [
   {
-    "nombre": "Tienda de prueba",
-    "rubro": "Gastronomía",
-    "oferta": "30% en productos",
-    "zona": "Rivadavia 123, San Luis",
-    "telefono": "2664001122",
-    "imagen": "https://img.sanluissale.com.ar/comercios/2026/09/2a273e66-c612-40f8-b5d2-c5c5b4acb0fe/01.jpg",
-    "imagenes": [
-      "https://img.sanluissale.com.ar/comercios/2026/09/2a273e66-c612-40f8-b5d2-c5c5b4acb0fe/01.jpg",
-      "https://img.sanluissale.com.ar/comercios/2026/09/2a273e66-c612-40f8-b5d2-c5c5b4acb0fe/02.jpg",
-      "https://img.sanluissale.com.ar/comercios/2026/09/2a273e66-c612-40f8-b5d2-c5c5b4acb0fe/03.jpg"
-    ]
-  },
-  {
     "nombre": "Bertas",
     "rubro": "Calzado",
     "oferta": "30 % al 50 % en panchas y Guillerminas",
@@ -27,6 +14,21 @@
       "https://img.sanluissale.com.ar/comercios/2026/09/aa9b7989-4a08-437f-ab21-843758c973af/05.jpg",
       "https://img.sanluissale.com.ar/comercios/2026/09/aa9b7989-4a08-437f-ab21-843758c973af/06.jpg",
       "https://img.sanluissale.com.ar/comercios/2026/09/aa9b7989-4a08-437f-ab21-843758c973af/07.jpg"
+    ]
+  },
+  {
+    "nombre": "Espumas",
+    "rubro": "Hogar y Deco",
+    "oferta": "15% de descuento en productos seleccionados",
+    "zona": "San Martín 922",
+    "telefono": "2664583164",
+    "imagen": "https://img.sanluissale.com.ar/comercios/2026/10/4ad11355-e00f-40d8-8e60-e1fc2483f88f/01.jpg",
+    "imagenes": [
+      "https://img.sanluissale.com.ar/comercios/2026/10/4ad11355-e00f-40d8-8e60-e1fc2483f88f/01.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/10/4ad11355-e00f-40d8-8e60-e1fc2483f88f/02.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/10/4ad11355-e00f-40d8-8e60-e1fc2483f88f/03.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/10/4ad11355-e00f-40d8-8e60-e1fc2483f88f/04.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/10/4ad11355-e00f-40d8-8e60-e1fc2483f88f/05.jpg"
     ]
   }
 ]
