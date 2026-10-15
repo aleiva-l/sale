@@ -652,6 +652,221 @@
     #splash, .splash-stage, .tap-hint, a.sponsor-item { animation:none; transition:none; }
   }
 
+
+  /* === Mejoras galería San Luis Sale: flechas discretas y ampliación === */
+  .card-img .image-expand {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: zoom-in;
+    overflow: hidden;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .card-img .image-expand:focus-visible {
+    outline: 3px solid var(--red);
+    outline-offset: -3px;
+  }
+  .card-img .image-expand img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .28s ease;
+  }
+  .zoom-indicator {
+    position: absolute;
+    bottom: 10px;
+    right: 9px;
+    width: 29px;
+    height: 29px;
+    border-radius: 9px;
+    display: grid;
+    place-items: center;
+    background: rgba(10,10,13,.58);
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,.14);
+    pointer-events: none;
+    opacity: .8;
+    transition: opacity .2s ease, transform .2s ease;
+  }
+  .zoom-indicator svg { width: 16px; height: 16px; }
+  .card-img .carousel-btn {
+    width: 30px;
+    height: 34px;
+    border-radius: 11px;
+    font-size: 20px;
+    line-height: 1;
+    font-weight: 500;
+    background: rgba(8,9,11,.44);
+    opacity: .55;
+    box-shadow: 0 3px 9px rgba(0,0,0,.1);
+    transition: opacity .18s ease, background .18s ease, transform .18s ease;
+  }
+  .card-img .carousel-prev { left: 4px; }
+  .card-img .carousel-next { right: 4px; }
+  .card-img .carousel-btn:hover,
+  .card-img .carousel-btn:focus-visible {
+    opacity: 1;
+    background: rgba(9,9,11,.84);
+  }
+  .card-img .carousel-btn:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+  .card-img .carousel-dots { padding: 5px 7px; background: rgba(8,9,11,.40); }
+  .card-img .carousel-count { background: rgba(8,9,11,.50); }
+  @media (hover:hover) and (pointer:fine) {
+    .card-img .image-expand:hover img { transform: scale(1.055); }
+    .card-img .image-expand:hover .zoom-indicator { opacity: 1; transform: scale(1.07); }
+    .card-img:hover .carousel-btn { opacity: .93; }
+  }
+  @media (hover:none), (pointer:coarse) {
+    .card-img .carousel-btn { width: 31px; height: 36px; opacity: .75; }
+    .zoom-indicator { opacity: .88; }
+  }
+  @media (prefers-reduced-motion:reduce) {
+    .card-img .image-expand img, .zoom-indicator, .card-img .carousel-btn { transition:none; }
+    .card-img .image-expand:hover img { transform:none; }
+  }
+
+  /* Visor a pantalla completa (sin modificar los carruseles del catálogo) */
+  body.photo-viewer-open { overflow: hidden; }
+  .photo-viewer[hidden] { display: none !important; }
+  .photo-viewer {
+    position: fixed;
+    inset: 0;
+    z-index: 3000;
+    display: grid;
+    place-items: center;
+    padding: max(14px, env(safe-area-inset-top)) 10px max(14px, env(safe-area-inset-bottom));
+    background: rgba(6,6,9,.94);
+    backdrop-filter: blur(9px);
+    -webkit-backdrop-filter: blur(9px);
+  }
+  .photo-panel {
+    width: min(1140px,100%);
+    max-height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    color: #fff;
+  }
+  .photo-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+  }
+  .photo-info { min-width: 0; }
+  .photo-caption {
+    font-family: 'Space Grotesk',sans-serif;
+    font-weight: 700;
+    font-size: clamp(15px,2.2vw,19px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .photo-count {
+    display: block;
+    margin-top: 2px;
+    color: #bababa;
+    font-family: 'Space Mono',monospace;
+    font-size: 11px;
+  }
+  .photo-icon-btn {
+    flex: none;
+    width: 40px;
+    height: 40px;
+    display: inline-grid;
+    place-items: center;
+    border: 1px solid rgba(255,255,255,.22);
+    border-radius: 12px;
+    background: rgba(255,255,255,.10);
+    color: #fff;
+    font: 600 22px/1 system-ui,sans-serif;
+    cursor: pointer;
+  }
+  .photo-icon-btn:hover { background: rgba(239,43,45,.75); }
+  .photo-icon-btn:focus-visible { outline:2px solid white; outline-offset:2px; }
+  .photo-icon-btn[hidden] { display:none; }
+  .photo-main {
+    display: grid;
+    grid-template-columns: 42px minmax(0,1fr) 42px;
+    gap: 8px;
+    align-items: center;
+    min-height: 0;
+    height: min(72dvh,760px);
+  }
+  .photo-figure {
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    background: #f9f9f9;
+    position: relative;
+    touch-action: pan-y;
+  }
+  .photo-figure img {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    user-select: none;
+    -webkit-user-drag: none;
+    cursor: zoom-in;
+    transform: scale(1);
+    transform-origin: center center;
+    transition: transform .16s ease;
+  }
+  .photo-figure img.zoomed { cursor: zoom-out; }
+  .photo-figure .photo-error {
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #444;
+    text-align: center;
+    font-size: 14px;
+  }
+  .photo-bottom {
+    display:flex;
+    gap: 12px;
+    align-items:center;
+    justify-content:center;
+    flex-wrap: wrap;
+  }
+  .photo-zoom-controls {
+    display:flex;
+    gap: 7px;
+    align-items:center;
+    font-family: 'Space Mono',monospace;
+    font-size: 12px;
+  }
+  .photo-zoom-controls .photo-icon-btn { height:35px; width:35px; font-size:20px; }
+  #photoZoomLabel { min-width: 43px; text-align:center; }
+  #photoZoomLimit { color: #aaa; font-size: 10px; white-space: nowrap; }
+  .photo-hint { color: #aaa; font-size: 11px; text-align:center; }
+  @media (max-width:600px) {
+    .photo-viewer { padding-left:5px; padding-right:5px; }
+    .photo-panel { gap:8px; }
+    .photo-topbar { padding: 0 8px; }
+    .photo-main { grid-template-columns: 30px minmax(0,1fr) 30px; gap:3px; height:min(71dvh,680px); }
+    .photo-main .photo-icon-btn { width:30px; height:40px; border-radius:8px; }
+    .photo-figure { border-radius:9px; }
+    .photo-hint { padding: 0 8px; }
+  }
+  @media (prefers-reduced-motion:reduce) {
+    .photo-figure img { transition:none; }
+  }
+
 </style>
 <link rel="icon" type="image/x-icon" href="favicon.ico?v=2">
 
@@ -758,6 +973,37 @@
 <footer>
   Prueba de concepto — datos de ejemplo. En producción, este JSON se genera automáticamente desde la Google Sheet de alta de comercios.
 </footer>
+
+<!-- Visor de imágenes ampliadas: se usa para todos los comercios -->
+<div class="photo-viewer" id="photoViewer" role="dialog" aria-modal="true" aria-label="Galería ampliada" hidden>
+  <div class="photo-panel">
+    <div class="photo-topbar">
+      <div class="photo-info">
+        <div id="photoCaption" class="photo-caption"></div>
+        <span id="photoCount" class="photo-count" aria-live="polite"></span>
+      </div>
+      <button class="photo-icon-btn" id="photoClose" type="button" aria-label="Cerrar imagen ampliada">×</button>
+    </div>
+    <div class="photo-main">
+      <button class="photo-icon-btn" id="photoPrevious" type="button" aria-label="Imagen anterior">‹</button>
+      <div class="photo-figure" id="photoFigure">
+        <img id="photoImage" alt="" draggable="false">
+        <div id="photoError" class="photo-error" hidden>No pudimos cargar esta imagen.</div>
+      </div>
+      <button class="photo-icon-btn" id="photoNext" type="button" aria-label="Imagen siguiente">›</button>
+    </div>
+    <div class="photo-bottom">
+      <div class="photo-zoom-controls" aria-label="Controles de zoom">
+        <button class="photo-icon-btn" id="photoZoomOut" type="button" aria-label="Reducir zoom">−</button>
+        <span id="photoZoomLabel">100%</span>
+        <button class="photo-icon-btn" id="photoZoomIn" type="button" aria-label="Aumentar zoom">+</button>
+        <span id="photoZoomLimit" aria-live="polite" title="Límite según resolución original de la foto">máx. 100%</span>
+      </div>
+      <span class="photo-hint">Tocá la foto para acercar · Deslizá para pasar a otra</span>
+    </div>
+  </div>
+</div>
+
 
 <script>
   // ---- Datos de ejemplo -----------------------------------------
@@ -866,12 +1112,20 @@
         class="card-img merchant-carousel"
         data-images="${encoded}"
       >
-        <img
-          src="${images[0]}"
-          alt="${c.nombre}"
-          loading="lazy"
-          draggable="false"
-        >
+        <button class="image-expand" type="button" aria-label="Ampliar imagen de ${c.nombre}" title="Ver imagen ampliada">
+          <img
+            src="${images[0]}"
+            alt="${c.nombre}"
+            loading="lazy"
+            draggable="false"
+          >
+          <span class="zoom-indicator" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="10.8" cy="10.8" r="6.8"></circle>
+              <path d="m16 16 5 5M8 11h6M11 8v6"></path>
+            </svg>
+          </span>
+        </button>
         <div class="carousel-error">
           No pudimos cargar esta imagen.
         </div>
@@ -879,6 +1133,171 @@
       </div>
     `;
   }
+
+
+  // ===== Visor de fotografías =====
+  // Comparte estado entre los carruseles sin cambiar el catálogo.
+  const viewer = document.getElementById('photoViewer');
+  const viewerImage = document.getElementById('photoImage');
+  const viewerFigure = document.getElementById('photoFigure');
+  const viewerCaption = document.getElementById('photoCaption');
+  const viewerCount = document.getElementById('photoCount');
+  const viewerError = document.getElementById('photoError');
+  const viewerPrev = document.getElementById('photoPrevious');
+  const viewerNext = document.getElementById('photoNext');
+  const viewerClose = document.getElementById('photoClose');
+  const viewerZoomOut = document.getElementById('photoZoomOut');
+  const viewerZoomIn = document.getElementById('photoZoomIn');
+  const viewerZoomLabel = document.getElementById('photoZoomLabel');
+
+  let viewerImages = [];
+  let viewerIndex = 0;
+  let viewerZoom = 1;
+  let viewerMaxZoom = 1;
+  let viewerReturnFocus = null;
+  let viewerTouchStart = null;
+
+  // El límite se adapta a los píxeles disponibles de CADA imagen.
+  // Ej.: 1200 px de ancho mostrados a 400 px permiten hasta 3x;
+  // mostrados a 900 px permiten solo ~1.33x.
+  const PHOTO_ZOOM_HARD_CAP = 3;
+  const viewerZoomLimit = document.getElementById('photoZoomLimit');
+
+  function setPhotoZoom(amount) {
+    viewerZoom = Math.min(viewerMaxZoom, Math.max(1, amount));
+    const atMin = viewerZoom <= 1.005;
+    const atMax = viewerZoom >= viewerMaxZoom - .005;
+    viewerZoomLabel.textContent = `${Math.round(viewerZoom * 100)}%`;
+    viewerZoomLimit.textContent = `máx. ${Math.round(viewerMaxZoom * 100)}%`;
+    viewerZoomIn.title = `Zoom máximo disponible según resolución: ${Math.round(viewerMaxZoom * 100)}%`;
+    viewerImage.style.transform = `scale(${viewerZoom})`;
+    viewerImage.classList.toggle('zoomed', !atMin);
+    if (atMin) viewerImage.style.transformOrigin = 'center center';
+    viewerZoomOut.disabled = atMin;
+    viewerZoomIn.disabled = atMax;
+    viewerZoomOut.style.opacity = atMin ? '.35' : '1';
+    viewerZoomIn.style.opacity = atMax ? '.35' : '1';
+  }
+
+  function updatePhotoZoomLimit() {
+    // offsetWidth/offsetHeight dan el tamaño de la foto SIN aplicar el zoom
+    // CSS, por lo que el resultado también es válido cuando está ampliada.
+    const displayWidth = viewerImage.offsetWidth;
+    const displayHeight = viewerImage.offsetHeight;
+    const sourceWidth = viewerImage.naturalWidth;
+    const sourceHeight = viewerImage.naturalHeight;
+
+    if (!viewer.hidden && displayWidth > 0 && displayHeight > 0 &&
+        sourceWidth > 0 && sourceHeight > 0) {
+      const availableScale = Math.min(sourceWidth / displayWidth,
+                                      sourceHeight / displayHeight);
+      // Redondear hacia abajo impide pasar del tamaño nativo.
+      viewerMaxZoom = Math.max(1, Math.min(PHOTO_ZOOM_HARD_CAP,
+                                         Math.floor(availableScale * 100) / 100));
+    } else {
+      viewerMaxZoom = 1;
+    }
+    // También corrige el zoom actual si cambió el tamaño de la pantalla.
+    setPhotoZoom(viewerZoom);
+  }
+
+  function showViewerPhoto(index) {
+    if (!viewerImages.length) return;
+    viewerIndex = (index + viewerImages.length) % viewerImages.length;
+    // Cada foto tiene distinta resolución: esperar la carga antes de calcular.
+    viewerMaxZoom = 1;
+    setPhotoZoom(1);
+    viewerError.hidden = true;
+    viewerImage.style.display = 'block';
+    viewerImage.src = viewerImages[viewerIndex];
+    viewerCount.textContent = `Imagen ${viewerIndex + 1} de ${viewerImages.length}`;
+    viewerPrev.hidden = viewerImages.length < 2;
+    viewerNext.hidden = viewerImages.length < 2;
+  }
+
+  function openPhotoViewer(images, index, caption, returnFocus) {
+    if (!images || !images.length) return;
+    viewerImages = images;
+    viewerCaption.textContent = caption || 'Imagen del comercio';
+    viewerReturnFocus = returnFocus;
+    viewer.hidden = false;
+    document.body.classList.add('photo-viewer-open');
+    showViewerPhoto(index);
+    viewerClose.focus({ preventScroll: true });
+  }
+
+  function closePhotoViewer() {
+    if (viewer.hidden) return;
+    viewer.hidden = true;
+    document.body.classList.remove('photo-viewer-open');
+    viewerImage.removeAttribute('src');
+    viewerImages = [];
+    viewerMaxZoom = 1;
+    setPhotoZoom(1);
+    if (viewerReturnFocus && viewerReturnFocus.isConnected) {
+      viewerReturnFocus.focus({ preventScroll: true });
+    }
+    viewerReturnFocus = null;
+  }
+
+  viewerPrev.addEventListener('click', () => showViewerPhoto(viewerIndex - 1));
+  viewerNext.addEventListener('click', () => showViewerPhoto(viewerIndex + 1));
+  viewerClose.addEventListener('click', closePhotoViewer);
+  viewerZoomIn.addEventListener('click', () => setPhotoZoom(viewerZoom + .5));
+  viewerZoomOut.addEventListener('click', () => setPhotoZoom(viewerZoom - .5));
+  viewer.addEventListener('click', e => { if (e.target === viewer) closePhotoViewer(); });
+  viewerImage.addEventListener('load', () => {
+    if (viewer.hidden) return;
+    // Se dispara para cada imagen, incluidas las del carrusel ampliado.
+    updatePhotoZoomLimit();
+  });
+  window.addEventListener('resize', () => {
+    if (!viewer.hidden) updatePhotoZoomLimit();
+  });
+  viewerImage.addEventListener('error', () => {
+    if (viewer.hidden) return;
+    viewerImage.style.display = 'none';
+    viewerError.hidden = false;
+  });
+  viewerImage.addEventListener('click', e => {
+    if (viewerZoom > 1) {
+      setPhotoZoom(1);
+    } else {
+      const rect = viewerImage.getBoundingClientRect();
+      viewerImage.style.transformOrigin = `${(e.clientX-rect.left)/rect.width*100}% ${(e.clientY-rect.top)/rect.height*100}%`;
+      setPhotoZoom(2);
+    }
+  });
+  viewerFigure.addEventListener('pointermove', e => {
+    if (viewerZoom <= 1 || e.pointerType !== 'mouse') return;
+    const rect = viewerFigure.getBoundingClientRect();
+    viewerImage.style.transformOrigin = `${Math.max(0,Math.min(100,(e.clientX-rect.left)/rect.width*100))}% ${Math.max(0,Math.min(100,(e.clientY-rect.top)/rect.height*100))}%`;
+  });
+  viewerFigure.addEventListener('wheel', e => {
+    if (viewer.hidden) return;
+    e.preventDefault();
+    setPhotoZoom(viewerZoom + (e.deltaY < 0 ? .25 : -.25));
+  }, { passive: false });
+  viewerFigure.addEventListener('touchstart', e => {
+    if (e.touches.length === 1) viewerTouchStart = { x:e.touches[0].clientX, y:e.touches[0].clientY };
+  }, { passive:true });
+  viewerFigure.addEventListener('touchend', e => {
+    if (!viewerTouchStart || !e.changedTouches.length) return;
+    const dx = e.changedTouches[0].clientX - viewerTouchStart.x;
+    const dy = e.changedTouches[0].clientY - viewerTouchStart.y;
+    viewerTouchStart = null;
+    if (viewerImages.length > 1 && Math.abs(dx) > 55 && Math.abs(dx) > Math.abs(dy) * 1.2) {
+      showViewerPhoto(viewerIndex + (dx < 0 ? 1 : -1));
+    }
+  }, { passive:true });
+  document.addEventListener('keydown', e => {
+    if (viewer.hidden) return;
+    if (e.key === 'Escape') { e.preventDefault(); closePhotoViewer(); }
+    else if (e.key === 'ArrowLeft' && viewerImages.length > 1) { e.preventDefault(); showViewerPhoto(viewerIndex-1); }
+    else if (e.key === 'ArrowRight' && viewerImages.length > 1) { e.preventDefault(); showViewerPhoto(viewerIndex+1); }
+    else if (e.key === '+' || e.key === '=') { e.preventDefault(); setPhotoZoom(viewerZoom+.5); }
+    else if (e.key === '-') { e.preventDefault(); setPhotoZoom(viewerZoom-.5); }
+  });
 
   function initCarousels(){
     grid
@@ -930,6 +1349,16 @@
 
         let current = 0;
         let pointerStartX = null;
+        let pointerStartY = null;
+        let didSwipe = false;
+        const expandButton = carousel.querySelector('.image-expand');
+        expandButton.addEventListener('keydown', () => { didSwipe = false; });
+        expandButton.addEventListener('click', event => {
+          event.stopPropagation();
+          if (didSwipe) { didSwipe = false; return; }
+          if (carousel.classList.contains('image-error')) return;
+          openPhotoViewer(images, current, img.alt, expandButton);
+        });
 
         function show(index){
           current =
@@ -1011,8 +1440,9 @@
                 return;
               }
 
-              pointerStartX =
-                event.clientX;
+              didSwipe = false;
+              pointerStartX = event.clientX;
+              pointerStartY = event.clientY;
             }
           );
 
@@ -1025,23 +1455,14 @@
                 return;
               }
 
-              const delta =
-                event.clientX -
-                pointerStartX;
-
+              const delta = event.clientX - pointerStartX;
+              const deltaY = event.clientY - pointerStartY;
               pointerStartX = null;
+              pointerStartY = null;
 
-              if (
-                Math.abs(delta) < 45
-              ) {
-                return;
-              }
-
-              if (delta < 0) {
-                show(current + 1);
-              } else {
-                show(current - 1);
-              }
+              if (Math.abs(delta) < 45 || Math.abs(delta) <= Math.abs(deltaY) * 1.2) return;
+              didSwipe = true;
+              show(current + (delta < 0 ? 1 : -1));
             }
           );
 
@@ -1049,6 +1470,7 @@
             'pointercancel',
             () => {
               pointerStartX = null;
+              pointerStartY = null;
             }
           );
         }
