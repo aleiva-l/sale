@@ -17,6 +17,17 @@
     ]
   },
   {
+    "nombre": "Test",
+    "rubro": "Gastronomía",
+    "oferta": "20% en desayuno",
+    "zona": "Rivadvia 123, San Luis",
+    "telefono": "2664001122",
+    "imagen": "https://img.sanluissale.com.ar/comercios/2026/10/40760481-0819-4cda-be95-85fbe54c2c35/01.jpg",
+    "imagenes": [
+      "https://img.sanluissale.com.ar/comercios/2026/10/40760481-0819-4cda-be95-85fbe54c2c35/01.jpg"
+    ]
+  },
+  {
     "nombre": "Espumas",
     "rubro": "Hogar y Deco",
     "oferta": "15% de descuento en productos seleccionados",
@@ -29,6 +40,23 @@
       "https://img.sanluissale.com.ar/comercios/2026/10/4ad11355-e00f-40d8-8e60-e1fc2483f88f/03.jpg",
       "https://img.sanluissale.com.ar/comercios/2026/10/4ad11355-e00f-40d8-8e60-e1fc2483f88f/04.jpg",
       "https://img.sanluissale.com.ar/comercios/2026/10/4ad11355-e00f-40d8-8e60-e1fc2483f88f/05.jpg"
+    ]
+  },
+  {
+    "nombre": "Óptica Siglo XXI",
+    "rubro": "Salud y Bienestar",
+    "oferta": "Descuentos de hasta un 50% en productos seleccionados",
+    "zona": "Junín 782 / San Martín 862",
+    "telefono": "2665055555",
+    "imagen": "https://img.sanluissale.com.ar/comercios/2026/10/9f55dac9-211b-4c27-97e5-d53f4227cd14/01.jpg",
+    "imagenes": [
+      "https://img.sanluissale.com.ar/comercios/2026/10/9f55dac9-211b-4c27-97e5-d53f4227cd14/01.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/10/9f55dac9-211b-4c27-97e5-d53f4227cd14/02.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/10/9f55dac9-211b-4c27-97e5-d53f4227cd14/03.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/10/9f55dac9-211b-4c27-97e5-d53f4227cd14/04.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/10/9f55dac9-211b-4c27-97e5-d53f4227cd14/05.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/10/9f55dac9-211b-4c27-97e5-d53f4227cd14/06.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/10/9f55dac9-211b-4c27-97e5-d53f4227cd14/07.jpg"
     ]
   }
 ]
