@@ -51,12 +51,12 @@
       {
         "nombre": "Sucursal",
         "direccion": "San Martín 862, San Luis",
-        "google_maps_url": ""
+        "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Optica%20Siglo%20XXI%2C%20San%20Martin%20862%2C%20San%20Luis%2C%20Argentina"
       },
       {
         "nombre": "Sucursal",
         "direccion": "Junín 782 , San Luis",
-        "google_maps_url": ""
+        "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Optica%20Siglo%20XXI%2C%20Junin%20782%2C%20San%20Luis%2C%20Argentina"
       }
     ]
   },
@@ -78,12 +78,12 @@
       {
         "nombre": "Central",
         "direccion": "Avenida 25 de Mayo 1955, San Luis",
-        "google_maps_url": ""
+        "google_maps_url": "https://www.google.com/maps/search/?api=1&query=-33.26001%2C-66.30007"
       },
       {
         "nombre": "Sucursal",
         "direccion": "Riobamba 1780, San Luis",
-        "google_maps_url": ""
+        "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Quirogas%20SRL%2C%20Riobamba%201780%2C%20San%20Luis%2C%20Argentina"
       }
     ]
   }
