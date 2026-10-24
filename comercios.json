@@ -46,6 +46,18 @@
       "https://img.sanluissale.com.ar/comercios/2026/10/9f55dac9-211b-4c27-97e5-d53f4227cd14/05.jpg",
       "https://img.sanluissale.com.ar/comercios/2026/10/9f55dac9-211b-4c27-97e5-d53f4227cd14/06.jpg",
       "https://img.sanluissale.com.ar/comercios/2026/10/9f55dac9-211b-4c27-97e5-d53f4227cd14/07.jpg"
+    ],
+    "sucursales": [
+      {
+        "nombre": "Sucursal",
+        "direccion": "San Martín 862",
+        "google_maps_url": ""
+      },
+      {
+        "nombre": "Sucursal",
+        "direccion": "Junín 782",
+        "google_maps_url": ""
+      }
     ]
   },
   {
