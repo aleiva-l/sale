@@ -31,6 +31,7 @@ jobs:
         env:
           SHEET_ID: ${{ vars.SHEET_ID }}
           SHEET_GID: ${{ vars.SHEET_GID }}
+          SHEET_SUCURSALES_GID: ${{ vars.SHEET_SUCURSALES_GID }}
         run: |
           python sync_sheet_to_json.py
 
