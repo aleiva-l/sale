@@ -964,7 +964,15 @@
   }
   .detail-copy {padding:18px 20px 24px;}
   .detail-copy .nombre {font-size:clamp(23px,4vw,30px);line-height:1.15;margin:8px 0;}
-  .detail-location {font-size:13px;color:#6a6a6a;margin:0 0 15px;}
+  .detail-location {
+    display:inline-flex;align-items:center;gap:7px;
+    max-width:100%;font-size:13px;color:#555;margin:0 0 15px;
+    text-decoration:none;line-height:1.4;
+  }
+  .detail-location svg {width:19px;height:19px;flex:none;color:var(--red);}
+  .detail-location:hover {color:#b82027;text-decoration:underline;}
+  .detail-location:focus-visible {outline:2px solid var(--red);outline-offset:3px;border-radius:4px;}
+  .detail-location .map-hint {color:#b82027;font-size:11px;font-weight:700;white-space:nowrap;}
   .detail-offer {font-size:17px;font-weight:700;color:var(--tag-lt);line-height:1.4;margin:0 0 20px;}
   .detail-copy .cta {font-size:13px;justify-content:center;min-height:44px;padding:12px 20px;}
   .detail-copy .cta-disabled {display:inline-flex;}
@@ -1080,10 +1088,6 @@
   <div class="grid" id="grid"></div>
   <div class="empty" id="empty" style="display:none;">Ningún comercio coincide con esa búsqueda todavía.</div>
 </main>
-
-<footer>
-  Prueba de concepto — datos de ejemplo. En producción, este JSON se genera automáticamente desde la Google Sheet de alta de comercios.
-</footer>
 
 <!-- Vista de detalle: se abre al tocar una tarjeta del catálogo. -->
 <div class="merchant-detail" id="merchantDetail" role="dialog" aria-modal="true" aria-label="Detalle del comercio" hidden>
@@ -1614,6 +1618,21 @@
   let visibleComercios = [];
   let detailReturnFocus = null;
 
+  // Apple Maps en dispositivos Apple; Google Maps en Android, Windows y otros.
+  // En direcciones genéricas, incluir el nombre del comercio mejora la búsqueda.
+  function mapsLink(comercio) {
+    const direccion = String(comercio.zona || '').trim();
+    if (!direccion) return '';
+    const lugar = /\d/.test(direccion)
+      ? direccion
+      : `${comercio.nombre || ''}, ${direccion}`;
+    const consulta = /argentina/i.test(lugar) ? lugar : `${lugar}, San Luis, Argentina`;
+    const apple = /iPhone|iPad|iPod|Macintosh|Mac OS X/i.test(navigator.userAgent);
+    return apple
+      ? `https://maps.apple.com/?q=${encodeURIComponent(consulta)}`
+      : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(consulta)}`;
+  }
+
   function openMerchantDetail(comercio, trigger) {
     if (!comercio) return;
     detailReturnFocus = trigger;
@@ -1625,7 +1644,17 @@
       <div class="detail-copy">
         <div class="rubro-tag">${escapeHtml(comercio.rubro)}</div>
         <h2 class="nombre">${escapeHtml(comercio.nombre)}</h2>
-        ${comercio.zona ? `<p class="detail-location">📍 ${escapeHtml(comercio.zona)}</p>` : ''}
+        ${comercio.zona ? `
+          <a class="detail-location" href="${escapeHtml(mapsLink(comercio))}" target="_blank" rel="noopener noreferrer"
+             aria-label="Abrir mapa de ${escapeHtml(comercio.zona)}">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"></path>
+              <circle cx="12" cy="10" r="2.5"></circle>
+            </svg>
+            <span>${escapeHtml(comercio.zona)}</span>
+            <span class="map-hint">Ver mapa ↗</span>
+          </a>
+        ` : ''}
         <p class="detail-offer">${escapeHtml(comercio.oferta)}</p>
         ${comercio.telefono ? `
           <a class="cta" href="${escapeHtml(waLink(comercio))}" target="_blank" rel="noopener noreferrer">◉ Consultar por WhatsApp</a>
