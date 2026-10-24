@@ -143,6 +143,59 @@
       line-height: 1.45;
     }
 
+    .branches-section {
+      display: grid;
+      gap: 12px;
+    }
+
+    .branches-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .branches-heading h2 { margin: 0; font-size: 20px; }
+
+    .branches-limit { color: var(--muted); font-size: 12px; }
+
+    .branches-list { display: grid; gap: 13px; }
+
+    .branch-card {
+      padding: 15px;
+      border: 1px solid #383838;
+      border-radius: 15px;
+      background: #0c0c0c;
+      display: grid;
+      gap: 12px;
+    }
+
+    .branch-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .branch-card-title { font-weight: 850; }
+
+    .branch-remove,
+    .branch-add {
+      border: 1px solid #424242;
+      background: #1b1b1b;
+      font-size: 13px;
+      padding: 10px 14px;
+    }
+
+    .branch-remove:hover,
+    .branch-add:hover { background: #272727; }
+
+    .branch-remove[hidden] { display: none; }
+
+    .branch-add { width: 100%; border-style: dashed; }
+
+    .branch-map-help a { color: #ff7779; }
+
     .upload {
       padding: 17px;
       border: 1.5px dashed #444;
@@ -496,16 +549,24 @@
           <div class="hint">Máximo 220 caracteres.</div>
         </div>
 
-        <div>
-          <label for="zona">Zona / Dirección <span class="required">*</span></label>
-          <input
-            id="zona"
-            name="zona"
-            maxlength="140"
-            required
-            placeholder="Ej.: Rivadavia 123, San Luis"
-          >
-        </div>
+        <section class="branches-section" aria-labelledby="branchesTitle">
+          <div class="branches-heading">
+            <h2 id="branchesTitle">Sucursales y ubicación</h2>
+            <span class="branches-limit" id="branchesCount">1 de 5</span>
+          </div>
+          <div class="hint">
+            Cargá la dirección de cada sucursal y pegá el enlace exacto desde Google Maps.
+            Podés agregar hasta 5 sucursales.
+          </div>
+          <div id="branchesList" class="branches-list"></div>
+          <button type="button" class="branch-add" id="addBranchBtn">+ AGREGAR SUCURSAL</button>
+          <div class="hint branch-map-help">
+            ¿Cómo conseguir el enlace? Buscá tu local en
+            <a href="https://www.google.com/maps" target="_blank" rel="noopener noreferrer">Google Maps</a>,
+            tocá <strong>Compartir</strong> y elegí <strong>Copiar enlace</strong>.
+            Antes de pegarlo, verificá que marque la sucursal correcta.
+          </div>
+        </section>
 
         <div class="upload">
           <div class="upload-top">
@@ -587,6 +648,7 @@
     const API_URL = "https://api.sanluissale.com.ar/api/alta";
 
     const MAX_IMAGES = 10;
+    const MAX_BRANCHES = 5;
     const MAX_BYTES = 400 * 1024;
     const MIN_WIDTH = 800;
     const MIN_HEIGHT = 600;
@@ -594,6 +656,9 @@
     const RATIO_TOLERANCE = 0.02;
 
     const form = document.getElementById("altaForm");
+    const branchesList = document.getElementById("branchesList");
+    const addBranchBtn = document.getElementById("addBranchBtn");
+    const branchesCount = document.getElementById("branchesCount");
     const fileInput = document.getElementById("imagenes");
     const previewGrid = document.getElementById("previewGrid");
     const imageSummary = document.getElementById("imageSummary");
@@ -610,6 +675,83 @@
     let validatedFiles = [];
     let previewUrls = [];
 
+    function isGoogleMapsUrl(value) {
+      try {
+        const url = new URL(String(value || "").trim());
+        if (url.protocol !== "https:") return false;
+        const host = url.hostname.toLowerCase();
+        return (host === "maps.app.goo.gl" && url.pathname.length > 1) ||
+          (host === "goo.gl" && url.pathname.startsWith("/maps/")) ||
+          ((host === "google.com" || host === "www.google.com") &&
+            url.pathname.startsWith("/maps")) ||
+          (host === "maps.google.com" && (url.pathname.length > 1 || url.search.length > 0));
+      } catch (_) {
+        return false;
+      }
+    }
+
+    function getSucursales() {
+      return Array.from(branchesList.querySelectorAll(".branch-card"), card => ({
+        nombre: card.querySelector(".branch-name").value.trim(),
+        direccion: card.querySelector(".branch-address").value.trim(),
+        google_maps_url: card.querySelector(".branch-map").value.trim()
+      }));
+    }
+
+    function validateMapsField(input) {
+      const value = input.value.trim();
+      input.setCustomValidity(value && !isGoogleMapsUrl(value)
+        ? "Pegá un enlace válido de Google Maps, usando la opción Compartir."
+        : "");
+    }
+
+    function updateBranchControls() {
+      const cards = Array.from(branchesList.querySelectorAll(".branch-card"));
+      cards.forEach((card, index) => {
+        card.querySelector(".branch-card-title").textContent = `Sucursal ${index + 1}${index === 0 ? " · Principal" : ""}`;
+        card.querySelector(".branch-remove").hidden = cards.length === 1;
+      });
+      branchesCount.textContent = `${cards.length} de ${MAX_BRANCHES}`;
+      addBranchBtn.disabled = cards.length >= MAX_BRANCHES;
+      reevaluateSubmit();
+    }
+
+    function addBranch() {
+      if (branchesList.children.length >= MAX_BRANCHES) return;
+      const card = document.createElement("div");
+      card.className = "branch-card";
+      card.innerHTML = `
+        <div class="branch-card-header">
+          <span class="branch-card-title"></span>
+          <button type="button" class="branch-remove">QUITAR</button>
+        </div>
+        <div>
+          <label>Nombre de la sucursal <span class="required">*</span></label>
+          <input class="branch-name" maxlength="80" placeholder="Ej.: Casa Central" required>
+        </div>
+        <div>
+          <label>Dirección <span class="required">*</span></label>
+          <input class="branch-address" maxlength="140" placeholder="Ej.: Av. 25 de Mayo 1955, San Luis" required>
+        </div>
+        <div>
+          <label>Enlace de Google Maps <span class="required">*</span></label>
+          <input class="branch-map" type="url" maxlength="2048" inputmode="url"
+            placeholder="https://maps.app.goo.gl/..." required>
+        </div>`;
+      card.querySelector(".branch-remove").addEventListener("click", () => {
+        card.remove();
+        updateBranchControls();
+      });
+      card.querySelector(".branch-map").addEventListener("input", event => {
+        validateMapsField(event.target);
+      });
+      branchesList.appendChild(card);
+      updateBranchControls();
+    }
+
+    addBranchBtn.addEventListener("click", addBranch);
+    addBranch();
+
     function humanKB(bytes) {
       return Math.round(bytes / 1024) + " KB";
     }
@@ -624,6 +766,10 @@
         imagesAreValid &&
         validatedFiles.length >= 1 &&
         validatedFiles.length <= MAX_IMAGES &&
+        getSucursales().length >= 1 &&
+        getSucursales().length <= MAX_BRANCHES &&
+        getSucursales().every(item => item.nombre && item.direccion &&
+          isGoogleMapsUrl(item.google_maps_url)) &&
         confirmacion.checked &&
         form.checkValidity()
       );
@@ -1051,11 +1197,14 @@
       submitBtn.textContent = "ENVIANDO…";
 
       const data = new FormData();
+      const sucursales = getSucursales();
 
       data.append("nombre", nombreComercio);
       data.append("rubro", document.getElementById("rubro").value);
       data.append("oferta", document.getElementById("oferta").value.trim());
-      data.append("zona", document.getElementById("zona").value.trim());
+      // Compatibilidad: la columna zona de Comercios mantiene la primera dirección.
+      data.append("zona", sucursales[0].direccion);
+      data.append("sucursales", JSON.stringify(sucursales));
       data.append("telefono", document.getElementById("telefono").value.trim());
 
       validatedFiles.forEach(file => {
@@ -1110,6 +1259,8 @@
         qrResult.classList.add("show");
 
         form.reset();
+        branchesList.replaceChildren();
+        addBranch();
         imagesAreValid = false;
         validatedFiles = [];
 
