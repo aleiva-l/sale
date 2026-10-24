@@ -50,12 +50,12 @@
     "sucursales": [
       {
         "nombre": "Sucursal",
-        "direccion": "San Martín 862",
+        "direccion": "San Martín 862, San Luis",
         "google_maps_url": ""
       },
       {
         "nombre": "Sucursal",
-        "direccion": "Junín 782",
+        "direccion": "Junín 782 , San Luis",
         "google_maps_url": ""
       }
     ]
@@ -73,6 +73,18 @@
       "https://img.sanluissale.com.ar/comercios/2026/10/2985ce07-8af5-4551-b989-7dc5f82b53ed/03.jpg",
       "https://img.sanluissale.com.ar/comercios/2026/10/2985ce07-8af5-4551-b989-7dc5f82b53ed/04.jpg",
       "https://img.sanluissale.com.ar/comercios/2026/10/2985ce07-8af5-4551-b989-7dc5f82b53ed/05.jpg"
+    ],
+    "sucursales": [
+      {
+        "nombre": "Central",
+        "direccion": "Avenida 25 de Mayo 1955, San Luis",
+        "google_maps_url": ""
+      },
+      {
+        "nombre": "Sucursal",
+        "direccion": "Riobamba 1780, San Luis",
+        "google_maps_url": ""
+      }
     ]
   }
 ]
