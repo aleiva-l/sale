@@ -17,17 +17,6 @@
     ]
   },
   {
-    "nombre": "Test",
-    "rubro": "Gastronomía",
-    "oferta": "20% en desayuno",
-    "zona": "Rivadvia 123, San Luis",
-    "telefono": "2664001122",
-    "imagen": "https://img.sanluissale.com.ar/comercios/2026/10/40760481-0819-4cda-be95-85fbe54c2c35/01.jpg",
-    "imagenes": [
-      "https://img.sanluissale.com.ar/comercios/2026/10/40760481-0819-4cda-be95-85fbe54c2c35/01.jpg"
-    ]
-  },
-  {
     "nombre": "Espumas",
     "rubro": "Hogar y Deco",
     "oferta": "15% de descuento en productos seleccionados",
