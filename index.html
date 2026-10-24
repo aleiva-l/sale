@@ -938,12 +938,14 @@
   .merchant-detail[hidden] {display:none!important;}
   .merchant-detail {
     position:fixed;inset:0;z-index:2000;display:grid;place-items:center;
+    grid-template-columns:minmax(0,1fr);
     padding:max(10px,env(safe-area-inset-top)) 10px max(10px,env(safe-area-inset-bottom));
     background:rgba(0,0,0,.82);backdrop-filter:blur(6px);
     -webkit-backdrop-filter:blur(6px);
   }
   .merchant-detail-panel {
-    width:min(720px,100%);max-height:100%;overflow-y:auto;
+    width:min(720px,100%);max-width:100%;min-width:0;max-height:100%;
+    overflow-y:auto;overflow-x:hidden;
     background:var(--card-lt);border-radius:20px;
     overscroll-behavior:contain;box-shadow:0 25px 75px rgba(0,0,0,.45);
   }
@@ -967,28 +969,28 @@
     aspect-ratio:4/3;display:grid;place-items:center;
     background:#efede6;border-radius:14px;color:#888;
   }
-  .detail-copy {padding:18px 20px 24px;}
+  .detail-copy {padding:18px 20px 24px;min-width:0;}
   .detail-copy .nombre {font-size:clamp(23px,4vw,30px);line-height:1.15;margin:8px 0;}
-  .detail-addresses {display:flex;flex-direction:column;align-items:flex-start;gap:9px;margin:0 0 17px;}
-  .detail-addresses-label {
-    font-family:'Space Mono',monospace;font-size:11px;font-weight:700;
-    color:#606060;text-transform:uppercase;letter-spacing:.04em;
-  }
+  .detail-addresses {display:flex;flex-direction:column;align-items:flex-start;gap:9px;margin:0 0 17px;max-width:100%;}
   .detail-location {
     display:inline-flex;align-items:center;gap:7px;
-    max-width:100%;font-size:13px;color:#b82027;margin:0;padding:3px 0;
+    max-width:100%;min-width:0;font-size:13px;color:#b82027;margin:0;padding:3px 0;
     text-decoration:underline;text-decoration-color:rgba(184,32,39,.4);
-    text-underline-offset:3px;line-height:1.4;
+    text-underline-offset:3px;line-height:1.4;white-space:normal;overflow-wrap:anywhere;
   }
   .detail-location svg {width:19px;height:19px;flex:none;color:var(--red);}
-  .detail-location-copy {display:flex;flex-direction:column;gap:1px;min-width:0;}
-  .detail-location-copy strong {font-size:12px;color:#303030;text-decoration:none;}
+  .detail-location-text {min-width:0;overflow-wrap:anywhere;}
   .detail-location:hover {color:#b82027;text-decoration:underline;}
   .detail-location:focus-visible {outline:2px solid var(--red);outline-offset:3px;border-radius:4px;}
   .detail-offer {font-size:17px;font-weight:700;color:var(--tag-lt);line-height:1.4;margin:0 0 20px;}
-  .detail-copy .cta {font-size:13px;justify-content:center;min-height:44px;padding:12px 20px;}
+  .detail-copy .cta {
+    display:flex;width:100%;max-width:100%;min-width:0;min-height:44px;
+    justify-content:center;flex-wrap:wrap;text-align:center;
+    white-space:normal;overflow-wrap:anywhere;
+    font-size:13px;padding:12px 16px;
+  }
   .detail-copy .cta .whatsapp-logo {width:20px;height:20px;flex:none;fill:#25D366;}
-  .detail-copy .cta-disabled {display:inline-flex;}
+  .detail-copy .cta-disabled {display:flex;}
   /* Selector de apertura de Google Maps para iOS. */
   .maps-choice[hidden] {display:none!important;}
   .maps-choice {
@@ -1099,6 +1101,7 @@
 
     <p class="hero-copy">
       Descuentos reales de comercios puntanos, todos en un solo lugar.
+      Filtrá por rubro o buscá el que estás buscando.
     </p>
 
     <div class="finder">
@@ -1720,22 +1723,16 @@
 
     return `
       <div class="detail-addresses">
-        ${sucursales.length > 1
-          ? `<div class="detail-addresses-label">Sucursales (${sucursales.length})</div>`
-          : ''}
         ${sucursales.map(sucursal => `
           <a class="detail-location" href="${escapeHtml(sucursal.url || mapsLink(comercio, sucursal.direccion))}"
              target="_blank" rel="noopener noreferrer"
-             aria-label="Abrir mapa de ${escapeHtml(sucursal.nombre)}: ${escapeHtml(sucursal.direccion)}">
+             aria-label="Abrir en Google Maps: ${escapeHtml(sucursal.direccion)}">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"></path>
               <circle cx="12" cy="10" r="2.5"></circle>
             </svg>
-            <span class="detail-location-copy">
-              ${sucursales.length > 1 ? `<strong>${escapeHtml(sucursal.nombre)}</strong>` : ''}
-              <span>${escapeHtml(sucursal.direccion)}</span>
-            </span>
+            <span class="detail-location-text">${escapeHtml(sucursal.direccion)}</span>
           </a>
         `).join('')}
       </div>
