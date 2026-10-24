@@ -981,12 +981,37 @@
     text-underline-offset:3px;line-height:1.4;
   }
   .detail-location svg {width:19px;height:19px;flex:none;color:var(--red);}
+  .detail-location-copy {display:flex;flex-direction:column;gap:1px;min-width:0;}
+  .detail-location-copy strong {font-size:12px;color:#303030;text-decoration:none;}
   .detail-location:hover {color:#b82027;text-decoration:underline;}
   .detail-location:focus-visible {outline:2px solid var(--red);outline-offset:3px;border-radius:4px;}
   .detail-offer {font-size:17px;font-weight:700;color:var(--tag-lt);line-height:1.4;margin:0 0 20px;}
   .detail-copy .cta {font-size:13px;justify-content:center;min-height:44px;padding:12px 20px;}
   .detail-copy .cta .whatsapp-logo {width:20px;height:20px;flex:none;fill:#25D366;}
   .detail-copy .cta-disabled {display:inline-flex;}
+  /* Selector de apertura de Google Maps para iOS. */
+  .maps-choice[hidden] {display:none!important;}
+  .maps-choice {
+    position:fixed;inset:0;z-index:3500;display:grid;place-items:center;
+    padding:18px;background:rgba(0,0,0,.75);
+    backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);
+  }
+  .maps-choice-panel {
+    width:min(420px,100%);padding:22px;background:var(--card-lt);
+    border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,.35);
+    display:flex;flex-direction:column;gap:12px;
+  }
+  .maps-choice-panel h3 {margin:0;font:700 22px 'Space Grotesk',sans-serif;}
+  .maps-choice-panel p {margin:0 0 4px;color:#555;font-size:13px;line-height:1.45;}
+  .maps-option {
+    display:flex;align-items:center;justify-content:center;text-align:center;
+    min-height:44px;padding:11px 14px;border-radius:10px;
+    background:var(--ink-lt);color:#fff;font:700 13px 'Inter',sans-serif;
+    text-decoration:none;
+  }
+  .maps-option.secondary {background:#ece9e2;color:var(--ink-lt);border:1px solid var(--line-lt);}
+  .maps-choice-close {border:0;background:transparent;color:#666;font:600 13px 'Inter',sans-serif;padding:9px;cursor:pointer;}
+  .maps-option:focus-visible,.maps-choice-close:focus-visible {outline:2px solid var(--red);outline-offset:3px;}
   @media (max-width:600px) {
     .merchant-detail {
       padding:max(14px,env(safe-area-inset-top)) 10px max(14px,env(safe-area-inset-bottom));
@@ -1111,6 +1136,18 @@
       <button class="detail-close" id="merchantDetailClose" type="button" aria-label="Cerrar detalle">×</button>
     </div>
     <div id="merchantDetailContent"></div>
+  </div>
+</div>
+
+<!-- En iOS se puede elegir entre la app de Google Maps y su enlace web. -->
+<div class="maps-choice" id="mapsChoice" role="dialog" aria-modal="true" aria-labelledby="mapsChoiceTitle" hidden>
+  <div class="maps-choice-panel">
+    <h3 id="mapsChoiceTitle">Abrir ubicación</h3>
+    <p>¿Cómo querés abrir esta dirección en Google Maps?</p>
+    <a class="maps-option" id="mapsOpenApp" href="#">App de Google Maps</a>
+    <a class="maps-option secondary" id="mapsOpenWeb" href="#" target="_blank" rel="noopener noreferrer">Enlace web de Google Maps</a>
+    <p>En iOS, el enlace web también puede abrir la app si está instalada.</p>
+    <button class="maps-choice-close" id="mapsChoiceClose" type="button">Cancelar</button>
   </div>
 </div>
 
@@ -1632,50 +1669,137 @@
   let visibleComercios = [];
   let detailReturnFocus = null;
 
-  // Apple Maps en dispositivos Apple; Google Maps en Android, Windows y otros.
-  // En direcciones genéricas, incluir el nombre del comercio mejora la búsqueda.
+  // Google Maps para todos los dispositivos. El nombre del comercio ayuda
+  // a diferenciar calles con nombres similares en la ciudad.
   function mapsLink(comercio, direccionSucursal = comercio.zona) {
     const direccion = String(direccionSucursal || '').trim();
     if (!direccion) return '';
-    const lugar = /\d/.test(direccion)
-      ? direccion
-      : `${comercio.nombre || ''}, ${direccion}`;
+    const lugar = `${String(comercio.nombre || '').trim()}, ${direccion}`;
     const consulta = /argentina/i.test(lugar) ? lugar : `${lugar}, San Luis, Argentina`;
-    const apple = /iPhone|iPad|iPod|Macintosh|Mac OS X/i.test(navigator.userAgent);
-    return apple
-      ? `https://maps.apple.com/?q=${encodeURIComponent(consulta)}`
-      : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(consulta)}`;
+    let url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(consulta)}`;
+
+    // Ficha comprobada de Quirogas SRL (Central) en Google Maps.
+    // La búsqueda por "Av. 25 de Mayo 1955" sola puede señalar otra calle.
+    if (/quiroga/i.test(comercio.nombre || '') && /25\s*de\s*mayo.*1955/i.test(direccion)) {
+      url += '&query_place_id=ChIJ_8oDv7s-1JURWcLmtcsprX4';
+    }
+    return url;
   }
 
-  // Una dirección se muestra como antes. Varias direcciones separadas
-  // por / se presentan como sucursales con su propio enlace a Maps.
+  function isGoogleMapsUrl(value) {
+    try {
+      const url = new URL(String(value || '').trim());
+      if (url.protocol !== 'https:') return false;
+      const host = url.hostname.toLowerCase();
+      return (host === 'maps.app.goo.gl' && url.pathname.length > 1) ||
+        (host === 'goo.gl' && url.pathname.startsWith('/maps/')) ||
+        ((host === 'google.com' || host === 'www.google.com') && url.pathname.startsWith('/maps')) ||
+        (host === 'maps.google.com' && (url.pathname.length > 1 || url.search.length > 0));
+    } catch (_) { return false; }
+  }
+
+  // Las sucursales nuevas usan el enlace exacto cargado por el comercio.
+  // Los registros anteriores siguen admitiendo direcciones separadas por /.
   function addressesMarkup(comercio) {
-    const direcciones = [...new Set(String(comercio.zona || '')
-      .split(/\s*\/\s*/)
-      .map(direccion => direccion.trim())
-      .filter(Boolean))];
-    if (!direcciones.length) return '';
+    const registradas = Array.isArray(comercio.sucursales)
+      ? comercio.sucursales.slice(0, 5).filter(item => item && item.direccion)
+      : [];
+    const sucursales = registradas.length
+      ? registradas.map((item, index) => ({
+          nombre: String(item.nombre || (index === 0 ? 'Principal' : `Sucursal ${index + 1}`)).trim(),
+          direccion: String(item.direccion).trim(),
+          url: isGoogleMapsUrl(item.google_maps_url) ? String(item.google_maps_url).trim() : ''
+        }))
+      : [...new Set(String(comercio.zona || '')
+          .split(/\s*\/\s*/).map(s => s.trim()).filter(Boolean))]
+          .map((direccion, index) => ({
+            nombre: index === 0 ? 'Principal' : `Sucursal ${index + 1}`,
+            direccion,
+            url: ''
+          }));
+    if (!sucursales.length) return '';
 
     return `
       <div class="detail-addresses">
-        ${direcciones.length > 1
-          ? `<div class="detail-addresses-label">Sucursales (${direcciones.length})</div>`
+        ${sucursales.length > 1
+          ? `<div class="detail-addresses-label">Sucursales (${sucursales.length})</div>`
           : ''}
-        ${direcciones.map(direccion => `
-          <a class="detail-location" href="${escapeHtml(mapsLink(comercio, direccion))}"
+        ${sucursales.map(sucursal => `
+          <a class="detail-location" href="${escapeHtml(sucursal.url || mapsLink(comercio, sucursal.direccion))}"
              target="_blank" rel="noopener noreferrer"
-             aria-label="Abrir mapa de ${escapeHtml(direccion)}">
+             aria-label="Abrir mapa de ${escapeHtml(sucursal.nombre)}: ${escapeHtml(sucursal.direccion)}">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"></path>
               <circle cx="12" cy="10" r="2.5"></circle>
             </svg>
-            <span>${escapeHtml(direccion)}</span>
+            <span class="detail-location-copy">
+              ${sucursales.length > 1 ? `<strong>${escapeHtml(sucursal.nombre)}</strong>` : ''}
+              <span>${escapeHtml(sucursal.direccion)}</span>
+            </span>
           </a>
         `).join('')}
       </div>
     `;
   }
+
+  // iOS no permite a una web invocar el selector nativo de aplicaciones.
+  // Ofrecemos las dos formas de abrir Google Maps sin cambiar de proveedor.
+  const isIOSDevice = /iPhone|iPad|iPod/i.test(navigator.userAgent) ||
+    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  const mapsChoice = document.getElementById('mapsChoice');
+  const mapsOpenApp = document.getElementById('mapsOpenApp');
+  const mapsOpenWeb = document.getElementById('mapsOpenWeb');
+  const mapsChoiceClose = document.getElementById('mapsChoiceClose');
+  let mapsChoiceReturnFocus = null;
+
+  function closeMapsChoice(restoreFocus = true) {
+    if (mapsChoice.hidden) return;
+    mapsChoice.hidden = true;
+    if (restoreFocus && mapsChoiceReturnFocus && mapsChoiceReturnFocus.isConnected) {
+      mapsChoiceReturnFocus.focus({preventScroll:true});
+    }
+    mapsChoiceReturnFocus = null;
+  }
+
+  function openMapsChoice(googleUrl, trigger) {
+    mapsChoiceReturnFocus = trigger;
+    mapsOpenWeb.href = googleUrl;
+    // Google documenta este esquema para abrir un enlace web en su app de iOS.
+    mapsOpenApp.href = googleUrl.replace(/^https:\/\//, 'comgooglemapsurl://');
+    mapsChoice.hidden = false;
+    mapsOpenApp.focus({preventScroll:true});
+  }
+
+  detailContent.addEventListener('click', event => {
+    const address = event.target.closest('.detail-location');
+    if (!isIOSDevice || !address || !detailContent.contains(address)) return;
+    // Los enlaces cortos compartidos tienen su propia redirección universal
+    // a Google Maps en iOS; conservamos ese destino exacto.
+    if (!/^https:\/\/(?:www\.)?google\.com\/maps/.test(address.href)) return;
+    event.preventDefault();
+    openMapsChoice(address.href, address);
+  });
+  mapsChoiceClose.addEventListener('click', () => closeMapsChoice());
+  mapsChoice.addEventListener('click', event => {
+    if (event.target === mapsChoice) closeMapsChoice();
+  });
+  mapsOpenApp.addEventListener('click', () => closeMapsChoice(false));
+  mapsOpenWeb.addEventListener('click', () => closeMapsChoice(false));
+  document.addEventListener('keydown', event => {
+    if (mapsChoice.hidden) return;
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      closeMapsChoice();
+    } else if (event.key === 'Tab') {
+      const controls = [mapsOpenApp, mapsOpenWeb, mapsChoiceClose];
+      if (event.shiftKey && document.activeElement === controls[0]) {
+        event.preventDefault(); controls[2].focus();
+      } else if (!event.shiftKey && document.activeElement === controls[2]) {
+        event.preventDefault(); controls[0].focus();
+      }
+    }
+  });
 
   function openMerchantDetail(comercio, trigger) {
     if (!comercio) return;
@@ -1707,6 +1831,7 @@
 
   function closeMerchantDetail() {
     if (detail.hidden || !viewer.hidden) return;
+    closeMapsChoice(false);
     detail.hidden = true;
     document.body.classList.remove('merchant-detail-open');
     detailContent.replaceChildren();
@@ -1722,7 +1847,7 @@
     if (event.target === detail) closeMerchantDetail();
   });
   document.addEventListener('keydown', event => {
-    if (detail.hidden || !viewer.hidden) return;
+    if (detail.hidden || !viewer.hidden || !mapsChoice.hidden) return;
     if (event.key === 'Escape') {
       event.preventDefault();
       closeMerchantDetail();
