@@ -969,9 +969,14 @@
   }
   .detail-copy {padding:18px 20px 24px;}
   .detail-copy .nombre {font-size:clamp(23px,4vw,30px);line-height:1.15;margin:8px 0;}
+  .detail-addresses {display:flex;flex-direction:column;align-items:flex-start;gap:9px;margin:0 0 17px;}
+  .detail-addresses-label {
+    font-family:'Space Mono',monospace;font-size:11px;font-weight:700;
+    color:#606060;text-transform:uppercase;letter-spacing:.04em;
+  }
   .detail-location {
     display:inline-flex;align-items:center;gap:7px;
-    max-width:100%;font-size:13px;color:#b82027;margin:0 0 15px;
+    max-width:100%;font-size:13px;color:#b82027;margin:0;padding:3px 0;
     text-decoration:underline;text-decoration-color:rgba(184,32,39,.4);
     text-underline-offset:3px;line-height:1.4;
   }
@@ -1629,8 +1634,8 @@
 
   // Apple Maps en dispositivos Apple; Google Maps en Android, Windows y otros.
   // En direcciones genéricas, incluir el nombre del comercio mejora la búsqueda.
-  function mapsLink(comercio) {
-    const direccion = String(comercio.zona || '').trim();
+  function mapsLink(comercio, direccionSucursal = comercio.zona) {
+    const direccion = String(direccionSucursal || '').trim();
     if (!direccion) return '';
     const lugar = /\d/.test(direccion)
       ? direccion
@@ -1640,6 +1645,36 @@
     return apple
       ? `https://maps.apple.com/?q=${encodeURIComponent(consulta)}`
       : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(consulta)}`;
+  }
+
+  // Una dirección se muestra como antes. Varias direcciones separadas
+  // por / se presentan como sucursales con su propio enlace a Maps.
+  function addressesMarkup(comercio) {
+    const direcciones = [...new Set(String(comercio.zona || '')
+      .split(/\s*\/\s*/)
+      .map(direccion => direccion.trim())
+      .filter(Boolean))];
+    if (!direcciones.length) return '';
+
+    return `
+      <div class="detail-addresses">
+        ${direcciones.length > 1
+          ? `<div class="detail-addresses-label">Sucursales (${direcciones.length})</div>`
+          : ''}
+        ${direcciones.map(direccion => `
+          <a class="detail-location" href="${escapeHtml(mapsLink(comercio, direccion))}"
+             target="_blank" rel="noopener noreferrer"
+             aria-label="Abrir mapa de ${escapeHtml(direccion)}">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"></path>
+              <circle cx="12" cy="10" r="2.5"></circle>
+            </svg>
+            <span>${escapeHtml(direccion)}</span>
+          </a>
+        `).join('')}
+      </div>
+    `;
   }
 
   function openMerchantDetail(comercio, trigger) {
@@ -1653,16 +1688,7 @@
       <div class="detail-copy">
         <div class="rubro-tag">${escapeHtml(comercio.rubro)}</div>
         <h2 class="nombre">${escapeHtml(comercio.nombre)}</h2>
-        ${comercio.zona ? `
-          <a class="detail-location" href="${escapeHtml(mapsLink(comercio))}" target="_blank" rel="noopener noreferrer"
-             aria-label="Abrir mapa de ${escapeHtml(comercio.zona)}">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"></path>
-              <circle cx="12" cy="10" r="2.5"></circle>
-            </svg>
-            <span>${escapeHtml(comercio.zona)}</span>
-          </a>
-        ` : ''}
+        ${addressesMarkup(comercio)}
         <p class="detail-offer">${escapeHtml(comercio.oferta)}</p>
         ${comercio.telefono ? `
           <a class="cta" href="${escapeHtml(waLink(comercio))}" target="_blank" rel="noopener noreferrer">
