@@ -86,5 +86,28 @@
         "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Quirogas%20SRL%2C%20Riobamba%201780%2C%20San%20Luis%2C%20Argentina"
       }
     ]
+  },
+  {
+    "nombre": "Beyker San Luis",
+    "rubro": "Otros",
+    "oferta": "10% de descuento en planos o documentación de obra",
+    "zona": "ZAC (Zona de Actividad Comercial) ruta 3 km 1 local 19",
+    "telefono": "2665054720",
+    "imagen": "https://img.sanluissale.com.ar/comercios/2026/10/4a00b4e9-a0e7-4517-9fe5-cc574e6c19a8/01.jpg",
+    "imagenes": [
+      "https://img.sanluissale.com.ar/comercios/2026/10/4a00b4e9-a0e7-4517-9fe5-cc574e6c19a8/01.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/10/4a00b4e9-a0e7-4517-9fe5-cc574e6c19a8/02.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/10/4a00b4e9-a0e7-4517-9fe5-cc574e6c19a8/03.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/10/4a00b4e9-a0e7-4517-9fe5-cc574e6c19a8/04.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/10/4a00b4e9-a0e7-4517-9fe5-cc574e6c19a8/05.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/10/4a00b4e9-a0e7-4517-9fe5-cc574e6c19a8/06.jpg"
+    ],
+    "sucursales": [
+      {
+        "nombre": "Beyker San Luis",
+        "direccion": "ZAC (Zona de Actividad Comercial) ruta 3 km 1 local 19",
+        "google_maps_url": "https://maps.app.goo.gl/xuHMEwkL2dhi3GWt6"
+      }
+    ]
   }
 ]
