@@ -109,5 +109,32 @@
         "google_maps_url": "https://maps.app.goo.gl/xuHMEwkL2dhi3GWt6"
       }
     ]
+  },
+  {
+    "nombre": "DAQUINO MOSAICOS",
+    "rubro": "Otros",
+    "oferta": "20% , 30% , 40% Y HASTA 50% DE DESCUENTO",
+    "zona": "CHACABUCO 1031",
+    "telefono": "2664409657",
+    "imagen": "https://img.sanluissale.com.ar/comercios/2026/11/fa41e391-8238-4310-8bfc-16c80a652559/01.jpg",
+    "imagenes": [
+      "https://img.sanluissale.com.ar/comercios/2026/11/fa41e391-8238-4310-8bfc-16c80a652559/01.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/fa41e391-8238-4310-8bfc-16c80a652559/02.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/fa41e391-8238-4310-8bfc-16c80a652559/03.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/fa41e391-8238-4310-8bfc-16c80a652559/04.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/fa41e391-8238-4310-8bfc-16c80a652559/05.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/fa41e391-8238-4310-8bfc-16c80a652559/06.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/fa41e391-8238-4310-8bfc-16c80a652559/07.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/fa41e391-8238-4310-8bfc-16c80a652559/08.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/fa41e391-8238-4310-8bfc-16c80a652559/09.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/fa41e391-8238-4310-8bfc-16c80a652559/10.jpg"
+    ],
+    "sucursales": [
+      {
+        "nombre": "DAQUINO MOSAICOS",
+        "direccion": "CHACABUCO 1031",
+        "google_maps_url": "https://www.google.com/maps/place/D'aquino+Mosaicos/@-33.2989322,-66.3402613,655m/data=!3m2!1e3!4b1!4m6!3m5!1s0x95d4395106487e87:0xe0e7e1e6cea9f852!8m2!3d-33.2989322!4d-66.3402613!16s%2Fg%2F1tj8bmcx?entry=ttu&g_ep=EgoyMDI2MTEwMy4wIKXMDSoASAFQAw%3D%3D"
+      }
+    ]
   }
 ]
