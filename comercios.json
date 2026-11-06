@@ -136,5 +136,32 @@
         "google_maps_url": "https://www.google.com/maps/place/D'aquino+Mosaicos/@-33.2989322,-66.3402613,655m/data=!3m2!1e3!4b1!4m6!3m5!1s0x95d4395106487e87:0xe0e7e1e6cea9f852!8m2!3d-33.2989322!4d-66.3402613!16s%2Fg%2F1tj8bmcx?entry=ttu&g_ep=EgoyMDI2MTEwMy4wIKXMDSoASAFQAw%3D%3D"
       }
     ]
+  },
+  {
+    "nombre": "Misojo Natura & Avon",
+    "rubro": "Belleza",
+    "oferta": "-20% en discontinuos y Natura Brasil -20% en cuidado capilar y cuidado diario Hasta -50% en perfumería Natura y Avon",
+    "zona": "Pringles 1054",
+    "telefono": "2664626809",
+    "imagen": "https://img.sanluissale.com.ar/comercios/2026/11/ed1f0c2b-b412-4a8d-991a-7a1d47a55929/01.jpg",
+    "imagenes": [
+      "https://img.sanluissale.com.ar/comercios/2026/11/ed1f0c2b-b412-4a8d-991a-7a1d47a55929/01.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/ed1f0c2b-b412-4a8d-991a-7a1d47a55929/02.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/ed1f0c2b-b412-4a8d-991a-7a1d47a55929/03.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/ed1f0c2b-b412-4a8d-991a-7a1d47a55929/04.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/ed1f0c2b-b412-4a8d-991a-7a1d47a55929/05.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/ed1f0c2b-b412-4a8d-991a-7a1d47a55929/06.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/ed1f0c2b-b412-4a8d-991a-7a1d47a55929/07.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/ed1f0c2b-b412-4a8d-991a-7a1d47a55929/08.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/ed1f0c2b-b412-4a8d-991a-7a1d47a55929/09.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/ed1f0c2b-b412-4a8d-991a-7a1d47a55929/10.jpg"
+    ],
+    "sucursales": [
+      {
+        "nombre": "Misojo Natura & Avon",
+        "direccion": "Pringles 1054",
+        "google_maps_url": "https://maps.app.goo.gl/8w1gjMgMfx1ncxxx8"
+      }
+    ]
   }
 ]
