@@ -111,6 +111,31 @@
     ]
   },
   {
+    "nombre": "La Dulceria",
+    "rubro": "Gastronomía",
+    "oferta": "10 % en todo nuestro catalogo, con excepción de tortas de cumple personalizadas",
+    "zona": "BARRIO AMPPYA MZA 14 CASA 28",
+    "telefono": "2664200024",
+    "imagen": "https://img.sanluissale.com.ar/comercios/2026/11/0706db2d-3712-46cf-bcb0-fbb4dd0b4fa1/01.jpg",
+    "imagenes": [
+      "https://img.sanluissale.com.ar/comercios/2026/11/0706db2d-3712-46cf-bcb0-fbb4dd0b4fa1/01.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/0706db2d-3712-46cf-bcb0-fbb4dd0b4fa1/02.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/0706db2d-3712-46cf-bcb0-fbb4dd0b4fa1/03.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/0706db2d-3712-46cf-bcb0-fbb4dd0b4fa1/04.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/0706db2d-3712-46cf-bcb0-fbb4dd0b4fa1/05.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/0706db2d-3712-46cf-bcb0-fbb4dd0b4fa1/06.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/0706db2d-3712-46cf-bcb0-fbb4dd0b4fa1/07.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/0706db2d-3712-46cf-bcb0-fbb4dd0b4fa1/08.jpg"
+    ],
+    "sucursales": [
+      {
+        "nombre": "La Dulceria",
+        "direccion": "BARRIO AMPPYA MZA 14 CASA 28",
+        "google_maps_url": "https://maps.app.goo.gl/Um6VeuZ8Ry2oddUt9"
+      }
+    ]
+  },
+  {
     "nombre": "DAQUINO MOSAICOS",
     "rubro": "Otros",
     "oferta": "20% , 30% , 40% Y HASTA 50% DE DESCUENTO",
@@ -161,6 +186,54 @@
         "nombre": "Misojo Natura & Avon",
         "direccion": "Pringles 1054",
         "google_maps_url": "https://maps.app.goo.gl/8w1gjMgMfx1ncxxx8"
+      }
+    ]
+  },
+  {
+    "nombre": "Falucho Sur",
+    "rubro": "Gastronomía",
+    "oferta": "20% off en sector productos premium: Yerbas, aceites de oliva, sal marina y aceros. 10% off en viandas de menú del día",
+    "zona": "Ejército de los Andes 1602 esq. Lafinir",
+    "telefono": "2665009236",
+    "imagen": "https://img.sanluissale.com.ar/comercios/2026/11/2b4e583d-06e6-4e37-9e56-edde0eac479a/01.jpg",
+    "imagenes": [
+      "https://img.sanluissale.com.ar/comercios/2026/11/2b4e583d-06e6-4e37-9e56-edde0eac479a/01.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/2b4e583d-06e6-4e37-9e56-edde0eac479a/02.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/2b4e583d-06e6-4e37-9e56-edde0eac479a/03.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/2b4e583d-06e6-4e37-9e56-edde0eac479a/04.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/2b4e583d-06e6-4e37-9e56-edde0eac479a/05.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/2b4e583d-06e6-4e37-9e56-edde0eac479a/06.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/2b4e583d-06e6-4e37-9e56-edde0eac479a/07.jpg"
+    ],
+    "sucursales": [
+      {
+        "nombre": "Falucho Sur",
+        "direccion": "Ejército de los Andes 1602 esq. Lafinir",
+        "google_maps_url": "https://maps.app.goo.gl/Ud3MDauAhM67P4kw5?g_st=aw"
+      }
+    ]
+  },
+  {
+    "nombre": "LUNAMAKENA",
+    "rubro": "Gastronomía",
+    "oferta": "25% OFF en cenas (lunes a viernes) 15% OFF domingos y feriados Válida pago solo efectivo y con reserva previa nombrando la clave (San Luis SALE)",
+    "zona": "Los membrillos y las higueras",
+    "telefono": "2664302349",
+    "imagen": "https://img.sanluissale.com.ar/comercios/2026/11/5802b047-ede8-4075-ba68-39bd9f1d9245/01.jpg",
+    "imagenes": [
+      "https://img.sanluissale.com.ar/comercios/2026/11/5802b047-ede8-4075-ba68-39bd9f1d9245/01.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/5802b047-ede8-4075-ba68-39bd9f1d9245/02.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/5802b047-ede8-4075-ba68-39bd9f1d9245/03.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/5802b047-ede8-4075-ba68-39bd9f1d9245/04.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/5802b047-ede8-4075-ba68-39bd9f1d9245/05.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/5802b047-ede8-4075-ba68-39bd9f1d9245/06.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/5802b047-ede8-4075-ba68-39bd9f1d9245/07.jpg"
+    ],
+    "sucursales": [
+      {
+        "nombre": "LUNAMAKENA Potrero de los Funes",
+        "direccion": "Los membrillos y las higueras",
+        "google_maps_url": "https://maps.app.goo.gl/5y51BnJBN4FaH1XF8"
       }
     ]
   }
