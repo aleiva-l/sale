@@ -236,5 +236,26 @@
         "google_maps_url": "https://maps.app.goo.gl/5y51BnJBN4FaH1XF8"
       }
     ]
+  },
+  {
+    "nombre": "PAPACONCERT",
+    "rubro": "Gastronomía",
+    "oferta": "25% de descuento Tragos 2x1 todos los días Valida pago solo efectivo y con reserva nombrando la clave (San Luis Sale)",
+    "zona": "Av. Viento Chorrillero 3000",
+    "telefono": "2664302348",
+    "imagen": "https://img.sanluissale.com.ar/comercios/2026/11/766b9cfb-478d-42f4-a7d2-0e072f4db58d/01.jpg",
+    "imagenes": [
+      "https://img.sanluissale.com.ar/comercios/2026/11/766b9cfb-478d-42f4-a7d2-0e072f4db58d/01.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/766b9cfb-478d-42f4-a7d2-0e072f4db58d/02.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/766b9cfb-478d-42f4-a7d2-0e072f4db58d/03.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/766b9cfb-478d-42f4-a7d2-0e072f4db58d/04.jpg"
+    ],
+    "sucursales": [
+      {
+        "nombre": "PAPACONCERT Juana Koslay",
+        "direccion": "Av. Viento Chorrillero 3000",
+        "google_maps_url": "https://maps.app.goo.gl/5y51BnJBN4FaH1XF8"
+      }
+    ]
   }
 ]
