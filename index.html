@@ -1039,6 +1039,16 @@
     .card,.card-preview-media img {transition:none;}
   }
 
+
+  .nearby-controls { display:flex; align-items:center; flex-wrap:wrap; gap:8px; margin:12px 0; }
+  .nearby-controls button { border:1px solid currentColor; border-radius:24px; padding:9px 15px;
+    background:transparent; color:inherit; font:600 13px 'Inter',sans-serif; cursor:pointer; }
+  .nearby-controls button[aria-pressed="true"] { background:var(--red); color:white; border-color:var(--red); }
+  .nearby-controls button:focus-visible { outline:2px solid var(--red); outline-offset:3px; }
+  .nearby-controls button:disabled { opacity:.6; cursor:wait; }
+  .nearby-controls [hidden] { display:none!important; }
+  #nearbyStatus { flex-basis:100%; margin:0; font-size:12px; }
+  .nearby-distance { display:block; font:500 12px/1.5 'Inter',sans-serif; }
 </style>
 <link rel="icon" type="image/x-icon" href="favicon.ico?v=2">
 
@@ -1120,6 +1130,12 @@
         <input id="buscador" type="text" placeholder="Buscar comercio…" autocomplete="off">
       </div>
 
+
+      <div class="nearby-controls">
+        <button id="nearbyButton" type="button" aria-pressed="false">Cerca de mí</button>
+        <button id="nearbyReset" type="button" hidden>Quitar cercanía</button>
+        <p id="nearbyStatus" role="status" aria-live="polite"></p>
+      </div>
       <div class="chips" id="chips"></div>
     </div>
   </div>
@@ -1216,6 +1232,83 @@
   let rubros = ["Todos"];
   let rubroActivo = "Todos";
   let texto = "";
+
+  let ubicacionCliente = null;
+  function coordenada(valor, limite) {
+    if (typeof valor !== 'number' && typeof valor !== 'string') return null;
+    if (typeof valor === 'string' && !valor.trim()) return null;
+    const numero = Number(typeof valor === 'string' ? valor.replace(',', '.') : valor);
+    return Number.isFinite(numero) && Math.abs(numero) <= limite ? numero : null;
+  }
+  function distanciaMetros(origen, latitud, longitud) {
+    const rad = Math.PI / 180;
+    const a = Math.sin((latitud - origen.latitud) * rad / 2) ** 2 +
+      Math.cos(origen.latitud * rad) * Math.cos(latitud * rad) *
+      Math.sin((longitud - origen.longitud) * rad / 2) ** 2;
+    return 6371000 * 2 * Math.asin(Math.sqrt(Math.min(1, a)));
+  }
+  function sucursalCercana(comercio) {
+    if (!ubicacionCliente || !Array.isArray(comercio.sucursales)) return null;
+    let cercana = null;
+    for (const sucursal of comercio.sucursales.slice(0, 5)) {
+      if (!sucursal || !sucursal.direccion) continue;
+      const lat = coordenada(sucursal.latitud, 90);
+      const lon = coordenada(sucursal.longitud, 180);
+      if (lat === null || lon === null) continue;
+      const distancia = distanciaMetros(ubicacionCliente, lat, lon);
+      if (!cercana || distancia < cercana.distancia) cercana = { ...sucursal, distancia };
+    }
+    return cercana;
+  }
+  function distanciaTexto(metros) {
+    if (metros < 100) return 'A menos de 100 m';
+    if (metros < 1000) return 'A ' + Math.round(metros / 50) * 50 + ' m';
+    return 'A ' + (metros / 1000).toLocaleString('es-AR', { maximumFractionDigits:1 }) + ' km';
+  }
+  const nearbyButton = document.getElementById('nearbyButton');
+  const nearbyReset = document.getElementById('nearbyReset');
+  const nearbyStatus = document.getElementById('nearbyStatus');
+  nearbyButton.addEventListener('click', () => {
+    if (!navigator.geolocation) {
+      nearbyStatus.textContent = 'Tu navegador no permite obtener la ubicación.';
+      return;
+    }
+    nearbyButton.disabled = true;
+    nearbyStatus.textContent = 'Buscando tu ubicación…';
+    navigator.geolocation.getCurrentPosition(posicion => {
+      const latitud = coordenada(posicion.coords.latitude, 90);
+      const longitud = coordenada(posicion.coords.longitude, 180);
+      nearbyButton.disabled = false;
+      if (latitud === null || longitud === null) {
+        nearbyStatus.textContent = 'No se pudo determinar tu ubicación. Intentá nuevamente.';
+        return;
+      }
+      ubicacionCliente = { latitud, longitud };
+      nearbyButton.setAttribute('aria-pressed', 'true');
+      nearbyReset.hidden = false;
+      renderGrid();
+      nearbyStatus.textContent = comercios.some(c => sucursalCercana(c))
+        ? 'Ordenados por distancia en línea recta. Precisión aproximada: ' +
+          Math.round(posicion.coords.accuracy) + ' m.'
+        : 'Ubicación obtenida. Todavía no hay sucursales con coordenadas.';
+    }, error => {
+      nearbyButton.disabled = false;
+      nearbyStatus.textContent = {
+        1:'Habilitá el permiso de ubicación para ordenar por cercanía.',
+        2:'No se pudo determinar tu ubicación. Intentá nuevamente.',
+        3:'La búsqueda demoró demasiado. Intentá nuevamente.'
+      }[error.code] || 'No se pudo obtener la ubicación.';
+      if (ubicacionCliente) nearbyStatus.textContent += ' Se mantiene la ubicación anterior.';
+    }, { enableHighAccuracy:true, timeout:20000, maximumAge:0 });
+  });
+  nearbyReset.addEventListener('click', () => {
+    ubicacionCliente = null;
+    nearbyButton.setAttribute('aria-pressed', 'false');
+    nearbyReset.hidden = true;
+    nearbyStatus.textContent = '';
+    renderGrid();
+  });
+
 
   // Arma el link de WhatsApp con mensaje prellenado. Nota AR: WhatsApp
   // requiere el "9" después del 54 para números móviles argentinos.
@@ -1719,7 +1812,9 @@
       ? registradas.map((item, index) => ({
           nombre: String(item.nombre || (index === 0 ? 'Principal' : `Sucursal ${index + 1}`)).trim(),
           direccion: String(item.direccion).trim(),
-          url: isGoogleMapsUrl(item.google_maps_url) ? String(item.google_maps_url).trim() : ''
+          url: isGoogleMapsUrl(item.google_maps_url) ? String(item.google_maps_url).trim() : '',
+          latitud: coordenada(item.latitud, 90),
+          longitud: coordenada(item.longitud, 180)
         }))
       : [...new Set(String(comercio.zona || '')
           .split(/\s*\/\s*/).map(s => s.trim()).filter(Boolean))]
@@ -1729,6 +1824,13 @@
             url: ''
           }));
     if (!sucursales.length) return '';
+    if (ubicacionCliente) {
+      for (const sucursal of sucursales) {
+        sucursal.distancia = sucursal.latitud != null && sucursal.longitud != null
+          ? distanciaMetros(ubicacionCliente, sucursal.latitud, sucursal.longitud) : Infinity;
+      }
+      sucursales.sort((a,b) => a.distancia === b.distancia ? 0 : a.distancia - b.distancia);
+    }
 
     return `
       <div class="detail-addresses">
@@ -1741,7 +1843,7 @@
               <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"></path>
               <circle cx="12" cy="10" r="2.5"></circle>
             </svg>
-            <span class="detail-location-text">${escapeHtml(sucursal.direccion)}</span>
+            <span class="detail-location-text">${escapeHtml(sucursal.direccion)}${Number.isFinite(sucursal.distancia) ? `<span class="nearby-distance">${escapeHtml(distanciaTexto(sucursal.distancia))}</span>` : ''}</span>
           </a>
         `).join('')}
       </div>
@@ -1876,8 +1978,19 @@
       return matchRubro && matchTexto;
     });
 
+
+    const cercanas = new Map();
+    if (ubicacionCliente) {
+      for (const comercio of visibleComercios) cercanas.set(comercio, sucursalCercana(comercio));
+      visibleComercios.sort((a, b) => {
+        const distanciaA = cercanas.get(a)?.distancia ?? Infinity;
+        const distanciaB = cercanas.get(b)?.distancia ?? Infinity;
+        return distanciaA === distanciaB ? 0 : distanciaA - distanciaB;
+      });
+    }
     grid.innerHTML = visibleComercios.map((c, i) => {
       const images = getImages(c);
+      const cercana = cercanas.get(c);
       return `
         <article class="card" style="animation-delay:${Math.min(i, 12) * 30}ms">
           <button class="card-preview" type="button" data-comercio-index="${i}"
@@ -1893,6 +2006,7 @@
               <span class="rubro-tag">${escapeHtml(c.rubro)}</span>
               <strong class="nombre">${escapeHtml(c.nombre)}</strong>
               <span class="preview-offer" title="${escapeHtml(c.oferta)}">${escapeHtml(c.oferta)}</span>
+              ${cercana ? `<span class="nearby-distance">${escapeHtml(distanciaTexto(cercana.distancia))} · ${escapeHtml(cercana.direccion)}</span>` : ''}
               <span class="preview-cta">VER OFERTA</span>
             </span>
           </button>
