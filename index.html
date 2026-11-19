@@ -1342,7 +1342,6 @@
   }
 
   locationHelpRetry.addEventListener('click', () => {
-    locationHelp.close();
     solicitarUbicacion();
   });
   locationHelpClose.addEventListener('click', () => locationHelp.close());
@@ -1354,35 +1353,87 @@
          evento.clientY < rect.top || evento.clientY > rect.bottom)) locationHelp.close();
   });
   nearbyButton.addEventListener('click', solicitarUbicacion);
+
+  let seguimientoUbicacion = null;
+  let esperaUbicacion = null;
+  let solicitudUbicacion = 0;
+
+  function detenerBusquedaUbicacion() {
+    solicitudUbicacion += 1;
+    if (seguimientoUbicacion !== null) {
+      navigator.geolocation.clearWatch(seguimientoUbicacion);
+      seguimientoUbicacion = null;
+    }
+    clearTimeout(esperaUbicacion);
+    esperaUbicacion = null;
+    nearbyButton.disabled = false;
+    locationHelpRetry.disabled = false;
+    locationHelpRetry.textContent = 'Ya lo habilité, reintentar';
+  }
+
   function solicitarUbicacion() {
+    detenerBusquedaUbicacion();
     if (!navigator.geolocation) {
       mostrarAyudaUbicacion('sin-soporte');
       return;
     }
+    const solicitudActual = solicitudUbicacion;
     nearbyButton.disabled = true;
+    locationHelpRetry.disabled = true;
+    locationHelpRetry.textContent = 'Buscando ubicación…';
     nearbyStatus.textContent = 'Buscando tu ubicación…';
-    navigator.geolocation.getCurrentPosition(posicion => {
-      const latitud = coordenada(posicion.coords.latitude, 90);
-      const longitud = coordenada(posicion.coords.longitude, 180);
-      nearbyButton.disabled = false;
-      if (latitud === null || longitud === null) {
-        mostrarAyudaUbicacion(2);
-        return;
-      }
-      ubicacionCliente = { latitud, longitud };
-      nearbyButton.setAttribute('aria-pressed', 'true');
-      nearbyReset.hidden = false;
-      renderGrid();
-      nearbyStatus.textContent = comercios.some(c => sucursalCercana(c))
-        ? 'Ordenados por distancia en línea recta. Precisión aproximada: ' +
-          Math.round(posicion.coords.accuracy) + ' m.'
-        : 'Ubicación obtenida. Todavía no hay sucursales con coordenadas.';
-    }, error => {
-      nearbyButton.disabled = false;
-      mostrarAyudaUbicacion(error.code);
-    }, { enableHighAccuracy:true, timeout:20000, maximumAge:0 });
+    if (locationHelp.open) {
+      document.getElementById('locationHelpTitle').textContent = 'Buscando tu ubicación';
+      document.getElementById('locationHelpMessage').textContent =
+        'Esperá unos segundos y aceptá el permiso si el navegador lo solicita.';
+      document.getElementById('locationHelpSteps').replaceChildren();
+      document.getElementById('locationHelpNote').textContent =
+        'Al obtener tu ubicación, el catálogo se ordenará por cercanía automáticamente.';
+    }
+
+    function fallo(tipo) {
+      if (solicitudActual !== solicitudUbicacion) return;
+      detenerBusquedaUbicacion();
+      mostrarAyudaUbicacion(tipo);
+    }
+
+    esperaUbicacion = setTimeout(() => fallo(3), 25000);
+    try {
+      seguimientoUbicacion = navigator.geolocation.watchPosition(posicion => {
+        if (solicitudActual !== solicitudUbicacion) return;
+        const latitud = coordenada(posicion.coords.latitude, 90);
+        const longitud = coordenada(posicion.coords.longitude, 180);
+        if (latitud === null || longitud === null) {
+          fallo(2);
+          return;
+        }
+        detenerBusquedaUbicacion();
+        ubicacionCliente = { latitud, longitud };
+        nearbyButton.setAttribute('aria-pressed', 'true');
+        nearbyReset.hidden = false;
+        renderGrid();
+        nearbyStatus.textContent = comercios.some(c => sucursalCercana(c))
+          ? 'Ordenados por distancia en línea recta. Precisión aproximada: ' +
+            Math.round(posicion.coords.accuracy) + ' m.'
+          : 'Ubicación obtenida. Todavía no hay sucursales con coordenadas.';
+        if (locationHelp.open) locationHelp.close();
+      }, error => fallo(error.code), {
+        enableHighAccuracy:true, timeout:20000, maximumAge:0
+      });
+    } catch (_) {
+      fallo(2);
+    }
   }
+
+  locationHelp.addEventListener('close', () => {
+    const pendiente = esperaUbicacion !== null;
+    detenerBusquedaUbicacion();
+    if (pendiente) nearbyStatus.textContent = ubicacionCliente
+      ? 'Se mantiene la última ubicación obtenida.'
+      : 'Búsqueda cancelada. Podés seguir viendo ofertas.';
+  });
   nearbyReset.addEventListener('click', () => {
+    detenerBusquedaUbicacion();
     ubicacionCliente = null;
     nearbyButton.setAttribute('aria-pressed', 'false');
     nearbyReset.hidden = true;
