@@ -423,5 +423,26 @@
         "google_maps_url": "https://maps.app.goo.gl/mFLvDkevvuPrtMYc6?g_st=ac"
       }
     ]
+  },
+  {
+    "nombre": "Elegante Colchones, Zona de Confort",
+    "rubro": "Hogar y Deco",
+    "oferta": "Colchon Señorial Euro Tela verano/invierno Altura 30cm Euro pillow top Precio contado/transferencia $503.000 o 12 cuotas de $67.850",
+    "zona": "Colón 969 San Luis, Capital - Los Paraísos 918, Potrero de Los Funes",
+    "telefono": "2664-636027 / 2664-631691",
+    "imagen": "https://img.sanluissale.com.ar/comercios/2026/11/73b476cb-8e7d-46a7-8552-38acc47b3f8f/01.jpg",
+    "imagenes": [
+      "https://img.sanluissale.com.ar/comercios/2026/11/73b476cb-8e7d-46a7-8552-38acc47b3f8f/01.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/73b476cb-8e7d-46a7-8552-38acc47b3f8f/02.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/73b476cb-8e7d-46a7-8552-38acc47b3f8f/03.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/73b476cb-8e7d-46a7-8552-38acc47b3f8f/04.jpg"
+    ],
+    "sucursales": [
+      {
+        "nombre": "Elegante Colchones Zona de Confort - Elegante Potrero",
+        "direccion": "Colón 969 San Luis, Capital - Los Paraísos 918, Potrero de Los Funes",
+        "google_maps_url": "https://maps.app.goo.gl/k36zRpovB8Giezus9 https://maps.app.goo.gl/BD232b2tiwjtUdJG8?g_st=aw"
+      }
+    ]
   }
 ]
