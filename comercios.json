@@ -14,6 +14,13 @@
       "https://img.sanluissale.com.ar/comercios/2026/09/aa9b7989-4a08-437f-ab21-843758c973af/05.jpg",
       "https://img.sanluissale.com.ar/comercios/2026/09/aa9b7989-4a08-437f-ab21-843758c973af/06.jpg",
       "https://img.sanluissale.com.ar/comercios/2026/09/aa9b7989-4a08-437f-ab21-843758c973af/07.jpg"
+    ],
+    "sucursales": [
+      {
+        "nombre": "Central",
+        "direccion": "Rivadavia 524",
+        "google_maps_url": ""
+      }
     ]
   },
   {
