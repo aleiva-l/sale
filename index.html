@@ -1049,6 +1049,17 @@
   .nearby-controls [hidden] { display:none!important; }
   #nearbyStatus { flex-basis:100%; margin:0; font-size:12px; }
   .nearby-distance { display:block; font:500 12px/1.5 'Inter',sans-serif; }
+
+  #locationHelp { width:min(420px,calc(100% - 36px)); max-height:85dvh; overflow:auto;
+    border:0; border-radius:20px; padding:24px; background:var(--card-lt); color:var(--ink-lt);
+    box-shadow:0 20px 60px rgba(0,0,0,.35); }
+  #locationHelp::backdrop { background:rgba(0,0,0,.75); backdrop-filter:blur(5px); }
+  #locationHelp h2 { margin:0 0 12px; font:700 23px 'Space Grotesk',sans-serif; }
+  #locationHelp p, #locationHelp li { font:400 14px/1.6 'Inter',sans-serif; }
+  #locationHelp p { margin:10px 0; }
+  #locationHelp ol { padding-left:22px; margin:12px 0; }
+  #locationHelp .maps-option { width:100%; border:0; cursor:pointer; margin-top:12px; }
+  #locationHelp .maps-choice-close { width:100%; margin-top:6px; }
 </style>
 <link rel="icon" type="image/x-icon" href="favicon.ico?v=2">
 
@@ -1166,6 +1177,16 @@
 </div>
 
 <!-- En iOS se puede elegir entre la app de Google Maps y su enlace web. -->
+
+<dialog id="locationHelp" aria-labelledby="locationHelpTitle" aria-describedby="locationHelpMessage">
+  <h2 id="locationHelpTitle">Habilitá tu ubicación</h2>
+  <p id="locationHelpMessage"></p>
+  <ol id="locationHelpSteps"></ol>
+  <p id="locationHelpNote"></p>
+  <button class="maps-option" id="locationHelpRetry" type="button">Ya lo habilité, reintentar</button>
+  <button class="maps-choice-close" id="locationHelpClose" type="button">Seguir sin ubicación</button>
+</dialog>
+
 <div class="maps-choice" id="mapsChoice" role="dialog" aria-modal="true" aria-labelledby="mapsChoiceTitle" hidden>
   <div class="maps-choice-panel">
     <h3 id="mapsChoiceTitle">Abrir ubicación</h3>
@@ -1268,9 +1289,74 @@
   const nearbyButton = document.getElementById('nearbyButton');
   const nearbyReset = document.getElementById('nearbyReset');
   const nearbyStatus = document.getElementById('nearbyStatus');
-  nearbyButton.addEventListener('click', () => {
+
+  const locationHelp = document.getElementById('locationHelp');
+  const locationHelpRetry = document.getElementById('locationHelpRetry');
+  const locationHelpClose = document.getElementById('locationHelpClose');
+
+  function mostrarAyudaUbicacion(tipo) {
+    const bloqueado = tipo === 1;
+    const sinSoporte = tipo === 'sin-soporte';
+    document.getElementById('locationHelpTitle').textContent = bloqueado
+      ? 'Habilitá tu ubicación' : 'No pudimos obtener tu ubicación';
+    document.getElementById('locationHelpMessage').textContent = bloqueado
+      ? 'El navegador bloqueó el acceso. Puede estar desactivado para esta app o para San Luis Sale.'
+      : sinSoporte ? 'Este navegador no ofrece acceso a la ubicación.'
+      : tipo === 3 ? 'La búsqueda tardó demasiado. Probá nuevamente con la ubicación del celular activada.'
+      : 'El dispositivo no pudo determinar dónde estás. Revisá que tenga la ubicación activada y volvé a intentar.';
+    const pasos = document.getElementById('locationHelpSteps');
+    pasos.replaceChildren();
+    if (bloqueado) {
+      const ios = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+        (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+      const android = /Android/i.test(navigator.userAgent);
+      const instrucciones = ios ? [
+        'En Ajustes del iPhone, entrá a Privacidad y seguridad → Localización y activala.',
+        'Buscá el navegador que estás usando, por ejemplo Chrome o Sitios web de Safari. Permití el acceso mientras lo usás y activá Ubicación precisa si aparece.',
+        'Volvé a San Luis Sale. Si habías bloqueado el permiso de este sitio, cambialo desde los permisos de la página a Preguntar o Permitir.'
+      ] : android ? [
+        'Activá Ubicación en los ajustes del celular.',
+        'En Ajustes → Aplicaciones → tu navegador → Permisos → Ubicación, permití el acceso mientras usás la app.',
+        'Volvé al navegador, abrí la información del sitio junto a la dirección y revisá Permisos → Ubicación para San Luis Sale.'
+      ] : [
+        'Abrí los permisos de San Luis Sale desde el icono junto a la dirección del navegador.',
+        'Buscá Ubicación y elegí Permitir o Preguntar.',
+        'Revisá también que el sistema permita al navegador acceder a tu ubicación.'
+      ];
+      for (const texto of instrucciones) {
+        const item = document.createElement('li');
+        item.textContent = texto;
+        pasos.append(item);
+      }
+    }
+    document.getElementById('locationHelpNote').textContent = sinSoporte
+      ? 'Abrí esta página en Safari o Chrome actualizado para usar Cerca de mí.'
+      : 'Después tocá Reintentar y aceptá si el navegador pide permiso. Podés seguir viendo ofertas sin compartir tu ubicación.';
+    if (ubicacionCliente) {
+      document.getElementById('locationHelpNote').textContent += ' Se mantiene la última ubicación obtenida.';
+    }
+    locationHelpRetry.hidden = sinSoporte;
+    locationHelpClose.textContent = ubicacionCliente ? 'Volver al catálogo' : 'Seguir sin ubicación';
+    nearbyStatus.textContent = bloqueado ? 'Ubicación bloqueada. Revisá los permisos.' : 'No se pudo obtener la ubicación.';
+    if (!locationHelp.open) locationHelp.showModal();
+  }
+
+  locationHelpRetry.addEventListener('click', () => {
+    locationHelp.close();
+    solicitarUbicacion();
+  });
+  locationHelpClose.addEventListener('click', () => locationHelp.close());
+  locationHelp.addEventListener('close', () => nearbyButton.focus({preventScroll:true}));
+  locationHelp.addEventListener('click', evento => {
+    const rect = locationHelp.getBoundingClientRect();
+    if (evento.target === locationHelp &&
+        (evento.clientX < rect.left || evento.clientX > rect.right ||
+         evento.clientY < rect.top || evento.clientY > rect.bottom)) locationHelp.close();
+  });
+  nearbyButton.addEventListener('click', solicitarUbicacion);
+  function solicitarUbicacion() {
     if (!navigator.geolocation) {
-      nearbyStatus.textContent = 'Tu navegador no permite obtener la ubicación.';
+      mostrarAyudaUbicacion('sin-soporte');
       return;
     }
     nearbyButton.disabled = true;
@@ -1280,7 +1366,7 @@
       const longitud = coordenada(posicion.coords.longitude, 180);
       nearbyButton.disabled = false;
       if (latitud === null || longitud === null) {
-        nearbyStatus.textContent = 'No se pudo determinar tu ubicación. Intentá nuevamente.';
+        mostrarAyudaUbicacion(2);
         return;
       }
       ubicacionCliente = { latitud, longitud };
@@ -1293,14 +1379,9 @@
         : 'Ubicación obtenida. Todavía no hay sucursales con coordenadas.';
     }, error => {
       nearbyButton.disabled = false;
-      nearbyStatus.textContent = {
-        1:'Habilitá el permiso de ubicación para ordenar por cercanía.',
-        2:'No se pudo determinar tu ubicación. Intentá nuevamente.',
-        3:'La búsqueda demoró demasiado. Intentá nuevamente.'
-      }[error.code] || 'No se pudo obtener la ubicación.';
-      if (ubicacionCliente) nearbyStatus.textContent += ' Se mantiene la ubicación anterior.';
+      mostrarAyudaUbicacion(error.code);
     }, { enableHighAccuracy:true, timeout:20000, maximumAge:0 });
-  });
+  }
   nearbyReset.addEventListener('click', () => {
     ubicacionCliente = null;
     nearbyButton.setAttribute('aria-pressed', 'false');
