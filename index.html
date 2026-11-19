@@ -1346,12 +1346,6 @@
   });
   locationHelpClose.addEventListener('click', () => locationHelp.close());
   locationHelp.addEventListener('close', () => nearbyButton.focus({preventScroll:true}));
-  locationHelp.addEventListener('click', evento => {
-    const rect = locationHelp.getBoundingClientRect();
-    if (evento.target === locationHelp &&
-        (evento.clientX < rect.left || evento.clientX > rect.right ||
-         evento.clientY < rect.top || evento.clientY > rect.bottom)) locationHelp.close();
-  });
   nearbyButton.addEventListener('click', solicitarUbicacion);
 
   let seguimientoUbicacion = null;
@@ -1426,6 +1420,8 @@
   }
 
   locationHelp.addEventListener('close', () => {
+    // Un evento close anterior puede llegar después de que el diálogo se reabrió.
+    if (locationHelp.open) return;
     const pendiente = esperaUbicacion !== null;
     detenerBusquedaUbicacion();
     if (pendiente) nearbyStatus.textContent = ubicacionCliente
