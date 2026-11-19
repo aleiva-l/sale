@@ -297,5 +297,131 @@
         "longitud": -66.3264013
       }
     ]
+  },
+  {
+    "nombre": "ABROALVERDE Paisajismo",
+    "rubro": "Servicios",
+    "oferta": "10% descuento en PLANO de ESTILO (Anteproyecto) y PLANO de PLANTACIÓN (imágenes 2da. y 3era.) Válido pago Efectivo o Transferencia.",
+    "zona": "Laguna del Portal 1700. S.L.",
+    "telefono": "2664007091",
+    "imagen": "https://img.sanluissale.com.ar/comercios/2026/11/39dcffb7-e7dd-46ef-be4c-9eb499a08fba/01.jpg",
+    "imagenes": [
+      "https://img.sanluissale.com.ar/comercios/2026/11/39dcffb7-e7dd-46ef-be4c-9eb499a08fba/01.jpg"
+    ],
+    "sucursales": [
+      {
+        "nombre": "Paisajismo ABROALVERDE",
+        "direccion": "Laguna del Portal 1700. S.L.",
+        "google_maps_url": "https://maps.app.goo.gl/wSqtsT5n4nfpTYZR7",
+        "latitud": -33.285089,
+        "longitud": -66.291107
+      }
+    ]
+  },
+  {
+    "nombre": "Centro Bulon",
+    "rubro": "Otros",
+    "oferta": "15% off Electrodo conarco 2.5mm $16800 Disco de corte acero $900",
+    "zona": "Juan gilberto funes 650",
+    "telefono": "2665270202",
+    "imagen": "https://img.sanluissale.com.ar/comercios/2026/11/2de8eee9-afcd-415d-a5b2-d5e119a16080/01.jpg",
+    "imagenes": [
+      "https://img.sanluissale.com.ar/comercios/2026/11/2de8eee9-afcd-415d-a5b2-d5e119a16080/01.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/2de8eee9-afcd-415d-a5b2-d5e119a16080/02.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/2de8eee9-afcd-415d-a5b2-d5e119a16080/03.jpg"
+    ],
+    "sucursales": [
+      {
+        "nombre": "Centro Bulon",
+        "direccion": "Juan gilberto funes 650",
+        "google_maps_url": "https://www.google.com/maps/place/Centro+Bulon,+Av.+Juan+Gilberto+Funes+650,+D5700+San+Luis/@-33.3102539,-66.3301458,16z/data=!4m3!3m2!1s0x95d43d1379a7b6ef:0x9211cb629c001978!16s%2Fg%2F11q49f13fz?g_ep=Eg1tbF8yMDI2MTExNV8wIJvbDyoASAJQAg%3D%3D",
+        "latitud": -33.3102539,
+        "longitud": -66.3301458
+      }
+    ]
+  },
+  {
+    "nombre": "Another World",
+    "rubro": "Otros",
+    "oferta": "%15 OFF En reservas mediante Instagram o Whatsapp",
+    "zona": "Ruta 3, Km 1, Local 2",
+    "telefono": "2664339680",
+    "imagen": "https://img.sanluissale.com.ar/comercios/2026/11/bcfe5ebb-36c7-4eec-ab5d-461f6637f385/01.jpg",
+    "imagenes": [
+      "https://img.sanluissale.com.ar/comercios/2026/11/bcfe5ebb-36c7-4eec-ab5d-461f6637f385/01.jpg"
+    ],
+    "sucursales": [
+      {
+        "nombre": "Another World San Luis",
+        "direccion": "Ruta 3, Km 1, Local 2",
+        "google_maps_url": "https://maps.app.goo.gl/YjpHVrZycWfKfAr56",
+        "latitud": -33.319884,
+        "longitud": -66.3269923
+      }
+    ]
+  },
+  {
+    "nombre": "Compured",
+    "rubro": "Tecnología",
+    "oferta": "%15 de descuento en todas las instalaciones.",
+    "zona": "Ruta 3, Km 1, Local 2",
+    "telefono": "2664138877",
+    "imagen": "https://img.sanluissale.com.ar/comercios/2026/11/eeb71d5a-256c-4712-9324-776f2040bbc5/01.jpg",
+    "imagenes": [
+      "https://img.sanluissale.com.ar/comercios/2026/11/eeb71d5a-256c-4712-9324-776f2040bbc5/01.jpg"
+    ],
+    "sucursales": [
+      {
+        "nombre": "Compured San Luis",
+        "direccion": "Ruta 3, Km 1, Local 2",
+        "google_maps_url": "https://maps.app.goo.gl/YjpHVrZycWfKfAr56",
+        "latitud": -33.319884,
+        "longitud": -66.3269923
+      }
+    ]
+  },
+  {
+    "nombre": "Ecoaislación",
+    "rubro": "Otros",
+    "oferta": "%10 OFF en todos los proyectos",
+    "zona": "Ruta 3, Km 1, Local 2",
+    "telefono": "2664339680",
+    "imagen": "https://img.sanluissale.com.ar/comercios/2026/11/ff34b734-a3df-4196-aa78-ccfc08794dfa/01.jpg",
+    "imagenes": [
+      "https://img.sanluissale.com.ar/comercios/2026/11/ff34b734-a3df-4196-aa78-ccfc08794dfa/01.jpg"
+    ],
+    "sucursales": [
+      {
+        "nombre": "Ecoaislación San Luis",
+        "direccion": "Ruta 3, Km 1, Local 2",
+        "google_maps_url": "https://maps.app.goo.gl/YjpHVrZycWfKfAr56",
+        "latitud": -33.319884,
+        "longitud": -66.3269923
+      }
+    ]
+  },
+  {
+    "nombre": "OXFORD POLO CLUB",
+    "rubro": "Indumentaria",
+    "oferta": "Hasta 40% en productos seleccionados",
+    "zona": "Colón 667",
+    "telefono": "2665322309",
+    "imagen": "https://img.sanluissale.com.ar/comercios/2026/11/79d522f2-99bd-4560-80e8-0b2bea9db87b/01.jpg",
+    "imagenes": [
+      "https://img.sanluissale.com.ar/comercios/2026/11/79d522f2-99bd-4560-80e8-0b2bea9db87b/01.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/79d522f2-99bd-4560-80e8-0b2bea9db87b/02.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/79d522f2-99bd-4560-80e8-0b2bea9db87b/03.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/79d522f2-99bd-4560-80e8-0b2bea9db87b/04.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/79d522f2-99bd-4560-80e8-0b2bea9db87b/05.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/79d522f2-99bd-4560-80e8-0b2bea9db87b/06.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/79d522f2-99bd-4560-80e8-0b2bea9db87b/07.jpg"
+    ],
+    "sucursales": [
+      {
+        "nombre": "Oxford Polo Club",
+        "direccion": "Colón 667",
+        "google_maps_url": "https://maps.app.goo.gl/mFLvDkevvuPrtMYc6?g_st=ac"
+      }
+    ]
   }
 ]
