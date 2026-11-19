@@ -1342,11 +1342,20 @@
   }
 
   locationHelpRetry.addEventListener('click', () => {
-    solicitarUbicacion();
+    solicitarUbicacion(true);
   });
   locationHelpClose.addEventListener('click', () => locationHelp.close());
   locationHelp.addEventListener('close', () => nearbyButton.focus({preventScroll:true}));
-  nearbyButton.addEventListener('click', solicitarUbicacion);
+  nearbyButton.addEventListener('click', () => solicitarUbicacion());
+
+  let recuperacionUbicacionUsada = false;
+  let recuperarUbicacionAlCargar = false;
+  try {
+    const pendiente = Number(sessionStorage.getItem('sls-recuperar-ubicacion'));
+    sessionStorage.removeItem('sls-recuperar-ubicacion');
+    recuperarUbicacionAlCargar = pendiente > 0 && Date.now() - pendiente < 60000;
+    recuperacionUbicacionUsada = recuperarUbicacionAlCargar;
+  } catch (_) {}
 
   let seguimientoUbicacion = null;
   let esperaUbicacion = null;
@@ -1365,7 +1374,7 @@
     locationHelpRetry.textContent = 'Ya lo habilité, reintentar';
   }
 
-  function solicitarUbicacion() {
+  function solicitarUbicacion(esReintento = false) {
     detenerBusquedaUbicacion();
     if (!navigator.geolocation) {
       mostrarAyudaUbicacion('sin-soporte');
@@ -1388,7 +1397,28 @@
     function fallo(tipo) {
       if (solicitudActual !== solicitudUbicacion) return;
       detenerBusquedaUbicacion();
+      if (tipo === 1 && esReintento && !recuperacionUbicacionUsada &&
+          /iPad|iPhone|iPod/.test(navigator.userAgent)) {
+        try {
+          sessionStorage.setItem('sls-recuperar-ubicacion', String(Date.now()));
+          recuperacionUbicacionUsada = true;
+          document.getElementById('locationHelpTitle').textContent = 'Actualizando el permiso';
+          document.getElementById('locationHelpMessage').textContent =
+            'Vamos a renovar esta página y volver a buscar tu ubicación automáticamente.';
+          const destino = new URL(location.href);
+          destino.searchParams.set('ubicacion_retry', String(Date.now()));
+          location.replace(destino.href);
+          return;
+        } catch (_) {
+          // Si no se puede conservar el intento, se muestra la ayuda.
+        }
+      }
       mostrarAyudaUbicacion(tipo);
+      if (tipo === 1) {
+        document.getElementById('locationHelpMessage').textContent =
+          'La solicitud se ejecutó, pero Chrome sigue devolviendo permiso denegado. ' +
+          'El permiso de la app y el de este sitio pueden tener estados distintos.';
+      }
     }
 
     esperaUbicacion = setTimeout(() => fallo(3), 25000);
@@ -2172,6 +2202,14 @@
     document.getElementById('statRubros').textContent = rubros.length - 1;
     renderChips();
     renderGrid();
+    if (recuperarUbicacionAlCargar) {
+      recuperarUbicacionAlCargar = false;
+      setTimeout(() => {
+        const splash = document.getElementById('splashEnter');
+        if (splash) splash.click();
+        solicitarUbicacion();
+      }, 0);
+    }
   }
 
   fetch(`comercios.json?v=${Date.now()}`, {
