@@ -19,7 +19,9 @@
       {
         "nombre": "Central",
         "direccion": "Rivadavia 524",
-        "google_maps_url": ""
+        "google_maps_url": "https://www.google.com/maps/place/Bertas/@-33.3050239,-66.3378967,17z/data=!3m1!4b1!4m6!3m5!1s0x95d43954ce560a3f:0x89e4aaa8519b0217!8m2!3d-33.3050284!4d-66.3353218!16s%2Fg%2F11x95nzqsb?entry=ttu&g_ep=EgoyMDI2MTExNi4wIKXMDSoASAFQAw%3D%3D",
+        "latitud": -33.3050239,
+        "longitud": -66.3378967
       }
     ]
   },
@@ -36,6 +38,15 @@
       "https://img.sanluissale.com.ar/comercios/2026/10/4ad11355-e00f-40d8-8e60-e1fc2483f88f/03.jpg",
       "https://img.sanluissale.com.ar/comercios/2026/10/4ad11355-e00f-40d8-8e60-e1fc2483f88f/04.jpg",
       "https://img.sanluissale.com.ar/comercios/2026/10/4ad11355-e00f-40d8-8e60-e1fc2483f88f/05.jpg"
+    ],
+    "sucursales": [
+      {
+        "nombre": "Central",
+        "direccion": "San Martín 922",
+        "google_maps_url": "https://www.google.com/maps/place/Espumas/@-33.3000379,-66.340521,17z/data=!3m1!4b1!4m6!3m5!1s0x95d43956aa0d5dc5:0x53314ea3a48931fb!8m2!3d-33.3000424!4d-66.3379461!16s%2Fg%2F1tgcbq5w?entry=ttu&g_ep=EgoyMDI2MTExNi4wIKXMDSoASAFQAw%3D%3D",
+        "latitud": -33.3050239,
+        "longitud": -66.340521
+      }
     ]
   },
   {
