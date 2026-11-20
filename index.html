@@ -1437,8 +1437,7 @@
         nearbyReset.hidden = false;
         renderGrid();
         nearbyStatus.textContent = comercios.some(c => sucursalCercana(c))
-          ? 'Ordenados por distancia en línea recta. Precisión aproximada: ' +
-            Math.round(posicion.coords.accuracy) + ' m.'
+          ? ''
           : 'Ubicación obtenida. Todavía no hay sucursales con coordenadas.';
         if (locationHelp.open) locationHelp.close();
       }, error => fallo(error.code), {
