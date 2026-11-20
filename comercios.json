@@ -444,5 +444,46 @@
         "google_maps_url": "https://maps.app.goo.gl/k36zRpovB8Giezus9 https://maps.app.goo.gl/BD232b2tiwjtUdJG8?g_st=aw"
       }
     ]
+  },
+  {
+    "nombre": "Hotel Huarpes",
+    "rubro": "Otros",
+    "oferta": "15%off En una noche de alojamiento para 2 personas",
+    "zona": "Belgrano 1568",
+    "telefono": "2664405348",
+    "imagen": "https://img.sanluissale.com.ar/comercios/2026/11/520696a4-b517-4dd5-893c-bdde1b26a9d8/01.jpg",
+    "imagenes": [
+      "https://img.sanluissale.com.ar/comercios/2026/11/520696a4-b517-4dd5-893c-bdde1b26a9d8/01.jpg"
+    ],
+    "sucursales": [
+      {
+        "nombre": "Hotel Huarpes",
+        "direccion": "Belgrano 1568",
+        "google_maps_url": "https://maps.app.goo.gl/g61qpoWvshHwTYgw5"
+      }
+    ]
+  },
+  {
+    "nombre": "DECIMETRO PIZZA",
+    "rubro": "Gastronomía",
+    "oferta": "20% off en pizzas familiares",
+    "zona": "San Juan 1097",
+    "telefono": "2664700725",
+    "imagen": "https://img.sanluissale.com.ar/comercios/2026/11/c971729a-aa96-4548-9808-269f93a3d7e0/01.jpg",
+    "imagenes": [
+      "https://img.sanluissale.com.ar/comercios/2026/11/c971729a-aa96-4548-9808-269f93a3d7e0/01.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/c971729a-aa96-4548-9808-269f93a3d7e0/02.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/c971729a-aa96-4548-9808-269f93a3d7e0/03.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/c971729a-aa96-4548-9808-269f93a3d7e0/04.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/c971729a-aa96-4548-9808-269f93a3d7e0/05.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/c971729a-aa96-4548-9808-269f93a3d7e0/06.jpg"
+    ],
+    "sucursales": [
+      {
+        "nombre": "DECIMETRO PIZZA",
+        "direccion": "San Juan 1097",
+        "google_maps_url": "https://maps.app.goo.gl/3hzZpAZKEyu8u6Vv9"
+      }
+    ]
   }
 ]
