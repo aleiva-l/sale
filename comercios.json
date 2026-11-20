@@ -420,7 +420,9 @@
       {
         "nombre": "Oxford Polo Club",
         "direccion": "Colón 667",
-        "google_maps_url": "https://maps.app.goo.gl/mFLvDkevvuPrtMYc6?g_st=ac"
+        "google_maps_url": "https://maps.app.goo.gl/mFLvDkevvuPrtMYc6?g_st=ac",
+        "latitud": -33.3027401,
+        "longitud": -66.3344361
       }
     ]
   },
@@ -441,7 +443,9 @@
       {
         "nombre": "Elegante Colchones Zona de Confort - Elegante Potrero",
         "direccion": "Colón 969 San Luis, Capital - Los Paraísos 918, Potrero de Los Funes",
-        "google_maps_url": "https://maps.app.goo.gl/k36zRpovB8Giezus9 https://maps.app.goo.gl/BD232b2tiwjtUdJG8?g_st=aw"
+        "google_maps_url": "https://maps.app.goo.gl/k36zRpovB8Giezus9",
+        "latitud": -33.2992426,
+        "longitud": -66.335203
       }
     ]
   },
@@ -459,7 +463,9 @@
       {
         "nombre": "Hotel Huarpes",
         "direccion": "Belgrano 1568",
-        "google_maps_url": "https://maps.app.goo.gl/g61qpoWvshHwTYgw5"
+        "google_maps_url": "https://maps.app.goo.gl/g61qpoWvshHwTYgw5",
+        "latitud": -33.305874,
+        "longitud": -66.3452623
       }
     ]
   },
@@ -482,7 +488,9 @@
       {
         "nombre": "DECIMETRO PIZZA",
         "direccion": "San Juan 1097",
-        "google_maps_url": "https://maps.app.goo.gl/3hzZpAZKEyu8u6Vv9"
+        "google_maps_url": "https://maps.app.goo.gl/3hzZpAZKEyu8u6Vv9",
+        "latitud": -33.2962265,
+        "longitud": -66.3255386
       }
     ]
   }
