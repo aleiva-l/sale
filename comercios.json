@@ -299,26 +299,6 @@
     ]
   },
   {
-    "nombre": "ABROALVERDE Paisajismo",
-    "rubro": "Servicios",
-    "oferta": "10% descuento en PLANO de ESTILO (Anteproyecto) y PLANO de PLANTACIÓN (imágenes 2da. y 3era.) Válido pago Efectivo o Transferencia.",
-    "zona": "Laguna del Portal 1700. S.L.",
-    "telefono": "2664007091",
-    "imagen": "https://img.sanluissale.com.ar/comercios/2026/11/39dcffb7-e7dd-46ef-be4c-9eb499a08fba/01.jpg",
-    "imagenes": [
-      "https://img.sanluissale.com.ar/comercios/2026/11/39dcffb7-e7dd-46ef-be4c-9eb499a08fba/01.jpg"
-    ],
-    "sucursales": [
-      {
-        "nombre": "Paisajismo ABROALVERDE",
-        "direccion": "Laguna del Portal 1700. S.L.",
-        "google_maps_url": "https://maps.app.goo.gl/wSqtsT5n4nfpTYZR7",
-        "latitud": -33.285089,
-        "longitud": -66.291107
-      }
-    ]
-  },
-  {
     "nombre": "Centro Bulon",
     "rubro": "Otros",
     "oferta": "15% off Electrodo conarco 2.5mm $16800 Disco de corte acero $900",
@@ -511,6 +491,29 @@
         "google_maps_url": "https://www.google.com/maps/place/Centro+Educativo+Causay,+C.+Quines+655,+D5700+San+Luis/@-33.2984674,-66.3137838,16z/data=!4m6!3m5!1s0x95d43ea0d6541d23:0xe4cd79725ff75bb!8m2!3d-33.2984674!4d-66.3137838!16s%2Fg%2F11c56598wg?g_ep=Eg1tbF8yMDI2MTExMF8wIOC7DCoASAJQAg%3D%3D",
         "latitud": -33.2984674,
         "longitud": -66.3137838
+      }
+    ]
+  },
+  {
+    "nombre": "ABROALVERDE PAISAJISMO",
+    "rubro": "Servicios",
+    "oferta": "10% OFF en Plano de ESTILO y Plano de Plantación. Válido pago efectivo o transferencia.",
+    "zona": "Laguna del Portal 1700 SL",
+    "telefono": "2664007091",
+    "imagen": "https://img.sanluissale.com.ar/comercios/2026/11/03fba1d0-d16f-4e7c-8af6-72b313b7777b/01.jpg",
+    "imagenes": [
+      "https://img.sanluissale.com.ar/comercios/2026/11/03fba1d0-d16f-4e7c-8af6-72b313b7777b/01.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/03fba1d0-d16f-4e7c-8af6-72b313b7777b/02.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/03fba1d0-d16f-4e7c-8af6-72b313b7777b/03.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/03fba1d0-d16f-4e7c-8af6-72b313b7777b/04.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/03fba1d0-d16f-4e7c-8af6-72b313b7777b/05.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/03fba1d0-d16f-4e7c-8af6-72b313b7777b/06.jpg"
+    ],
+    "sucursales": [
+      {
+        "nombre": "ABROALVERDE PAISAJISMO",
+        "direccion": "Laguna del Portal 1700 SL",
+        "google_maps_url": "https://maps.app.goo.gl/3ZEh9cDRumL17hU8A"
       }
     ]
   }
