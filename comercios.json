@@ -493,5 +493,25 @@
         "longitud": -66.3255386
       }
     ]
+  },
+  {
+    "nombre": "ECOA SAN LUIS",
+    "rubro": "Otros",
+    "oferta": "4 voucher de 25% de descuento en la inscripción a la carrera de Coaching Ontológico Profesional 4 voucher de 10% descuento en las primeras 3 cuotas de la carrera de Coaching Ontológico Profesional",
+    "zona": "Quines 655, San Luis capital",
+    "telefono": "1154009283",
+    "imagen": "https://img.sanluissale.com.ar/comercios/2026/11/b8d3bd8c-d6db-4d8c-b4ef-282f82c78925/01.jpg",
+    "imagenes": [
+      "https://img.sanluissale.com.ar/comercios/2026/11/b8d3bd8c-d6db-4d8c-b4ef-282f82c78925/01.jpg"
+    ],
+    "sucursales": [
+      {
+        "nombre": "ECOA SAN LUIS",
+        "direccion": "Quines 655, San Luis capital",
+        "google_maps_url": "https://www.google.com/maps/place/Centro+Educativo+Causay,+C.+Quines+655,+D5700+San+Luis/@-33.2984674,-66.3137838,16z/data=!4m6!3m5!1s0x95d43ea0d6541d23:0xe4cd79725ff75bb!8m2!3d-33.2984674!4d-66.3137838!16s%2Fg%2F11c56598wg?g_ep=Eg1tbF8yMDI2MTExMF8wIOC7DCoASAJQAg%3D%3D",
+        "latitud": -33.2984674,
+        "longitud": -66.3137838
+      }
+    ]
   }
 ]
