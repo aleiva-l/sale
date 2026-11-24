@@ -516,5 +516,31 @@
         "google_maps_url": "https://maps.app.goo.gl/3ZEh9cDRumL17hU8A"
       }
     ]
+  },
+  {
+    "nombre": "Óptica Glass",
+    "rubro": "Salud y Bienestar",
+    "oferta": "Hasta 40% OFF en productos seleccionados",
+    "zona": "Av. Pte. Juan Domingo Perón 911",
+    "telefono": "2664509050",
+    "imagen": "https://img.sanluissale.com.ar/comercios/2026/11/081a0110-20f0-434a-a449-7fc82d893300/01.jpg",
+    "imagenes": [
+      "https://img.sanluissale.com.ar/comercios/2026/11/081a0110-20f0-434a-a449-7fc82d893300/01.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/081a0110-20f0-434a-a449-7fc82d893300/02.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/081a0110-20f0-434a-a449-7fc82d893300/03.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/081a0110-20f0-434a-a449-7fc82d893300/04.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/081a0110-20f0-434a-a449-7fc82d893300/05.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/081a0110-20f0-434a-a449-7fc82d893300/06.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/081a0110-20f0-434a-a449-7fc82d893300/07.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/081a0110-20f0-434a-a449-7fc82d893300/08.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/081a0110-20f0-434a-a449-7fc82d893300/09.jpg"
+    ],
+    "sucursales": [
+      {
+        "nombre": "Óptica Glass",
+        "direccion": "Av. Pte. Juan Domingo Perón 911",
+        "google_maps_url": "https://maps.app.goo.gl/gFBNScHoJp7A4img8"
+      }
+    ]
   }
 ]
