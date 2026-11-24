@@ -518,6 +518,26 @@
     ]
   },
   {
+    "nombre": "Damas de lujo",
+    "rubro": "Indumentaria",
+    "oferta": "20% OFF en vestidos de egresadas y mamás!",
+    "zona": "San Martín 391",
+    "telefono": "2664640274",
+    "imagen": "https://img.sanluissale.com.ar/comercios/2026/11/5b7e77f5-dda4-411a-a897-edeb930fd969/01.jpg",
+    "imagenes": [
+      "https://img.sanluissale.com.ar/comercios/2026/11/5b7e77f5-dda4-411a-a897-edeb930fd969/01.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/5b7e77f5-dda4-411a-a897-edeb930fd969/02.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/5b7e77f5-dda4-411a-a897-edeb930fd969/03.jpg"
+    ],
+    "sucursales": [
+      {
+        "nombre": "Casa central",
+        "direccion": "San Martín 391",
+        "google_maps_url": "https://maps.app.goo.gl/gST2JP5ATCPrmWc39"
+      }
+    ]
+  },
+  {
     "nombre": "Óptica Glass",
     "rubro": "Salud y Bienestar",
     "oferta": "Hasta 40% OFF en productos seleccionados",
