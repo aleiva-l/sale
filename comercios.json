@@ -513,7 +513,9 @@
       {
         "nombre": "ABROALVERDE PAISAJISMO",
         "direccion": "Laguna del Portal 1700 SL",
-        "google_maps_url": "https://maps.app.goo.gl/3ZEh9cDRumL17hU8A"
+        "google_maps_url": "https://maps.app.goo.gl/3ZEh9cDRumL17hU8A",
+        "latitud": -33.2810064,
+        "longitud": -66.2915875
       }
     ]
   },
@@ -533,7 +535,9 @@
       {
         "nombre": "Casa central",
         "direccion": "San Martín 391",
-        "google_maps_url": "https://maps.app.goo.gl/gST2JP5ATCPrmWc39"
+        "google_maps_url": "https://maps.app.goo.gl/gST2JP5ATCPrmWc39",
+        "latitud": -33.3071754,
+        "longitud": -66.336378
       }
     ]
   },
@@ -559,7 +563,9 @@
       {
         "nombre": "Óptica Glass",
         "direccion": "Av. Pte. Juan Domingo Perón 911",
-        "google_maps_url": "https://maps.app.goo.gl/gFBNScHoJp7A4img8"
+        "google_maps_url": "https://maps.app.goo.gl/gFBNScHoJp7A4img8",
+        "latitud": -33.2990352,
+        "longitud": -66.3279855
       }
     ]
   }
