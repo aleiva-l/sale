@@ -676,5 +676,28 @@
         "longitud": -66.315177
       }
     ]
+  },
+  {
+    "nombre": "Huitral",
+    "rubro": "Otros",
+    "oferta": "20% OFF en productos seleccionados",
+    "zona": "Av. Juan Gilberto Funes 985",
+    "telefono": "2664644802",
+    "imagen": "https://img.sanluissale.com.ar/comercios/2026/11/407ada5d-e50f-4a6d-9b31-fcfde7cd48e2/01.jpg",
+    "imagenes": [
+      "https://img.sanluissale.com.ar/comercios/2026/11/407ada5d-e50f-4a6d-9b31-fcfde7cd48e2/01.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/407ada5d-e50f-4a6d-9b31-fcfde7cd48e2/02.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/407ada5d-e50f-4a6d-9b31-fcfde7cd48e2/03.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/407ada5d-e50f-4a6d-9b31-fcfde7cd48e2/04.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/407ada5d-e50f-4a6d-9b31-fcfde7cd48e2/05.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/407ada5d-e50f-4a6d-9b31-fcfde7cd48e2/06.jpg"
+    ],
+    "sucursales": [
+      {
+        "nombre": "Huitral",
+        "direccion": "Av. Juan Gilberto Funes 985",
+        "google_maps_url": "https://maps.app.goo.gl/Mq7pHR54K6GR7QdJ7"
+      }
+    ]
   }
 ]
