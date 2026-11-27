@@ -568,5 +568,113 @@
         "longitud": -66.3279855
       }
     ]
+  },
+  {
+    "nombre": "Fryda san luis",
+    "rubro": "Indumentaria",
+    "oferta": "Prendas desde $15.000 Y ofertas en aromatizadores para ropa y ambientes",
+    "zona": "Junin 779",
+    "telefono": "2664776728",
+    "imagen": "https://img.sanluissale.com.ar/comercios/2026/11/1d80cd25-45c2-4d72-86ba-975bb5b0283a/01.jpg",
+    "imagenes": [
+      "https://img.sanluissale.com.ar/comercios/2026/11/1d80cd25-45c2-4d72-86ba-975bb5b0283a/01.jpg"
+    ],
+    "sucursales": [
+      {
+        "nombre": "FrydaSL",
+        "direccion": "Junin 779",
+        "google_maps_url": "https://maps.app.goo.gl/LzdLY5DA5UdJeQDN9",
+        "latitud": -33.3010249,
+        "longitud": -66.3343705
+      }
+    ]
+  },
+  {
+    "nombre": "Lodepiettro",
+    "rubro": "Gastronomía",
+    "oferta": "Te ofrecemos carnicería, fiambrería , verdulería, almacén, bebidas y productos de limpieza",
+    "zona": "Aristobulo del valle 510 este y narciso gutierrez",
+    "telefono": "2665018541",
+    "imagen": "https://img.sanluissale.com.ar/comercios/2026/11/82081df9-d3fa-42ac-a261-c7d6dbc31f87/01.jpg",
+    "imagenes": [
+      "https://img.sanluissale.com.ar/comercios/2026/11/82081df9-d3fa-42ac-a261-c7d6dbc31f87/01.jpg"
+    ],
+    "sucursales": [
+      {
+        "nombre": "Lodepiettro",
+        "direccion": "Aristobulo del valle 510 este y narciso gutierrez",
+        "google_maps_url": "https://maps.app.goo.gl/m9Ud558bcPBa3ocD7?g_st=ic",
+        "latitud": -33.2865255,
+        "longitud": -66.3176568
+      }
+    ]
+  },
+  {
+    "nombre": "OPTICA LUTZ FERRANDO",
+    "rubro": "Salud y Bienestar",
+    "oferta": "20% EN ANTEOJOS DE SOL EN MARCAS SELECCIONADAS",
+    "zona": "Rivadavia 571 San Luis Capital",
+    "telefono": "2664586052",
+    "imagen": "https://img.sanluissale.com.ar/comercios/2026/11/185e37dd-e04c-453e-ab5c-d8cb2c94aa39/01.jpg",
+    "imagenes": [
+      "https://img.sanluissale.com.ar/comercios/2026/11/185e37dd-e04c-453e-ab5c-d8cb2c94aa39/01.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/185e37dd-e04c-453e-ab5c-d8cb2c94aa39/02.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/185e37dd-e04c-453e-ab5c-d8cb2c94aa39/03.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/185e37dd-e04c-453e-ab5c-d8cb2c94aa39/04.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/185e37dd-e04c-453e-ab5c-d8cb2c94aa39/05.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/185e37dd-e04c-453e-ab5c-d8cb2c94aa39/06.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/185e37dd-e04c-453e-ab5c-d8cb2c94aa39/07.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/185e37dd-e04c-453e-ab5c-d8cb2c94aa39/08.jpg"
+    ],
+    "sucursales": [
+      {
+        "nombre": "Casa central",
+        "direccion": "Rivadavia 571 San Luis Capital",
+        "google_maps_url": "https://maps.app.goo.gl/e5rjQN5LZ25pUXARA",
+        "latitud": -33.3044374,
+        "longitud": -66.335607
+      }
+    ]
+  },
+  {
+    "nombre": "LA CARNICERÍA, tienda de carnes",
+    "rubro": "Gastronomía",
+    "oferta": "Nos dedicamos a la Venta de carne de novillo, cortes de cerdo y pollo. Elaboración propia de milanesas, hamburguesas, chorizos y arrollados caseros.!!!",
+    "zona": "San Martín 530",
+    "telefono": "2664334036",
+    "imagen": "https://img.sanluissale.com.ar/comercios/2026/11/c2bb99d0-6cf8-4550-bd67-026df592b44a/01.jpg",
+    "imagenes": [
+      "https://img.sanluissale.com.ar/comercios/2026/11/c2bb99d0-6cf8-4550-bd67-026df592b44a/01.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/c2bb99d0-6cf8-4550-bd67-026df592b44a/02.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/c2bb99d0-6cf8-4550-bd67-026df592b44a/03.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/c2bb99d0-6cf8-4550-bd67-026df592b44a/04.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/c2bb99d0-6cf8-4550-bd67-026df592b44a/05.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/c2bb99d0-6cf8-4550-bd67-026df592b44a/06.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/c2bb99d0-6cf8-4550-bd67-026df592b44a/07.jpg",
+      "https://img.sanluissale.com.ar/comercios/2026/11/c2bb99d0-6cf8-4550-bd67-026df592b44a/08.jpg"
+    ],
+    "sucursales": [
+      {
+        "nombre": "LA CARNICERÍA, tienda de carnes!!",
+        "direccion": "San Martín 530",
+        "google_maps_url": "https://maps.app.goo.gl/mHFcYsNMm3bTGndM8",
+        "latitud": -33.3053562,
+        "longitud": -66.3365239
+      },
+      {
+        "nombre": "LA CARNICERÍA, tienda de carnes",
+        "direccion": "Belgrano 1102",
+        "google_maps_url": "https://maps.app.goo.gl/cVf4PXpmCCAhj71C7",
+        "latitud": -33.3046892,
+        "longitud": -66.3384752
+      },
+      {
+        "nombre": "LA CARNICERÍA, tienda de carnes",
+        "direccion": "Martín de Loyola 693",
+        "google_maps_url": "https://maps.app.goo.gl/Sy7S7jLeewVnxQqC6",
+        "latitud": -33.2828601,
+        "longitud": -66.315177
+      }
+    ]
   }
 ]
